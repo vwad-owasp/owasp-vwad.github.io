@@ -1,9 +1,9 @@
 name: Trigger Rebuild
 
 on:
-  schedule:
+  # schedule:
   # 0:01 or 12:01
-  - cron: "1 0 * * *"
+  # - cron: "1 0 * * *"
   workflow_dispatch:
 
 jobs:
