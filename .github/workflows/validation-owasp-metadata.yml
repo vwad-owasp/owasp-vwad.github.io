@@ -1,0 +1,28 @@
+name: Validate OWASP Entity Metadata
+
+on:
+  pull_request:
+    paths:
+      - '*.owasp.yaml'
+  push:
+    paths:
+      - '*.owasp.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  validate-metadata:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Validate Metadata File
+        uses: owasp/nest-schema/.github/actions/validate@011b47d59567ae7cfd246948c67503ba2f6cc15b
