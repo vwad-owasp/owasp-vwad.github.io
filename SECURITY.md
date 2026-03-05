@@ -27,3 +27,4 @@ If you discover a security vulnerability, **do not open a public issue**. Instea
 ## Recognition
 Security researchers and contributors who responsibly disclose vulnerabilities will be **publicly acknowledged** in our release notes (unless anonymity is requested).
 
+- From our previous project repo: [Workflow Uses Untrusted Input in actions/checkout Ref Parameter](https://github.com/OWASP/www-project-vulnerable-web-applications-directory/security/advisories/GHSA-ghh3-hgpg-p7cw) from [@S3DFX-CYBER](https://github.com/S3DFX-CYBER).
