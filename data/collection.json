@@ -872,7 +872,7 @@
 		"references": [
 			{
 				"name": "announcement",
-				"url": "https://njmulsqb.github.io/2023/01/03/releasing-DVEA.html"
+				"url": "https://njmulsqb.github.io/releasing-DVEA"
 			},
 			{
 				"name": "download",
@@ -2741,7 +2741,7 @@
 			},
 			{
 				"name": "guide",
-				"url": "https://kOaDT.github.io/oss-oopssec-store"
+				"url": "https://koadt.github.io/oss-oopssec-store/"
 			}
 		],
 		"author": "kOaDT",
@@ -3842,26 +3842,6 @@
 		]
 	},
 	{
-		"url": "https://github.com/ScaleSec/vulnado",
-		"name": "Vulnado",
-		"collection": [
-			"container"
-		],
-		"technology": [
-			"Java",
-			"Docker"
-		],
-		"author": "ScaleSec",
-		"description": "Purposely vulnerable Java application to help lead secure coding workshops",
-		"badge": "ScaleSec/vulnado",
-		"stars": 191,
-		"last_contributed": "2020-06-02T13:59:07Z",
-		"categories": [
-			"free-form",
-			"single-player"
-		]
-	},
-	{
 		"url": "https://github.com/CSPF-Founder/JavaVulnerableLab/",
 		"name": "Vulnerable Java Web Application",
 		"collection": [
@@ -4307,7 +4287,7 @@
 		"references": [
 			{
 				"name": "download",
-				"url": "http://www.webguvenligi.org/projeler/wivet"
+				"url": "https://www.webguvenligi.org/projeler/wivet"
 			},
 			{
 				"name": "download",

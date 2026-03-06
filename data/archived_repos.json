@@ -52,5 +52,11 @@
     "name": "Xtreme Vulnerable Web Application (XVWA)",
     "date": "2026-02-14",
     "notes": "Retired in PR #248"
+  },
+  {
+    "url": "https://github.com/ScaleSec/vulnado",
+    "name": "Vulnado",
+    "date": "2026-03-06",
+    "notes": "Repo removed from GitHub by author"
   }
 ]
