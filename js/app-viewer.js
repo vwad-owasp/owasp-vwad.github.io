@@ -1,5 +1,5 @@
 /**
- * Renders a single app on 404.html when path is /app/<slug>
+ * Renders a single app on the app page.
  */
 (function () {
   'use strict';

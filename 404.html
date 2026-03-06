@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page not found - OWASP VWAD</title>
-  <!-- Detect site root from pathname so the same build works at / or /vwad-new/ or any subpath. -->
-  <script>(function(){var path=window.location.pathname||'/';var basePath;if(path.match(/\/app\/?$/)){basePath=path.replace(/\/app\/?$/,'').replace(/\/$/,'')||'';}else if(path.indexOf('/app/')!==-1&&path.indexOf('app.html')===-1){basePath=path.split('/app/')[0].replace(/\/$/,'')||'';}else{basePath=path.endsWith('/')?path.slice(0,-1):path.replace(/\/[^/]*$/,'');}window.VWAD_BASE=(basePath===''||basePath==='/')?'':basePath;})();</script>
+  <!-- Detect site root from pathname so the same build works at / or /vwad-new/ or any subpath. Set <base> so CSS/JS load when this page is served for any missing path. -->
+  <script>(function(){var path=window.location.pathname||'/';var basePath;if(path.match(/\/app\/?$/)){basePath=path.replace(/\/app\/?$/,'').replace(/\/$/,'')||'';}else if(path.indexOf('/app/')!==-1&&path.indexOf('app.html')===-1){basePath=path.split('/app/')[0].replace(/\/$/,'')||'';}else{basePath=path.endsWith('/')?path.slice(0,-1):path.replace(/\/[^/]*$/,'');}window.VWAD_BASE=(basePath===''||basePath==='/')?'':basePath;var baseUrl=(window.VWAD_BASE===''||window.VWAD_BASE==='/')?'/':(window.VWAD_BASE.replace(/\/$/,'')+'/');document.write('<base href="'+baseUrl+'">');})();</script>
   <script>(function(){var t;try{t=localStorage.getItem('vwad-theme');}catch(e){}var effective;if(!t||t==='system'){effective=window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}else{effective=t;}document.documentElement.setAttribute('data-theme',effective);})();</script>
-  <link rel="stylesheet" href="css/site.css?v=3">
+  <link rel="stylesheet" href="css/site.css?v=8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap&v=10" rel="stylesheet">
@@ -36,11 +36,10 @@
 
   <main id="main-content" class="site-main site-main--404">
     <div class="page-404-bg" aria-hidden="true">
-      <svg class="page-404-bg-svg" viewBox="0 0 1891 761" preserveAspectRatio="xMidYMid meet" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="404 background">
+      <svg class="page-404-bg-svg" viewBox="0 0 1891 761" preserveAspectRatio="xMidYMid meet" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <path d="M359.424 744.938V596.984H1.00034V442.778L253.147 15.587H492.791V478.204H613.655V596.984H492.791V744.938H359.424ZM128.116 478.204H359.424V101.025H340.67L128.116 461.533V478.204ZM942.637 759.525C856.504 759.525 787.389 735.908 735.293 688.674C683.196 640.745 657.148 568.505 657.148 471.952V288.573C657.148 194.799 683.196 123.6 735.293 74.977C787.389 25.659 856.504 0.999952 942.637 0.999952C1029.46 0.999952 1098.58 25.659 1149.98 74.977C1202.08 123.6 1228.13 194.799 1228.13 288.573V471.952C1228.13 568.505 1202.08 640.745 1149.98 688.674C1098.58 735.908 1029.46 759.525 942.637 759.525ZM942.637 640.745C994.733 640.745 1032.94 626.505 1057.25 598.026C1082.26 569.547 1094.76 528.911 1094.76 476.12V282.321C1094.76 228.835 1080.87 188.547 1053.08 161.457C1025.99 133.672 989.176 119.78 942.637 119.78C894.708 119.78 857.198 134.02 830.108 162.499C803.713 190.979 790.515 230.919 790.515 282.321V476.120C790.515 530.995 803.018 572.325 828.024 600.110C853.725 627.200 891.929 640.745 942.637 640.745ZM1634.93 744.938V596.984H1276.51V442.778L1528.66 15.587H1768.3V478.204H1889.17V596.984H1768.3V744.938H1634.93ZM1403.63 478.204H1634.93V101.025H1616.18L1403.63 461.533V478.204Z"/>
       </svg>
     </div>
-    <div id="app-view" class="container app-view hidden" aria-hidden="true"></div>
     <div id="not-found" class="container not-found">
       <div class="page-404-wrap">
         <div class="page-404">
@@ -50,7 +49,6 @@
         </div>
       </div>
     </div>
-    <div id="loading" class="container loading hidden" aria-hidden="true">Loading…</div>
   </main>
 
   <footer class="site-footer">
@@ -67,8 +65,6 @@
     </div>
   </footer>
 
-  <script src="js/app.js?v=1"></script>
   <script src="js/theme.js?v=1"></script>
-  <script src="js/app-viewer.js?v=1"></script>
 </body>
 </html>
