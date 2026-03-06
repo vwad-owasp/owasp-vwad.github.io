@@ -36,7 +36,7 @@ The same files work at any base path. A small script in each page sets `window.V
 - `data/archived_repos.json` - List of repositories detected as archived by the **Update GitHub Statistics** workflow; updated when `update_stats.py` finds archived repos (workflow may also open an issue for new ones).
 - `js/app.js` - Loads collection, assigns unique slugs, search/filter API.
 - `js/home.js` - Browse table and search UI.
-- `js/app-viewer.js` - Renders a single app on the app page (and on `404.html` when GitHub Pages serves `/app/<slug>`).
+- `js/app-viewer.js` - Renders a single app on the app page.
 - `css/site.css` - Standalone styles (OWASP community–aligned theme).
 - No build tools; add more `.html` and assets as needed.
 
