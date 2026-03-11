@@ -396,6 +396,25 @@
 		]
 	},
 	{
+		"url": "http://burpbountylab.com/",
+		"name": "Burp Bounty Lab",
+		"collection": [
+			"online"
+		],
+		"references": [
+			{
+				"name": "live",
+				"url": "http://burpbountylab.com/"
+			}
+		],
+		"author": "Bounty Security",
+		"description": "Intentionally vulnerable application for testing Burp Bounty profiles.",
+		"categories": [
+			"scanner-test",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://sourceforge.net/projects/thebutterflytmp/files/ButterFly%20Project/",
 		"name": "Butterfly Security Project",
 		"collection": [
@@ -2967,6 +2986,36 @@
 		"badge": "SasanLabs/VulnerableApp-facade",
 		"stars": 50,
 		"last_contributed": "2026-02-19T18:47:30Z",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
+		"url": "https://github.com/stuxctf/PAYGoat",
+		"name": "PAYGoat",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Node.js",
+			"Docker"
+		],
+		"references": [
+			{
+				"name": "download",
+				"url": "https://github.com/stuxctf/PAYGoat"
+			},
+			{
+				"name": "announcement",
+				"url": "https://www.linkedin.com/posts/stuxnet_paygoat-v2-is-live-a-deliberately-vulnerable-activity-7410452549067231232-j-Kf/"
+			}
+		],
+		"author": "stuxctf",
+		"badge": "stuxctf/PAYGoat",
+		"description": "Focuses on vulnerabilities often overlooked by traditional scanners and static analysis, particularly business logic flaws: improper balance handling, authorization bypasses, broken object-level access control (BOLAC), negative balance manipulation, race conditions, tampering with exchange rates and account identifiers.",
+		"notes": "PAYGoat is intended for local use only. Do not expose it to the public internet.",
 		"categories": [
 			"free-form",
 			"single-player"
