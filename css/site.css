@@ -121,6 +121,13 @@ body {
   transition: top 0.2s ease;
 }
 
+/* On narrow viewports the two links wrap to two rows; use a larger offset so the full block is off-screen and doesn't overlap the header */
+@media (max-width: 640px) {
+  .skip-links {
+    top: -8rem;
+  }
+}
+
 .skip-links:focus-within {
   top: 0.75rem;
 }

@@ -7,7 +7,7 @@
   <!-- Detect site root from pathname so the same build works at / or /vwad-new/ or any subpath. Set <base> so CSS/JS load when this page is served for any missing path. -->
   <script>(function(){var path=window.location.pathname||'/';var basePath;if(path.match(/\/app\/?$/)){basePath=path.replace(/\/app\/?$/,'').replace(/\/$/,'')||'';}else if(path.indexOf('/app/')!==-1&&path.indexOf('app.html')===-1){basePath=path.split('/app/')[0].replace(/\/$/,'')||'';}else{basePath=path.endsWith('/')?path.slice(0,-1):path.replace(/\/[^/]*$/,'');}window.VWAD_BASE=(basePath===''||basePath==='/')?'':basePath;var baseUrl=(window.VWAD_BASE===''||window.VWAD_BASE==='/')?'/':(window.VWAD_BASE.replace(/\/$/,'')+'/');document.write('<base href="'+baseUrl+'">');})();</script>
   <script>(function(){var t;try{t=localStorage.getItem('vwad-theme');}catch(e){}var effective;if(!t||t==='system'){effective=window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}else{effective=t;}document.documentElement.setAttribute('data-theme',effective);})();</script>
-  <link rel="stylesheet" href="css/site.css?v=8">
+  <link rel="stylesheet" href="css/site.css?v=9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap&v=10" rel="stylesheet">
