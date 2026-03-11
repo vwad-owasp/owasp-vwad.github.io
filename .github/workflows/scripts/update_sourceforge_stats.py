@@ -262,6 +262,7 @@ def output_summary(
     updated_entries: List[Dict[str, Any]],
 ) -> None:
     """Print summary and append to GITHUB_STEP_SUMMARY when running in Actions."""
+    projects_with_data = projects_checked - skipped_no_data
     summary_lines = [
         "",
         "## SourceForge statistics update",
@@ -269,9 +270,10 @@ def output_summary(
         "| Metric | Count |",
         "|--------|-------|",
         f"| SourceForge projects checked | {projects_checked} |",
-        f"| Entries updated | {entries_updated} |",
-        f"| Unchanged (already current) | {unchanged} |",
-        f"| Skipped (no activity data) | {skipped_no_data} |",
+        f"| Projects skipped (no activity data) | {skipped_no_data} |",
+        f"| Projects with data | {projects_with_data} |",
+        f"| Directory entries updated | {entries_updated} |",
+        f"| Directory entries unchanged (already current) | {unchanged} |",
         "",
     ]
     if updated_entries:
