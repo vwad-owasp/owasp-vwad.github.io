@@ -4456,7 +4456,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/ypreyAPINodeJS"
+		"badge": "yrprey/ypreyAPINodeJS",
+		"stars": 0,
+		"last_contributed": "2024-07-03T17:56:03Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4483,7 +4485,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/ypreyAPIPython"
+		"badge": "yrprey/ypreyAPIPython",
+		"stars": 1,
+		"last_contributed": "2024-07-03T16:34:48Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4509,7 +4513,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/ypreyPollsPHP"
+		"badge": "yrprey/ypreyPollsPHP",
+		"stars": 1,
+		"last_contributed": "2024-07-02T15:12:14Z"
 	},
 	{
 		"author": "Fernando Mengali, Vagner Mengali",
@@ -4542,7 +4548,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrprey-backend"
+		"badge": "yrprey/yrprey-backend",
+		"stars": 2,
+		"last_contributed": "2024-07-02T15:11:10Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4567,7 +4575,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyASPC"
+		"badge": "yrprey/yrpreyASPC",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:06:19Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4592,7 +4602,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyASPCPlus"
+		"badge": "yrprey/yrpreyASPCPlus",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:05:55Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4618,7 +4630,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyBlog"
+		"badge": "yrprey/yrpreyBlog",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:11:40Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4641,7 +4655,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyC"
+		"badge": "yrprey/yrpreyC",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:14:25Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4664,7 +4680,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyCPlus"
+		"badge": "yrprey/yrpreyCPlus",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:04:13Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4689,7 +4707,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyFinance"
+		"badge": "yrprey/yrpreyFinance",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:11:57Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4714,7 +4734,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyLibrary"
+		"badge": "yrprey/yrpreyLibrary",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:10:55Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4740,7 +4762,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/YrpreyPathTraversal"
+		"badge": "yrprey/YrpreyPathTraversal",
+		"stars": 0,
+		"last_contributed": "2024-07-05T12:19:19Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4766,7 +4790,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyPHP"
+		"badge": "yrprey/yrpreyPHP",
+		"stars": 3,
+		"last_contributed": "2024-07-02T15:09:56Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4793,7 +4819,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyPollsNodeJS"
+		"badge": "yrprey/yrpreyPollsNodeJS",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:02:30Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4820,7 +4848,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyPollsPerl"
+		"badge": "yrprey/yrpreyPollsPerl",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:07:55Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4847,7 +4877,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyPollsPython"
+		"badge": "yrprey/yrpreyPollsPython",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:16:28Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4872,7 +4904,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyTasks"
+		"badge": "yrprey/yrpreyTasks",
+		"stars": 0,
+		"last_contributed": "2024-07-02T13:46:45Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4898,7 +4932,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyTasksNodeJS"
+		"badge": "yrprey/yrpreyTasksNodeJS",
+		"stars": 0,
+		"last_contributed": "2024-07-02T15:02:44Z"
 	},
 	{
 		"author": "Fernando Mengali",
@@ -4924,7 +4960,9 @@
 			"free-form",
 			"single-player"
 		],
-		"badge": "yrprey/yrpreyTasksPython"
+		"badge": "yrprey/yrpreyTasksPython",
+		"stars": 2,
+		"last_contributed": "2024-07-02T15:16:20Z"
 	},
 	{
 		"url": "http://zero.webappsecurity.com/",
