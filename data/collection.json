@@ -3276,18 +3276,22 @@
 			"container"
 		],
 		"technology": [
-			"ISO",
 			"Vagrant",
 			"Linux"
 		],
-		"description": "OWASP SamuraiWTF: complete Linux desktop for application security training. Free and open source; distributed as pre-built VMs or source (Vagrantfile, build scripts). Includes tools and training targets (e.g. SQLMap, Mutillidae, ZAP, Juice Shop, Burp Suite CE). Version 5.0 is Vagrant-based; supports AWS and local VM.",
-		"notes": "Originally bootable ISO (2008); now VM-focused. GitHub for issues/PRs; download from SourceForge. Sponsored by Secure Ideas.",
+		"description": "OWASP SamuraiWTF: complete Linux desktop for application security training. Free and open source; distributed as pre-built VMs or source (Vagrantfile, build scripts). Includes tools and training targets (e.g. SQLMap, Mutillidae, ZAP, Juice Shop, Burp Suite CE). Version 5.x is Vagrant-based; supports AWS and local VM.",
+		"notes": "Originally bootable ISO (2008); now Vagrant-based. Source and releases on GitHub; run vagrant up from the repo. Sponsored by Secure Ideas.",
 		"references": [
 			{
 				"name": "download",
-				"url": "https://sourceforge.net/projects/samurai/files/"
+				"url": "https://github.com/SamuraiWTF/samuraiwtf"
+			},
+			{
+				"name": "guide",
+				"url": "https://github.com/SamuraiWTF/samuraiwtf#readme"
 			}
 		],
+		"badge": "SamuraiWTF/samuraiwtf",
 		"categories": [
 			"ctf",
 			"free-form",

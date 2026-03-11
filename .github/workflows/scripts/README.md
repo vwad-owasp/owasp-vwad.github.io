@@ -186,12 +186,38 @@ The script uses local caching to minimize API calls:
 2. **Cache file**: JSON file mapping `owner/repo` to stats (excluded from git via `.gitignore`)
 3. **Fallback**: Uses cached data when API calls fail or rate limits are exceeded
 
+### update_sourceforge_stats.py
+
+Updates `last_contributed` in `collection.json` for entries that reference SourceForge (and do not have a GitHub `badge`). Fetches the latest activity date from SourceForge's REST activity API and writes ISO 8601 timestamps. Runs as a separate job a few hours after the GitHub stats update.
+
+**Usage:**
+```bash
+python3 update_sourceforge_stats.py
+```
+
+**Exit codes:**
+- `0`: Update completed successfully (or no SourceForge-only entries)
+- `1`: Script failed (e.g. file not found, invalid JSON)
+
+**Features:**
+- **SourceForge-only entries**: Processes only entries that have a SourceForge project URL (in `url` or `references`) and no `badge` (so GitHub job owns badge entries).
+- **Activity API**: Uses `https://sourceforge.net/rest/p/{slug}/activity/`; takes the first timeline item's `published` (ms) as last activity.
+- **Throttling**: Delay between requests (default 1.5s) to avoid overloading SourceForge.
+- **Caching**: Local cache (e.g. `.sourceforge_stats_cache.json`) stores last_contributed per slug; used when API fails or returns no data.
+- **No-op writes**: Writes `collection.json` only when at least one entry's `last_contributed` actually changed.
+
+**Environment Variables:**
+- `CACHE_FILE`: Path to cache file (default: `.sourceforge_stats_cache.json`)
+- `REQUEST_DELAY`: Seconds between API requests (default: `1.5`)
+- `DEBUG_LOGGING`: Set to `true` for verbose output
+
 ## Integration with Workflows
 
 These scripts are automatically executed by GitHub Actions workflows:
 
 - `validate.yml` (workflow name: **Validate JSON**): Runs validation scripts (`check_schema.py`, `check_ordering.py`, `check_editorconfig.py`) on PRs that modify `data/collection.json`. When it fails, `comment.yml` posts the failure artifact as a comment on the PR (triggered by `workflow_run`).
 - `update-stats.yml`: Runs `update_stats.py` weekly; updates `data/collection.json` and `data/archived_repos.json`, commits when changed, and may create an issue for newly detected archived repos.
+- `update-sourceforge-stats.yml`: Runs `update_sourceforge_stats.py` weekly (Sundays 04:00 UTC, a few hours after GitHub stats); updates `last_contributed` for SourceForge-only entries in `data/collection.json` and commits when changed.
 - `link-checker.yml`: Runs `check_links.py` on manual trigger to validate all app and reference URLs.
 - `update-contributors.yml`: Runs `update_contributors.py` weekly to update `data/contributors.json`; commits and pushes when the file changes.
 - `repo-scout.yml`: Runs `scout.py` weekly (Mondays 09:00 UTC); creates an issue with new repository findings (label `new app`).

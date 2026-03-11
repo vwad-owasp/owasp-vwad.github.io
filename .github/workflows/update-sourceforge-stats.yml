@@ -1,0 +1,53 @@
+name: Update SourceForge Statistics
+
+on:
+  schedule:
+    # Run weekly on Sundays at 04:00 UTC (a few hours after GitHub stats at 00:00 UTC)
+    - cron: '0 4 * * 0'
+  workflow_dispatch:
+    # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-sourceforge-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405  # v6
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run SourceForge update script
+        run: |
+          python .github/workflows/scripts/update_sourceforge_stats.py
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if [ -n "$(git status --short data/collection.json 2>/dev/null)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/collection.json
+          git commit -m "Update SourceForge last_contributed [automated]"
+          git push
+
+      - name: No changes detected
+        if: steps.git-check.outputs.changed != 'true'
+        run: |
+          echo "No changes to data/collection.json from SourceForge stats"
