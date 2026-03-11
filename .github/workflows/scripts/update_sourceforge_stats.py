@@ -178,11 +178,22 @@ def update_collection_sourceforge_stats(collection_path: str) -> bool:
 
     if not slug_to_indices:
         print("No SourceForge-only entries to update.")
+        output_summary(
+            projects_checked=0,
+            entries_updated=0,
+            skipped_no_data=0,
+            unchanged=0,
+            updated_entries=[],
+        )
         return True
 
     print(f"Found {len(slug_to_indices)} SourceForge project(s) across entries.")
 
     updated_count = 0
+    skipped_no_data = 0
+    unchanged = 0
+    updated_entries: List[Dict[str, Any]] = []
+
     for slug, indices in sorted(slug_to_indices.items()):
         time.sleep(REQUEST_DELAY)
         cached = cache.get(slug, {})
@@ -193,6 +204,7 @@ def update_collection_sourceforge_stats(collection_path: str) -> bool:
                 debug_log(f"  Using cached last_contributed for {slug}")
             else:
                 print(f"  Skipped {slug}: no activity data")
+                skipped_no_data += 1
                 continue
         else:
             cache[slug] = {
@@ -208,10 +220,24 @@ def update_collection_sourceforge_stats(collection_path: str) -> bool:
                 updated_count += 1
                 name = entry.get("name", "?")
                 print(f"  Updated {name} ({slug}): last_contributed = {last_contributed}")
+                updated_entries.append({
+                    "name": name,
+                    "slug": slug,
+                    "last_contributed": last_contributed,
+                })
             else:
                 debug_log(f"  No change for entry at index {i} ({slug})")
+                unchanged += 1
 
     save_cache(cache)
+
+    output_summary(
+        projects_checked=len(slug_to_indices),
+        entries_updated=updated_count,
+        skipped_no_data=skipped_no_data,
+        unchanged=unchanged,
+        updated_entries=updated_entries,
+    )
 
     if updated_count == 0:
         print("\nNo changes to write.")
@@ -226,6 +252,49 @@ def update_collection_sourceforge_stats(collection_path: str) -> bool:
     except OSError as e:
         print(f"Error: Failed to write {collection_path}: {e}")
         return False
+
+
+def output_summary(
+    projects_checked: int,
+    entries_updated: int,
+    skipped_no_data: int,
+    unchanged: int,
+    updated_entries: List[Dict[str, Any]],
+) -> None:
+    """Print summary and append to GITHUB_STEP_SUMMARY when running in Actions."""
+    summary_lines = [
+        "",
+        "## SourceForge statistics update",
+        "",
+        "| Metric | Count |",
+        "|--------|-------|",
+        f"| SourceForge projects checked | {projects_checked} |",
+        f"| Entries updated | {entries_updated} |",
+        f"| Unchanged (already current) | {unchanged} |",
+        f"| Skipped (no activity data) | {skipped_no_data} |",
+        "",
+    ]
+    if updated_entries:
+        summary_lines.extend([
+            "### Updated entries",
+            "",
+            "| Entry | Project | last_contributed |",
+            "|-------|---------|------------------|",
+        ])
+        for u in updated_entries:
+            summary_lines.append(f"| {u.get('name', '?')} | {u.get('slug', '?')} | {u.get('last_contributed', '')} |")
+        summary_lines.append("")
+
+    summary = "\n".join(summary_lines)
+    print(summary)
+
+    summary_file_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_file_path:
+        try:
+            with open(summary_file_path, "a", encoding="utf-8") as f:
+                f.write(summary)
+        except OSError as e:
+            print(f"Warning: Could not write step summary: {e}")
 
 
 def main() -> None:
