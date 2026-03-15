@@ -211,16 +211,32 @@
       var scrollable = wrap.scrollWidth > wrap.clientWidth;
       var atStart = wrap.scrollLeft <= 2;
       var atEnd = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 2;
+      var introDismissed = outer.getAttribute('data-intro-right-dismissed') === 'true';
       outer.classList.toggle('scrollable', scrollable);
       outer.classList.toggle('show-left', scrollable && !atStart);
       outer.classList.toggle('show-right', scrollable && !atEnd);
+      outer.classList.toggle('intro-right-hint', scrollable && atStart && !introDismissed);
+    }
+
+    function dismissIntroRightHint(outer) {
+      if (!outer || outer.getAttribute('data-intro-right-dismissed') === 'true') return;
+      outer.setAttribute('data-intro-right-dismissed', 'true');
+      outer.classList.remove('intro-right-hint');
+      outer.classList.add('intro-right-hint-shrinking');
+      window.setTimeout(function () {
+        outer.classList.remove('intro-right-hint-shrinking');
+      }, 260);
     }
 
     function bindTableScrollFade(outer) {
       if (!outer) return;
       var wrap = outer.querySelector('.table-wrap');
       if (!wrap) return;
-      wrap.addEventListener('scroll', function () { updateTableScrollFade(outer); });
+      outer.setAttribute('data-intro-right-dismissed', 'false');
+      wrap.addEventListener('scroll', function () {
+        if (wrap.scrollLeft > 2) dismissIntroRightHint(outer);
+        updateTableScrollFade(outer);
+      });
       window.addEventListener('resize', function () { updateTableScrollFade(outer); });
       // Shift + wheel: horizontal scroll (common in spreadsheets, IDEs, design tools)
       wrap.addEventListener('wheel', function (e) {
@@ -238,6 +254,7 @@
           wrap.scrollLeft -= step;
           e.preventDefault();
         } else if (e.key === 'ArrowRight') {
+          dismissIntroRightHint(outer);
           wrap.scrollLeft += step;
           e.preventDefault();
         }

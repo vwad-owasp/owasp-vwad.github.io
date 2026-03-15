@@ -1482,23 +1482,55 @@ h1, h2, h3, h4, h5, h6 {
    JS adds .scrollable, .show-left, .show-right on .table-scroll-outer so fades update while scrolling.
    Light mode: visible grey fade so it reads clearly on white. */
 @media (max-width: 768px) {
+  .table-scroll-outer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+    transition: width 260ms ease, opacity 260ms ease;
+  }
+  .table-scroll-outer.intro-right-hint::after {
+    width: 2rem;
+    opacity: 1;
+  }
+  .table-scroll-outer.intro-right-hint-shrinking::after {
+    width: 1.25rem;
+    opacity: 0;
+  }
+  [data-theme="dark"] .table-scroll-outer::after {
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+  }
+  .table-scroll-outer.intro-right-hint.show-right .table-wrap {
+    box-shadow: none;
+  }
   .table-scroll-outer.scrollable.show-left .table-wrap {
-    box-shadow: inset 4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15);
+    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18);
   }
   .table-scroll-outer.scrollable.show-right .table-wrap {
-    box-shadow: inset -4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15);
+    box-shadow: inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18);
   }
   .table-scroll-outer.scrollable.show-left.show-right .table-wrap {
-    box-shadow: inset 4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15), inset -4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15);
+    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18), inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18);
   }
   [data-theme="dark"] .table-scroll-outer.scrollable.show-left .table-wrap {
-    box-shadow: inset 3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6);
   }
   [data-theme="dark"] .table-scroll-outer.scrollable.show-right .table-wrap {
-    box-shadow: inset -3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6);
   }
   [data-theme="dark"] .table-scroll-outer.scrollable.show-left.show-right .table-wrap {
-    box-shadow: inset 3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5), inset -3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6), inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .table-scroll-outer::after {
+      transition: none;
+    }
   }
 }
 
