@@ -5,6 +5,11 @@
   'use strict';
 
   var COLLECTIONS = ['online', 'offline', 'mobile', 'container', 'platform'];
+  var SORT_LABELS = {
+    name: 'Name',
+    stars: 'Stars',
+    updated: 'Updated'
+  };
 
   function escapeHtml(s) {
     if (s == null) return '';
@@ -41,6 +46,14 @@
     });
   }
 
+  function getSortSummary(sortState) {
+    if (!sortState || !sortState.column || !sortState.dir) return '';
+    var label = SORT_LABELS[sortState.column];
+    if (!label) return '';
+    var direction = sortState.dir === 'desc' ? 'descending' : 'ascending';
+    return 'Sorted by ' + label + ', ' + direction;
+  }
+
   function renderTable(apps, sortState, options) {
     if (!apps.length) {
       return '<p class="muted">No applications match.</p>';
@@ -49,15 +62,18 @@
     var query = (options.query || '').toLowerCase().trim();
     var sortBy = sortState && sortState.column;
     var sortDir = sortState && sortState.dir;
+    var sortSummary = getSortSummary(sortState);
     var th = function (key, label) {
-      var isSortable = key === 'name' || key === 'stars' || key === 'updated';
+      var isSortable = !!SORT_LABELS[key];
       if (!isSortable) return '<th>' + escapeHtml(label) + '</th>';
       var ariaSort = sortBy === key ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none';
       var cls = 'sortable' + (sortBy === key ? ' sorted-' + sortDir : '');
       return '<th class="' + cls + '" scope="col" data-sort="' + escapeHtml(key) + '" aria-sort="' + ariaSort + '"><button type="button">' + escapeHtml(label) + '</button></th>';
     };
-    var clearSortHtml = sortState ? '<div class="table-toolbar"><button type="button" class="sort-clear">Clear sort</button></div>' : '';
-    var html = '<div class="table-scroll-outer"><div class="table-wrap">' + clearSortHtml + '<table class="apps-table"><thead><tr>';
+    var clearSortHtml = sortSummary
+      ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button><span class="sort-status" role="status" aria-live="polite">' + escapeHtml(sortSummary) + '</span></div></caption>'
+      : '';
+    var html = '<div class="table-scroll-outer"><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
     html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
     html += '</tr></thead><tbody>';
     apps.forEach(function (app) {
@@ -97,6 +113,32 @@
     });
     html += '</tbody></table></div></div>';
     return html;
+  }
+
+  function captureTableScrollState(container) {
+    if (!container) return null;
+    var outer = container.querySelector('.table-scroll-outer');
+    var wrap = outer && outer.querySelector('.table-wrap');
+    if (!outer || !wrap) return null;
+    return {
+      left: wrap.scrollLeft,
+      introDismissed: outer.getAttribute('data-intro-right-dismissed') === 'true'
+    };
+  }
+
+  function restoreTableScrollState(outer, state) {
+    if (!outer || !state) return;
+    var wrap = outer.querySelector('.table-wrap');
+    if (!wrap) return;
+
+    function applyScrollState() {
+      if (state.left > 0) wrap.scrollLeft = state.left;
+      if (state.introDismissed || state.left > 2) dismissIntroRightHint(outer);
+      updateTableScrollFade(outer);
+    }
+
+    applyScrollState();
+    requestAnimationFrame(applyScrollState);
   }
 
   function initSearch() {
@@ -149,6 +191,7 @@
       window.VWAD.searchApps(query, filters).then(function (result) {
         var apps = result.apps;
         var total = result.total;
+        var tableScrollState = captureTableScrollState(resultsEl);
         var sorted = sortState ? sortApps(apps, sortState.column, sortState.dir) : apps.slice();
         if (countEl) {
           countEl.textContent = 'Showing ' + apps.length + ' of ' + total + ' application' + (total === 1 ? '' : 's');
@@ -176,10 +219,13 @@
         var scrollOuter = resultsEl.querySelector('.table-scroll-outer');
         if (scrollOuter) {
           bindTableScrollFade(scrollOuter);
-          updateTableScrollFade(scrollOuter);
-          requestAnimationFrame(function () {
+          restoreTableScrollState(scrollOuter, tableScrollState);
+          if (!tableScrollState) {
             updateTableScrollFade(scrollOuter);
-          });
+            requestAnimationFrame(function () {
+              updateTableScrollFade(scrollOuter);
+            });
+          }
         }
         resultsEl.querySelectorAll('button.pill-filter').forEach(function (btn) {
           btn.addEventListener('click', function () {

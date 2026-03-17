@@ -1535,12 +1535,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .table-toolbar {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
+  caption-side: top;
+  text-align: left;
+  padding: 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg-alt);
   border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.table-toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.75rem;
+  box-sizing: border-box;
 }
 
 .sort-clear {
@@ -1563,6 +1572,12 @@ h1, h2, h3, h4, h5, h6 {
 .sort-clear:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
+}
+
+.sort-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
 }
 
 .apps-table {
