@@ -56,8 +56,10 @@
       var cls = 'sortable' + (sortBy === key ? ' sorted-' + sortDir : '');
       return '<th class="' + cls + '" scope="col" data-sort="' + escapeHtml(key) + '" aria-sort="' + ariaSort + '"><button type="button">' + escapeHtml(label) + '</button></th>';
     };
-    var clearSortHtml = sortState ? '<div class="table-toolbar"><button type="button" class="sort-clear">Clear sort</button></div>' : '';
-    var html = '<div class="table-scroll-outer"><div class="table-wrap">' + clearSortHtml + '<table class="apps-table"><thead><tr>';
+    var clearSortHtml = sortState
+      ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button></div></caption>'
+      : '';
+    var html = '<div class="table-scroll-outer"><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
     html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
     html += '</tr></thead><tbody>';
     apps.forEach(function (app) {
