@@ -218,6 +218,11 @@
         if (clearBtn) clearBtn.addEventListener('click', function () { sortState = null; runSearch(); });
         var scrollOuter = resultsEl.querySelector('.table-scroll-outer');
         if (scrollOuter) {
+          var caption = scrollOuter.querySelector('.table-toolbar');
+          var wrap = scrollOuter.querySelector('.table-wrap');
+          if (wrap) {
+            wrap.style.setProperty('--toolbar-h', caption ? caption.offsetHeight + 'px' : '0px');
+          }
           bindTableScrollFade(scrollOuter);
           restoreTableScrollState(scrollOuter, tableScrollState);
           if (!tableScrollState) {

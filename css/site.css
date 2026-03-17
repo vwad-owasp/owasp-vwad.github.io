@@ -1473,9 +1473,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .table-wrap {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 70vh;
   -webkit-overflow-scrolling: touch;
   border-radius: var(--radius);
   min-width: 0;
+}
+@media (min-width: 768px) {
+  .table-wrap { max-height: 80vh; }
 }
 
 /* Left/right edge fades on small viewports: show fade where more content can be revealed by scrolling.
@@ -1536,6 +1541,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .table-toolbar {
   caption-side: top;
+  position: sticky;
+  top: 0;
+  z-index: 3;
   text-align: left;
   padding: 0;
   border-bottom: 1px solid var(--border);
@@ -1598,6 +1606,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .apps-table th {
+  position: sticky;
+  top: var(--toolbar-h, 0px);
+  z-index: 2;
   font-size: 1rem;
   font-weight: 600;
   font-family: var(--font-heading);
