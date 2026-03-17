@@ -384,6 +384,34 @@ h1, h2, h3, h4, h5, h6 {
   color: inherit;
 }
 
+@media (max-width: 450px) {
+  .header-brand {
+    gap: 0.4rem;
+  }
+
+  .logo.logo-wasp,
+  .header-brand-name .vwad-wordmark,
+  .header-actions .owasp-wordmark {
+    height: 1.65rem;
+  }
+
+  .logo.logo-wasp {
+    width: 1.65rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo.logo-wasp,
+  .header-brand-name .vwad-wordmark,
+  .header-actions .owasp-wordmark {
+    height: 1.32rem;
+  }
+
+  .logo.logo-wasp {
+    width: 1.32rem;
+  }
+}
+
 .logo:hover {
   opacity: 0.9;
 }
