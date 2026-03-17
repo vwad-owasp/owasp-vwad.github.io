@@ -5,6 +5,11 @@
   'use strict';
 
   var COLLECTIONS = ['online', 'offline', 'mobile', 'container', 'platform'];
+  var SORT_LABELS = {
+    name: 'Name',
+    stars: 'Stars',
+    updated: 'Updated'
+  };
 
   function escapeHtml(s) {
     if (s == null) return '';
@@ -41,6 +46,14 @@
     });
   }
 
+  function getSortSummary(sortState) {
+    if (!sortState || !sortState.column || !sortState.dir) return '';
+    var label = SORT_LABELS[sortState.column];
+    if (!label) return '';
+    var direction = sortState.dir === 'desc' ? 'descending' : 'ascending';
+    return 'Sorted by ' + label + ', ' + direction;
+  }
+
   function renderTable(apps, sortState, options) {
     if (!apps.length) {
       return '<p class="muted">No applications match.</p>';
@@ -49,15 +62,16 @@
     var query = (options.query || '').toLowerCase().trim();
     var sortBy = sortState && sortState.column;
     var sortDir = sortState && sortState.dir;
+    var sortSummary = getSortSummary(sortState);
     var th = function (key, label) {
-      var isSortable = key === 'name' || key === 'stars' || key === 'updated';
+      var isSortable = !!SORT_LABELS[key];
       if (!isSortable) return '<th>' + escapeHtml(label) + '</th>';
       var ariaSort = sortBy === key ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none';
       var cls = 'sortable' + (sortBy === key ? ' sorted-' + sortDir : '');
       return '<th class="' + cls + '" scope="col" data-sort="' + escapeHtml(key) + '" aria-sort="' + ariaSort + '"><button type="button">' + escapeHtml(label) + '</button></th>';
     };
-    var clearSortHtml = sortState
-      ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button></div></caption>'
+    var clearSortHtml = sortSummary
+      ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button><span class="sort-status" role="status" aria-live="polite">' + escapeHtml(sortSummary) + '</span></div></caption>'
       : '';
     var html = '<div class="table-scroll-outer"><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
     html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
