@@ -1652,6 +1652,16 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotate(-45deg);
 }
 
+.apps-table th:nth-child(1),
+.apps-table td:nth-child(1) {
+  min-width: 11rem;
+}
+
+.apps-table th:nth-child(3),
+.apps-table td:nth-child(3) {
+  min-width: 14rem;
+}
+
 .apps-table a {
   color: var(--link);
   text-decoration: none;
