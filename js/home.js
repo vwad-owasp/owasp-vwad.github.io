@@ -1,344 +1,342 @@
 /**
- * Home page: browse all apps, search by any criteria, link to app pages
+ * Browse page bootstrap: Basic search controls, mode switching, and search orchestration.
  */
 (function () {
   'use strict';
 
-  var COLLECTIONS = ['online', 'offline', 'mobile', 'container', 'platform'];
-  var SORT_LABELS = {
-    name: 'Name',
-    stars: 'Stars',
-    updated: 'Updated'
-  };
+  var Browse = window.VWADBrowse || {};
 
-  function escapeHtml(s) {
-    if (s == null) return '';
-    var div = document.createElement('div');
-    div.textContent = s;
-    return div.innerHTML;
-  }
-
-  function getAppUrl(app) {
-    return 'app/#' + (app._slug || '');
-  }
-
-  function sortApps(apps, sortBy, sortDir) {
-    if (!sortBy || !sortDir || !apps.length) return apps.slice();
-    var mult = sortDir === 'desc' ? -1 : 1;
-    return apps.slice().sort(function (a, b) {
-      var va, vb;
-      if (sortBy === 'name') {
-        va = (a.name || '').toLowerCase();
-        vb = (b.name || '').toLowerCase();
-        return mult * (va < vb ? -1 : va > vb ? 1 : 0);
-      }
-      if (sortBy === 'stars') {
-        va = a.stars != null ? Number(a.stars) : -1;
-        vb = b.stars != null ? Number(b.stars) : -1;
-        return mult * (va - vb);
-      }
-      if (sortBy === 'updated') {
-        va = a.last_contributed ? new Date(a.last_contributed).getTime() : 0;
-        vb = b.last_contributed ? new Date(b.last_contributed).getTime() : 0;
-        return mult * (va - vb);
-      }
-      return 0;
-    });
-  }
-
-  function getSortSummary(sortState) {
-    if (!sortState || !sortState.column || !sortState.dir) return '';
-    var label = SORT_LABELS[sortState.column];
-    if (!label) return '';
-    var direction = sortState.dir === 'desc' ? 'descending' : 'ascending';
-    return 'Sorted by ' + label + ', ' + direction;
-  }
-
-  function renderTable(apps, sortState, options) {
-    if (!apps.length) {
-      return '<p class="muted">No applications match.</p>';
-    }
-    options = options || {};
-    var query = (options.query || '').toLowerCase().trim();
-    var sortBy = sortState && sortState.column;
-    var sortDir = sortState && sortState.dir;
-    var sortSummary = getSortSummary(sortState);
-    var th = function (key, label) {
-      var isSortable = !!SORT_LABELS[key];
-      if (!isSortable) return '<th>' + escapeHtml(label) + '</th>';
-      var ariaSort = sortBy === key ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none';
-      var cls = 'sortable' + (sortBy === key ? ' sorted-' + sortDir : '');
-      return '<th class="' + cls + '" scope="col" data-sort="' + escapeHtml(key) + '" aria-sort="' + ariaSort + '"><button type="button">' + escapeHtml(label) + '</button></th>';
-    };
-    var clearSortHtml = sortSummary
-      ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button><span class="sort-status" role="status" aria-live="polite">' + escapeHtml(sortSummary) + '</span></div></caption>'
-      : '';
-    var html = '<div class="table-scroll-outer"><div class="table-scroll-shadow table-scroll-shadow-top" aria-hidden="true"></div><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
-    html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
-    html += '</tr></thead><tbody>';
-    apps.forEach(function (app) {
-      var url = getAppUrl(app);
-      var updatedBand = window.VWAD && window.VWAD.getUpdatedBand ? window.VWAD.getUpdatedBand(app.last_contributed) : null;
-      var updatedCell = updatedBand
-        ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="Last contribution">' + escapeHtml(updatedBand.label) + '</span>'
-        : '-';
-      var authorMatched = query && app.author && app.author.toLowerCase().indexOf(query) !== -1;
-      var nameCell = '<a href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>';
-      if (authorMatched) {
-        nameCell += ' <span class="author-match" title="Matched by author">Author: ' + escapeHtml(app.author) + '</span>';
-      }
-      html += '<tr>';
-      html += '<td>' + nameCell + '</td>';
-      var collTitles = window.VWAD && window.VWAD.COLLECTION_TOOLTIPS ? window.VWAD.COLLECTION_TOOLTIPS : {};
-      var catTitles = window.VWAD && window.VWAD.CATEGORY_TOOLTIPS ? window.VWAD.CATEGORY_TOOLTIPS : {};
-      html += '<td>' + (app.collection || []).map(function (c) {
-        var title = collTitles[c];
-        var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        var label = c.charAt(0).toUpperCase() + c.slice(1);
-        return '<button type="button" class="pill pill-collection pill-filter" data-filter-type="collection" data-filter-value="' + escapeHtml(c) + '" aria-label="Filter by collection: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(c) + '</button>';
-      }).join(' ') + '</td>';
-      var tech = (app.technology || []).map(function (t) {
-        return '<button type="button" class="pill pill-technology pill-filter" data-filter-type="technology" data-filter-value="' + escapeHtml(t) + '" aria-label="Filter by technology: ' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
-      }).join(' ');
-      var categories = (app.categories || []).map(function (c) {
-        var label = c === 'ctf' ? 'CTF' : c;
-        var title = catTitles[c];
-        var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        return '<button type="button" class="pill pill-category pill-filter" data-filter-type="category" data-filter-value="' + escapeHtml(c) + '" aria-label="Filter by category: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(label) + '</button>';
-      }).join(' ');
-      html += '<td>' + tech + (tech && categories ? ' ' : '') + categories + '</td>';
-      html += '<td>' + (app.stars != null ? escapeHtml(String(app.stars)) : '-') + '</td>';
-      html += '<td>' + updatedCell + '</td>';
-      html += '</tr>';
-    });
-    html += '</tbody></table></div><div class="table-scroll-shadow table-scroll-shadow-bottom" aria-hidden="true"></div></div>';
-    return html;
-  }
-
-  function captureTableScrollState(container) {
-    if (!container) return null;
-    var outer = container.querySelector('.table-scroll-outer');
-    var wrap = outer && outer.querySelector('.table-wrap');
-    if (!outer || !wrap) return null;
+  function createDefaultBasicState() {
     return {
-      left: wrap.scrollLeft,
-      top: wrap.scrollTop,
-      introDismissed: outer.getAttribute('data-intro-right-dismissed') === 'true'
+      query: '',
+      collection: '',
+      technology: '',
+      category: ''
     };
   }
 
-  function restoreTableScrollState(outer, state) {
-    if (!outer || !state) return;
-    var wrap = outer.querySelector('.table-wrap');
-    if (!wrap) return;
-
-    function applyScrollState() {
-      if (state.left > 0) wrap.scrollLeft = state.left;
-      if (state.top > 0) wrap.scrollTop = state.top;
-      if (state.introDismissed || state.left > 2) dismissIntroRightHint(outer);
-      updateTableScrollMetrics(outer);
-      updateTableScrollFade(outer);
-    }
-
-    applyScrollState();
-    requestAnimationFrame(applyScrollState);
+  function createDefaultState() {
+    return {
+      activeMode: 'basic',
+      basic: createDefaultBasicState(),
+      advanced: Browse.createDefaultAdvancedState()
+    };
   }
 
   function initSearch() {
-    var searchInput = document.getElementById('search-input');
-    var collectionSelect = document.getElementById('filter-collection');
-    var techInput = document.getElementById('filter-technology');
-    var categorySelect = document.getElementById('filter-category');
     var resultsEl = document.getElementById('browse-results');
     var countEl = document.getElementById('result-count');
     var resetBtn = document.getElementById('search-reset');
-    if (!resultsEl) return;
+    var searchControls = document.querySelector('.search-controls');
+    if (!resultsEl || !searchControls) return;
 
+    var elements = {
+      tabs: {
+        basic: document.getElementById('search-type-basic'),
+        advanced: document.getElementById('search-type-advanced')
+      },
+      panels: {
+        basic: document.getElementById('search-panel-basic'),
+        advanced: document.getElementById('search-panel-advanced')
+      },
+      basic: {
+        query: document.getElementById('search-input'),
+        collection: document.getElementById('filter-collection'),
+        technology: document.getElementById('filter-technology'),
+        category: document.getElementById('filter-category')
+      },
+      advanced: {
+        query: document.getElementById('advanced-search-input'),
+        stars: document.getElementById('advanced-stars'),
+        yearFrom: document.getElementById('advanced-year-from'),
+        yearTo: document.getElementById('advanced-year-to'),
+        starsPills: document.getElementById('advanced-stars-pills'),
+        yearPills: document.getElementById('advanced-year-pills')
+      }
+    };
+    var state = createDefaultState();
     var sortState = null;
+    var requestId = 0;
+    var activeScrollOuter = null;
+    var advancedController = Browse.createAdvancedController({
+      searchControls: searchControls,
+      elements: elements.advanced,
+      getState: function () {
+        return state.advanced;
+      },
+      isActive: function () {
+        return state.activeMode === 'advanced';
+      },
+      requestSearch: runSearch
+    });
 
-    function hasActiveFilters() {
-      var query = searchInput ? searchInput.value.trim() : '';
-      var collection = collectionSelect && collectionSelect.value;
-      var tech = techInput ? techInput.value.trim() : '';
-      var category = categorySelect && categorySelect.value;
-      return !!(query || collection || tech || category);
+    if (!advancedController) return;
+
+    function getActiveState() {
+      return state[state.activeMode];
+    }
+
+    function hasActiveFilters(mode) {
+      var viewState = state[mode];
+      if (mode === 'basic') {
+        return !!((viewState.query || '').trim() || viewState.collection || (viewState.technology || '').trim() || viewState.category);
+      }
+      return advancedController.hasActiveFilters();
     }
 
     function updateResetButton() {
-      if (resetBtn) {
-        var active = hasActiveFilters();
-        resetBtn.disabled = !active;
-        resetBtn.setAttribute('aria-disabled', active ? 'false' : 'true');
-      }
+      if (!resetBtn) return;
+      var active = hasActiveFilters(state.activeMode);
+      resetBtn.disabled = !active;
+      resetBtn.setAttribute('aria-disabled', active ? 'false' : 'true');
+      resetBtn.setAttribute('aria-label', 'Clear all ' + state.activeMode + ' search filters');
     }
 
-    function clearFilters() {
-      if (searchInput) searchInput.value = '';
-      if (collectionSelect) collectionSelect.value = '';
-      if (techInput) techInput.value = '';
-      if (categorySelect) categorySelect.value = '';
+    function syncModeUi() {
+      ['basic', 'advanced'].forEach(function (mode) {
+        var isActive = state.activeMode === mode;
+        var tab = elements.tabs[mode];
+        var panel = elements.panels[mode];
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        tab.setAttribute('tabindex', isActive ? '0' : '-1');
+        panel.hidden = !isActive;
+        panel.classList.toggle('is-active', isActive);
+      });
+      updateResetButton();
+    }
+
+    function syncBasicControls() {
+      elements.basic.query.value = state.basic.query;
+      elements.basic.collection.value = state.basic.collection;
+      elements.basic.technology.value = state.basic.technology;
+      elements.basic.category.value = state.basic.category;
+    }
+
+    function setActiveMode(mode, focusTab) {
+      if (mode !== 'advanced') mode = 'basic';
+      if (state.activeMode === mode) {
+        if (focusTab) elements.tabs[mode].focus();
+        return;
+      }
+      advancedController.closeAllPanels(false);
+      state.activeMode = mode;
+      syncModeUi();
+      if (focusTab) elements.tabs[mode].focus();
       runSearch();
     }
 
+    function clearActiveModeFilters() {
+      advancedController.closeAllPanels(false);
+      if (state.activeMode === 'basic') {
+        state.basic = createDefaultBasicState();
+        syncBasicControls();
+      } else {
+        state.advanced = Browse.createDefaultAdvancedState();
+        advancedController.syncControls();
+      }
+      runSearch();
+    }
+
+    function buildSearchPayload() {
+      var activeState = getActiveState();
+      var query = (activeState.query || '').trim();
+      var filters = {};
+
+      if (state.activeMode === 'basic') {
+        filters.collection = activeState.collection ? [activeState.collection] : [];
+        var techFilter = (activeState.technology || '').trim();
+        if (techFilter) filters.technology = [techFilter];
+        if (activeState.category) filters.categories = [activeState.category];
+        return { query: query, filters: filters };
+      }
+
+      return {
+        query: query,
+        filters: advancedController.buildFilters()
+      };
+    }
+
+    function applyBasicTableFilter(type, value) {
+      if (type === 'collection') {
+        state.basic.collection = value || '';
+        state.basic.technology = '';
+        state.basic.category = '';
+        return true;
+      }
+      if (type === 'technology') {
+        state.basic.technology = value || '';
+        state.basic.collection = '';
+        state.basic.category = '';
+        return true;
+      }
+      if (type === 'category') {
+        state.basic.category = value || '';
+        state.basic.collection = '';
+        state.basic.technology = '';
+        return true;
+      }
+      return false;
+    }
+
+    function bindTableInteractions() {
+      resultsEl.querySelectorAll('.apps-table th.sortable button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var th = button.closest('th');
+          var column = th && th.getAttribute('data-sort');
+          if (!column) return;
+          if (sortState && sortState.column === column) {
+            if (sortState.dir === 'asc') {
+              sortState.dir = 'desc';
+            } else {
+              sortState = null;
+            }
+          } else {
+            sortState = { column: column, dir: 'asc' };
+          }
+          runSearch();
+        });
+      });
+
+      var clearBtn = resultsEl.querySelector('.sort-clear');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          sortState = null;
+          runSearch();
+        });
+      }
+
+      var scrollOuter = resultsEl.querySelector('.table-scroll-outer');
+      activeScrollOuter = scrollOuter || null;
+      if (scrollOuter) {
+        Browse.updateTableScrollMetrics(scrollOuter);
+        var tableScrollState = Browse.captureTableScrollState(resultsEl);
+        Browse.bindTableScrollFade(scrollOuter);
+        Browse.restoreTableScrollState(scrollOuter, tableScrollState);
+        if (!tableScrollState) {
+          Browse.updateTableScrollMetrics(scrollOuter);
+          Browse.updateTableScrollFade(scrollOuter);
+          requestAnimationFrame(function () {
+            Browse.updateTableScrollMetrics(scrollOuter);
+            Browse.updateTableScrollFade(scrollOuter);
+          });
+        }
+      }
+
+      resultsEl.querySelectorAll('button.pill-filter').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var type = button.getAttribute('data-filter-type');
+          var value = button.getAttribute('data-filter-value');
+          var applied = state.activeMode === 'basic'
+            ? applyBasicTableFilter(type, value)
+            : advancedController.applyTableFilter(type, value);
+          if (!applied) return;
+          if (state.activeMode === 'basic') {
+            syncBasicControls();
+          } else {
+            advancedController.syncControls();
+          }
+          runSearch();
+        });
+      });
+    }
+
     function runSearch() {
-      var query = searchInput ? searchInput.value.trim() : '';
-      var collection = collectionSelect && collectionSelect.value ? [collectionSelect.value] : [];
-      var techFilter = techInput ? techInput.value.trim() : '';
-      var categoryFilter = categorySelect && categorySelect.value ? [categorySelect.value] : [];
-      var filters = { collection: collection };
-      if (techFilter) filters.technology = [techFilter];
-      if (categoryFilter.length) filters.categories = categoryFilter;
+      var payload = buildSearchPayload();
+      var currentRequestId = ++requestId;
+      var tableScrollState = Browse.captureTableScrollState(resultsEl);
 
       updateResetButton();
 
-      window.VWAD.searchApps(query, filters).then(function (result) {
+      window.VWAD.searchApps(payload.query, payload.filters).then(function (result) {
+        if (currentRequestId !== requestId) return;
         var apps = result.apps;
         var total = result.total;
-        var tableScrollState = captureTableScrollState(resultsEl);
-        var sorted = sortState ? sortApps(apps, sortState.column, sortState.dir) : apps.slice();
+        var sorted = sortState ? Browse.sortApps(apps, sortState.column, sortState.dir) : apps.slice();
         if (countEl) {
           countEl.textContent = 'Showing ' + apps.length + ' of ' + total + ' application' + (total === 1 ? '' : 's');
         }
-        resultsEl.innerHTML = renderTable(sorted, sortState, { query: query });
-        resultsEl.querySelectorAll('.apps-table th.sortable button').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var th = btn.closest('th');
-            var col = th && th.getAttribute('data-sort');
-            if (!col) return;
-            if (sortState && sortState.column === col) {
-              if (sortState.dir === 'asc') {
-                sortState.dir = 'desc';
-              } else {
-                sortState = null;
-              }
-            } else {
-              sortState = { column: col, dir: 'asc' };
-            }
-            runSearch();
-          });
-        });
-        var clearBtn = resultsEl.querySelector('.sort-clear');
-        if (clearBtn) clearBtn.addEventListener('click', function () { sortState = null; runSearch(); });
-        var scrollOuter = resultsEl.querySelector('.table-scroll-outer');
-        if (scrollOuter) {
-          var caption = scrollOuter.querySelector('.table-toolbar');
-          var wrap = scrollOuter.querySelector('.table-wrap');
-          if (wrap || caption) updateTableScrollMetrics(scrollOuter);
-          bindTableScrollFade(scrollOuter);
-          restoreTableScrollState(scrollOuter, tableScrollState);
-          if (!tableScrollState) {
-            updateTableScrollMetrics(scrollOuter);
-            updateTableScrollFade(scrollOuter);
-            requestAnimationFrame(function () {
-              updateTableScrollMetrics(scrollOuter);
-              updateTableScrollFade(scrollOuter);
-            });
-          }
+        resultsEl.innerHTML = Browse.renderTable(sorted, sortState, { query: payload.query });
+        if (tableScrollState) {
+          var outer = resultsEl.querySelector('.table-scroll-outer');
+          if (outer) Browse.restoreTableScrollState(outer, tableScrollState);
         }
-        resultsEl.querySelectorAll('button.pill-filter').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var type = btn.getAttribute('data-filter-type');
-            var value = btn.getAttribute('data-filter-value');
-            if (type === 'collection' && collectionSelect) {
-              collectionSelect.value = value || '';
-              if (techInput) techInput.value = '';
-              if (categorySelect) categorySelect.value = '';
-            } else if (type === 'technology' && techInput) {
-              techInput.value = value || '';
-              if (collectionSelect) collectionSelect.value = '';
-              if (categorySelect) categorySelect.value = '';
-            } else if (type === 'category' && categorySelect) {
-              categorySelect.value = value || '';
-              if (collectionSelect) collectionSelect.value = '';
-              if (techInput) techInput.value = '';
-            }
-            runSearch();
-          });
-        });
+        bindTableInteractions();
+      }).catch(function () {
+        if (currentRequestId !== requestId) return;
+        activeScrollOuter = null;
+        if (countEl) countEl.textContent = 'Could not load applications.';
+        resultsEl.innerHTML = '<p class="muted">Failed to load directory.</p>';
       });
     }
 
-    function updateTableScrollMetrics(outer) {
-      if (!outer) return;
-      var caption = outer.querySelector('.table-toolbar');
-      var headerRow = outer.querySelector('.apps-table thead tr');
-      outer.style.setProperty('--toolbar-h', caption ? caption.offsetHeight + 'px' : '0px');
-      outer.style.setProperty('--thead-h', headerRow ? headerRow.getBoundingClientRect().height + 'px' : '0px');
-    }
+    elements.tabs.basic.addEventListener('click', function () {
+      setActiveMode('basic', false);
+    });
+    elements.tabs.advanced.addEventListener('click', function () {
+      setActiveMode('advanced', false);
+    });
 
-    function updateTableScrollFade(outer) {
-      if (!outer) return;
-      var wrap = outer.querySelector('.table-wrap');
-      if (!wrap) return;
-      var scrollableX = wrap.scrollWidth > wrap.clientWidth + 2;
-      var scrollableY = wrap.scrollHeight > wrap.clientHeight + 2;
-      var atStart = wrap.scrollLeft <= 2;
-      var atEnd = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 2;
-      var atTop = wrap.scrollTop <= 2;
-      var atBottom = wrap.scrollTop >= wrap.scrollHeight - wrap.clientHeight - 2;
-      var introDismissed = outer.getAttribute('data-intro-right-dismissed') === 'true';
-      outer.classList.toggle('scrollable', scrollableX);
-      outer.classList.toggle('scrollable-y', scrollableY);
-      outer.classList.toggle('show-left', scrollableX && !atStart);
-      outer.classList.toggle('show-right', scrollableX && !atEnd);
-      outer.classList.toggle('show-top', scrollableY && !atTop);
-      outer.classList.toggle('show-bottom', scrollableY && !atBottom);
-      outer.classList.toggle('intro-right-hint', scrollableX && atStart && !introDismissed);
-    }
-
-    function dismissIntroRightHint(outer) {
-      if (!outer || outer.getAttribute('data-intro-right-dismissed') === 'true') return;
-      outer.setAttribute('data-intro-right-dismissed', 'true');
-      outer.classList.remove('intro-right-hint');
-      outer.classList.add('intro-right-hint-shrinking');
-      window.setTimeout(function () {
-        outer.classList.remove('intro-right-hint-shrinking');
-      }, 260);
-    }
-
-    function bindTableScrollFade(outer) {
-      if (!outer) return;
-      var wrap = outer.querySelector('.table-wrap');
-      if (!wrap) return;
-      outer.setAttribute('data-intro-right-dismissed', 'false');
-      wrap.addEventListener('scroll', function () {
-        if (wrap.scrollLeft > 2) dismissIntroRightHint(outer);
-        updateTableScrollFade(outer);
-      });
-      window.addEventListener('resize', function () {
-        updateTableScrollMetrics(outer);
-        updateTableScrollFade(outer);
-      });
-      // Shift + wheel: horizontal scroll (common in spreadsheets, IDEs, design tools)
-      wrap.addEventListener('wheel', function (e) {
-        if (!e.shiftKey || wrap.scrollWidth <= wrap.clientWidth) return;
-        wrap.scrollLeft += e.deltaY;
-        e.preventDefault();
-      }, { passive: false });
-      // Keyboard: Arrow Left/Right when table area has focus (e.g. after Tab or click)
-      wrap.setAttribute('tabindex', '0');
-      wrap.setAttribute('title', 'Shift+scroll or arrow keys to scroll horizontally');
-      wrap.addEventListener('keydown', function (e) {
-        if (wrap.scrollWidth <= wrap.clientWidth) return;
-        var step = 40;
-        if (e.key === 'ArrowLeft') {
-          wrap.scrollLeft -= step;
-          e.preventDefault();
-        } else if (e.key === 'ArrowRight') {
-          dismissIntroRightHint(outer);
-          wrap.scrollLeft += step;
-          e.preventDefault();
+    [elements.tabs.basic, elements.tabs.advanced].forEach(function (tab) {
+      tab.addEventListener('keydown', function (event) {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Home' && event.key !== 'End') return;
+        event.preventDefault();
+        if (event.key === 'Home') {
+          setActiveMode('basic', true);
+          return;
         }
+        if (event.key === 'End') {
+          setActiveMode('advanced', true);
+          return;
+        }
+        setActiveMode(state.activeMode === 'basic' ? 'advanced' : 'basic', true);
       });
+    });
+
+    elements.basic.query.addEventListener('input', function () {
+      state.basic.query = elements.basic.query.value;
+      if (state.activeMode === 'basic') runSearch();
+    });
+    elements.basic.query.addEventListener('change', function () {
+      state.basic.query = elements.basic.query.value;
+      if (state.activeMode === 'basic') runSearch();
+    });
+    elements.basic.collection.addEventListener('change', function () {
+      state.basic.collection = elements.basic.collection.value;
+      if (state.activeMode === 'basic') runSearch();
+    });
+    elements.basic.technology.addEventListener('input', function () {
+      state.basic.technology = elements.basic.technology.value;
+      if (state.activeMode === 'basic') runSearch();
+    });
+    elements.basic.technology.addEventListener('change', function () {
+      state.basic.technology = elements.basic.technology.value;
+      if (state.activeMode === 'basic') runSearch();
+    });
+    elements.basic.category.addEventListener('change', function () {
+      state.basic.category = elements.basic.category.value;
+      if (state.activeMode === 'basic') runSearch();
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', clearActiveModeFilters);
     }
 
-    if (searchInput) searchInput.addEventListener('input', runSearch);
-    if (searchInput) searchInput.addEventListener('change', runSearch);
-    if (collectionSelect) collectionSelect.addEventListener('change', runSearch);
-    if (techInput) techInput.addEventListener('input', runSearch);
-    if (techInput) techInput.addEventListener('change', runSearch);
-    if (categorySelect) categorySelect.addEventListener('change', runSearch);
-    if (resetBtn) resetBtn.addEventListener('click', clearFilters);
+    window.addEventListener('resize', function () {
+      if (activeScrollOuter) {
+        Browse.updateTableScrollMetrics(activeScrollOuter);
+        Browse.updateTableScrollFade(activeScrollOuter);
+      }
+    });
+
+    Browse.populateBasicOptions(elements.basic);
+    syncBasicControls();
+    advancedController.syncControls();
+    syncModeUi();
+
+    window.VWAD.getCollection().then(function (list) {
+      advancedController.populateDataOptions(list || []);
+    });
 
     runSearch();
   }

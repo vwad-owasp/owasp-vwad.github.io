@@ -83,38 +83,166 @@
     <section id="browse" class="section">
       <div class="container">
         <h2>Browse &amp; search</h2>
-        <p class="section-desc">Search by name or author. Filter by collection, technology, or category.</p>
+        <p class="section-desc">Discover apps with basic filters or advanced search options.</p>
         <div class="search-controls">
-          <div class="search-row">
-            <label for="search-input" class="sr-only">Search</label>
-            <input type="search" id="search-input" class="search-input" placeholder="Search name, author…" autocomplete="off">
-            <label for="filter-collection" class="sr-only">Collection</label>
-            <select id="filter-collection" class="filter-select" aria-label="Filter by collection">
-              <option value="">All collections</option>
-              <option value="online">Online</option>
-              <option value="offline">Offline</option>
-              <option value="mobile">Mobile</option>
-              <option value="container">Container</option>
-              <option value="platform">Platform</option>
-            </select>
-            <label for="filter-technology" class="sr-only">Technology</label>
-            <input type="text" id="filter-technology" class="filter-tech" placeholder="Technology (e.g. PHP, Docker)" list="tech-suggestions">
-            <label for="filter-category" class="sr-only">Category</label>
-            <select id="filter-category" class="filter-select" aria-label="Filter by category">
-              <option value="">All categories</option>
-              <option value="ctf">CTF</option>
-              <option value="code-review">Code review</option>
-              <option value="single-player">Single-player</option>
-              <option value="multi-player">Multi-player</option>
-              <option value="guided-lessons">Guided lessons</option>
-              <option value="free-form">Free-form</option>
-              <option value="scanner-test">Scanner test</option>
-            </select>
-            <datalist id="tech-suggestions"></datalist>
+          <div class="search-type-switch-wrap">
+            <p id="search-type-label" class="search-type-label">Search type</p>
+            <div class="search-type-switch" role="tablist" aria-labelledby="search-type-label">
+              <button type="button" id="search-type-basic" class="search-type-tab is-active" role="tab" aria-selected="true" aria-controls="search-panel-basic" tabindex="0">Basic</button>
+              <button type="button" id="search-type-advanced" class="search-type-tab" role="tab" aria-selected="false" aria-controls="search-panel-advanced" tabindex="-1">Advanced</button>
+            </div>
           </div>
+
+          <div id="search-panel-basic" class="search-panel search-panel-basic is-active" role="tabpanel" aria-labelledby="search-type-basic">
+            <p class="search-panel-desc muted">Search by app name or author, with up to one collection, one technology, and one category filter.</p>
+            <div class="search-row">
+              <label for="search-input" class="sr-only">Search</label>
+              <input type="search" id="search-input" class="search-input" placeholder="Search name, author…" autocomplete="off">
+              <!-- Basic select options are populated from js/search-options.js. -->
+              <label for="filter-collection" class="sr-only">Collection</label>
+              <div class="basic-single-select">
+                <select id="filter-collection" class="filter-select filter-select-single" aria-label="Filter by collection">
+                  <option value="">All collections</option>
+                </select>
+              </div>
+              <label for="filter-technology" class="sr-only">Technology</label>
+              <input type="text" id="filter-technology" class="filter-tech" placeholder="Technology (e.g. PHP, Docker)" list="tech-suggestions">
+              <label for="filter-category" class="sr-only">Category</label>
+              <div class="basic-single-select">
+                <select id="filter-category" class="filter-select filter-select-single" aria-label="Filter by category">
+                  <option value="">All categories</option>
+                </select>
+              </div>
+              <datalist id="tech-suggestions"></datalist>
+            </div>
+          </div>
+
+          <div id="search-panel-advanced" class="search-panel search-panel-advanced" role="tabpanel" aria-labelledby="search-type-advanced" hidden>
+            <p class="search-panel-desc muted">Advanced search supports keyword search, multi-value filters for collections, technologies, categories, and references, AND/OR matching, GitHub stars, and last contributed year ranges.</p>
+            <div class="advanced-search-grid">
+              <div class="advanced-field advanced-field-query">
+                <label for="advanced-search-input" class="advanced-field-label">Keyword</label>
+                <input type="search" id="advanced-search-input" class="search-input advanced-search-input" placeholder="Search name, author…" autocomplete="off">
+              </div>
+
+              <div class="advanced-field advanced-field-multi">
+                <div class="advanced-field-topline">
+                  <label id="advanced-collection-label" class="advanced-field-label">Collection</label>
+                  <div class="advanced-match-mode" role="group" aria-label="Collection boolean mode">
+                    <button type="button" class="advanced-match-chip is-active" data-logic-group="collection" data-logic-value="or" aria-pressed="true">OR</button>
+                    <button type="button" class="advanced-match-chip" data-logic-group="collection" data-logic-value="and" aria-pressed="false">AND</button>
+                  </div>
+                </div>
+                <div class="advanced-multi-select" data-multi-select="collection">
+                  <button type="button" id="advanced-collection-trigger" class="advanced-select-trigger" aria-expanded="false" aria-controls="advanced-collection-panel" aria-labelledby="advanced-collection-label advanced-collection-trigger">Select collections</button>
+                  <div id="advanced-collection-panel" class="advanced-select-panel" role="group" aria-labelledby="advanced-collection-label" hidden>
+                    <div id="advanced-collection-options" class="advanced-option-list"></div>
+                    <div class="advanced-select-footer">
+                      <button type="button" class="advanced-select-done" data-close-panel="collection">Done</button>
+                    </div>
+                  </div>
+                </div>
+                <div id="advanced-collection-pills" class="advanced-pill-row" aria-live="polite" hidden></div>
+              </div>
+
+              <div class="advanced-field advanced-field-multi">
+                <div class="advanced-field-topline">
+                  <label id="advanced-tech-label" class="advanced-field-label">Technology</label>
+                  <div class="advanced-match-mode" role="group" aria-label="Technology boolean mode">
+                    <button type="button" class="advanced-match-chip is-active" data-logic-group="technology" data-logic-value="or" aria-pressed="true">OR</button>
+                    <button type="button" class="advanced-match-chip" data-logic-group="technology" data-logic-value="and" aria-pressed="false">AND</button>
+                  </div>
+                </div>
+                <div class="advanced-multi-select" data-multi-select="technology">
+                  <button type="button" id="advanced-tech-trigger" class="advanced-select-trigger" aria-expanded="false" aria-controls="advanced-tech-panel" aria-labelledby="advanced-tech-label advanced-tech-trigger">Select technologies</button>
+                  <div id="advanced-tech-panel" class="advanced-select-panel" role="group" aria-labelledby="advanced-tech-label" hidden>
+                    <div id="advanced-tech-options" class="advanced-option-list"></div>
+                    <div class="advanced-select-footer">
+                      <button type="button" class="advanced-select-done" data-close-panel="technology">Done</button>
+                    </div>
+                  </div>
+                </div>
+                <div id="advanced-tech-pills" class="advanced-pill-row" aria-live="polite" hidden></div>
+              </div>
+
+              <div class="advanced-field advanced-field-multi">
+                <div class="advanced-field-topline">
+                  <label id="advanced-category-label" class="advanced-field-label">Category</label>
+                  <div class="advanced-match-mode" role="group" aria-label="Category boolean mode">
+                    <button type="button" class="advanced-match-chip is-active" data-logic-group="categories" data-logic-value="or" aria-pressed="true">OR</button>
+                    <button type="button" class="advanced-match-chip" data-logic-group="categories" data-logic-value="and" aria-pressed="false">AND</button>
+                  </div>
+                </div>
+                <div class="advanced-multi-select" data-multi-select="categories">
+                  <button type="button" id="advanced-category-trigger" class="advanced-select-trigger" aria-expanded="false" aria-controls="advanced-category-panel" aria-labelledby="advanced-category-label advanced-category-trigger">Select categories</button>
+                  <div id="advanced-category-panel" class="advanced-select-panel" role="group" aria-labelledby="advanced-category-label" hidden>
+                    <div id="advanced-category-options" class="advanced-option-list"></div>
+                    <div class="advanced-select-footer">
+                      <button type="button" class="advanced-select-done" data-close-panel="categories">Done</button>
+                    </div>
+                  </div>
+                </div>
+                <div id="advanced-category-pills" class="advanced-pill-row" aria-live="polite" hidden></div>
+              </div>
+
+              <div class="advanced-field advanced-field-multi">
+                <div class="advanced-field-topline">
+                  <label id="advanced-reference-label" class="advanced-field-label">Reference types</label>
+                  <div class="advanced-match-mode" role="group" aria-label="Reference types boolean mode">
+                    <button type="button" class="advanced-match-chip is-active" data-logic-group="references" data-logic-value="or" aria-pressed="true">OR</button>
+                    <button type="button" class="advanced-match-chip" data-logic-group="references" data-logic-value="and" aria-pressed="false">AND</button>
+                  </div>
+                </div>
+                <div class="advanced-multi-select" data-multi-select="references">
+                  <button type="button" id="advanced-reference-trigger" class="advanced-select-trigger" aria-expanded="false" aria-controls="advanced-reference-panel" aria-labelledby="advanced-reference-label advanced-reference-trigger">Select reference types</button>
+                  <div id="advanced-reference-panel" class="advanced-select-panel" role="group" aria-labelledby="advanced-reference-label" hidden>
+                    <div id="advanced-reference-options" class="advanced-option-list"></div>
+                    <div class="advanced-select-footer">
+                      <button type="button" class="advanced-select-done" data-close-panel="references">Done</button>
+                    </div>
+                  </div>
+                </div>
+                <div id="advanced-reference-pills" class="advanced-pill-row" aria-live="polite" hidden></div>
+              </div>
+
+              <div class="advanced-field">
+                <label for="advanced-stars" class="advanced-field-label">GitHub stars</label>
+                <select id="advanced-stars" class="advanced-filter-select" aria-label="Advanced filter by GitHub stars">
+                  <option value="">Any</option>
+                  <option value="none">None</option>
+                  <option value="1">&gt;1</option>
+                  <option value="100">&gt;100</option>
+                  <option value="500">&gt;500</option>
+                  <option value="1000">&gt;1000</option>
+                  <option value="10000">&gt;10000</option>
+                </select>
+                <div id="advanced-stars-pills" class="advanced-pill-row" aria-live="polite" hidden></div>
+              </div>
+
+              <div class="advanced-field advanced-field-range">
+                <span id="advanced-year-label" class="advanced-field-label">Last contributed year</span>
+                <div class="advanced-range-row" aria-labelledby="advanced-year-label">
+                  <div class="advanced-range-field">
+                    <label for="advanced-year-from" class="advanced-sub-label">From</label>
+                    <select id="advanced-year-from" class="advanced-filter-select" aria-label="Advanced last contributed year from">
+                      <option value="">Any</option>
+                    </select>
+                  </div>
+                  <div class="advanced-range-field">
+                    <label for="advanced-year-to" class="advanced-sub-label">To</label>
+                    <select id="advanced-year-to" class="advanced-filter-select" aria-label="Advanced last contributed year to">
+                      <option value="">Any</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="advanced-year-pills" class="advanced-pill-row" aria-live="polite" hidden></div>
+              </div>
+            </div>
+          </div>
+
           <div class="result-count-row">
             <p id="result-count" class="result-count muted" aria-live="polite">-</p>
-            <button type="button" id="search-reset" class="search-reset-btn" aria-label="Clear all search and filters" disabled>Reset</button>
+            <button type="button" id="search-reset" class="search-reset-btn" aria-label="Clear all search filters" disabled>Reset</button>
           </div>
         </div>
         <div id="browse-results" class="browse-results">
@@ -171,6 +299,9 @@
 
   <script src="js/app.js?v=1"></script>
   <script src="js/theme.js?v=1"></script>
+  <script src="js/search-options.js?v=1"></script>
+  <script src="js/search-table.js?v=1"></script>
+  <script src="js/advanced-search.js?v=1"></script>
   <script src="js/home.js?v=1"></script>
   <script>
     (function () {

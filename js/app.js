@@ -53,35 +53,69 @@
     });
   }
 
+  function normalizeList(values) {
+    return (values || []).map(function (value) {
+      return String(value).toLowerCase();
+    });
+  }
+
+  function matchesListFilter(appValues, selectedValues, mode) {
+    if (!selectedValues || !selectedValues.length) return true;
+    var normalizedAppValues = normalizeList(appValues);
+    var normalizedSelectedValues = normalizeList(selectedValues);
+    if (mode === 'and') {
+      return normalizedSelectedValues.every(function (value) {
+        return normalizedAppValues.indexOf(value) !== -1;
+      });
+    }
+    return normalizedSelectedValues.some(function (value) {
+      return normalizedAppValues.indexOf(value) !== -1;
+    });
+  }
+
+  function getAppYear(app) {
+    if (!app || !app.last_contributed) return null;
+    var dateValue = new Date(app.last_contributed);
+    if (isNaN(dateValue.getTime())) return null;
+    return dateValue.getUTCFullYear();
+  }
+
   function searchApps(query, filters) {
     query = (query || '').toLowerCase().trim();
     filters = filters || {};
     return collectionPromise.then(function (list) {
       var filtered = list.filter(function (app) {
-        if (filters.collection && filters.collection.length) {
-          var hasCollection = (app.collection || []).some(function (c) {
-            return filters.collection.indexOf(c) !== -1;
-          });
-          if (!hasCollection) return false;
+        var appRefs = (app.references || []).map(function (ref) {
+          return ref && ref.name;
+        });
+        var appStars = app.stars != null ? Number(app.stars) : null;
+        var appYear = getAppYear(app);
+
+        if (!matchesListFilter(app.collection, filters.collection, filters.collectionMode || 'or')) return false;
+        if (!matchesListFilter(app.technology, filters.technology, filters.technologyMode || 'or')) return false;
+        if (!matchesListFilter(app.categories, filters.categories, filters.categoriesMode || 'or')) return false;
+        if (!matchesListFilter(appRefs, filters.references, filters.referencesMode || 'or')) return false;
+
+        if (filters.stars) {
+          if (filters.stars === 'none') {
+            if (appStars != null && !isNaN(appStars) && appStars > 0) return false;
+          } else {
+            var minimumStars = Number(filters.stars);
+            if (isNaN(minimumStars)) return false;
+            if (appStars == null || isNaN(appStars) || appStars < minimumStars) return false;
+          }
         }
-        if (filters.technology && filters.technology.length) {
-          var tech = (app.technology || []).map(function (t) {
-            return t.toLowerCase();
-          });
-          var hasTech = filters.technology.some(function (t) {
-            return tech.indexOf(t.toLowerCase()) !== -1;
-          });
-          if (!hasTech) return false;
+
+        if (filters.yearFrom) {
+          var yearFrom = Number(filters.yearFrom);
+          if (!appYear || isNaN(yearFrom) || appYear < yearFrom) return false;
         }
-        if (filters.categories && filters.categories.length) {
-          var appCats = (app.categories || []).map(function (c) {
-            return c.toLowerCase();
-          });
-          var hasCategory = filters.categories.some(function (cat) {
-            return appCats.indexOf(cat.toLowerCase()) !== -1;
-          });
-          if (!hasCategory) return false;
+
+        if (filters.yearTo) {
+          var yearTo = Number(filters.yearTo);
+          if (!appYear || isNaN(yearTo) || appYear > yearTo) return false;
         }
+
         if (!query) return true;
         var searchable = [
           app.name,
