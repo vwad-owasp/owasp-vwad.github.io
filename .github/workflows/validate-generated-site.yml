@@ -1,0 +1,100 @@
+name: Validate Generated Site
+
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'app/**'
+      - 'css/**'
+      - 'images/**'
+      - 'js/**'
+      - 'data/**'
+      - 'scripts/**'
+      - '404.html'
+      - 'CNAME'
+      - '.github/workflows/validate-generated-site.yml'
+      - 'schema.json'
+  push:
+    branches:
+      - main
+    paths:
+      - 'index.html'
+      - 'app/**'
+      - 'css/**'
+      - 'images/**'
+      - 'js/**'
+      - 'data/**'
+      - 'scripts/**'
+      - '404.html'
+      - 'CNAME'
+      - '.github/workflows/validate-generated-site.yml'
+      - 'schema.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  validate-generated-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405  # v6
+        with:
+          python-version: '3.11'
+
+      - name: Build site
+        run: python3 scripts/build_site.py
+
+      - name: Validate generated site
+        run: python3 scripts/validate_generated_site.py
+
+      - name: Summarize build warnings
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import collections
+          import json
+          import os
+          from pathlib import Path
+
+          report_path = Path("generated_site_report.json")
+          summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          if not report_path.exists():
+            summary_path.write_text("# Generated Site Validation\n\nNo build report was generated.\n", encoding="utf-8")
+            raise SystemExit(0)
+
+          report = json.loads(report_path.read_text(encoding="utf-8"))
+          warnings = report.get("warnings", [])
+          counts = collections.Counter(item.get("code", "unknown") for item in warnings)
+
+          lines = [
+            "# Generated Site Validation",
+            "",
+            f"- App pages built: {report.get('app_count', 0)}",
+            f"- Warning count: {len(warnings)}",
+          ]
+          if counts:
+            lines.append("")
+            lines.append("## Warning Breakdown")
+            lines.append("")
+            for code, count in sorted(counts.items()):
+              lines.append(f"- `{code}`: {count}")
+          summary_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+
+      - name: Upload site validation artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
+        with:
+          name: generated-site-validation
+          path: |
+            generated_site_report.json
+            _site/sitemap.xml

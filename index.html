@@ -38,6 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap&v=10" rel="stylesheet">
+  <!-- BUILD_HOME_JSONLD -->
 </head>
 <body id="top" class="page-home">
   <div class="skip-links">
@@ -324,9 +325,6 @@
         var div = document.createElement('div');
         div.textContent = s;
         return div.innerHTML;
-      }
-      function getAppUrl(app) {
-        return 'app/#' + (app._slug || '');
       }
       window.VWAD.getCollection().then(function (list) {
         var techSet = {};

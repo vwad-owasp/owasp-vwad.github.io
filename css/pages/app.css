@@ -6,6 +6,35 @@
   padding: 2rem 1.25rem;
 }
 
+.page-app .app-breadcrumbs {
+  margin: 0 0 1rem;
+}
+
+.page-app .app-breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.page-app .app-breadcrumbs-list li + li::before {
+  content: "/";
+  margin-right: 0.4rem;
+}
+
+.page-app .app-breadcrumbs a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.page-app .app-breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
 .page-app .loading {
   color: var(--text-muted);
 }

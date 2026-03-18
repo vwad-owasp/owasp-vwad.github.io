@@ -221,7 +221,6 @@ These scripts are automatically executed by GitHub Actions workflows:
 - `link-checker.yml`: Runs `check_links.py` on manual trigger to validate all app and reference URLs.
 - `update-contributors.yml`: Runs `update_contributors.py` weekly to update `data/contributors.json`; commits and pushes when the file changes.
 - `repo-scout.yml`: Runs `scout.py` weekly (Mondays 09:00 UTC); creates an issue with new repository findings (label `new app`).
-- `rebuild.yml`: Triggers a GitHub Pages build via the API (no script in this directory); runs daily or on workflow_dispatch.
 
 The validation results from `validate.yml` are:
 

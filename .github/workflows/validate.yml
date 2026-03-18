@@ -4,6 +4,7 @@ on:
   pull_request_target:
     paths:
     - 'data/collection.json'
+    - 'schema.json'
   workflow_dispatch:
 
 

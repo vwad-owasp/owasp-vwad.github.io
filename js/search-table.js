@@ -11,10 +11,6 @@
     updated: 'Updated'
   };
 
-  function getAppUrl(app) {
-    return 'app/#' + (app._slug || '');
-  }
-
   function sortApps(apps, sortBy, sortDir) {
     if (!sortBy || !sortDir || !apps.length) return apps.slice();
     var mult = sortDir === 'desc' ? -1 : 1;
@@ -72,7 +68,9 @@
     html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
     html += '</tr></thead><tbody>';
     apps.forEach(function (app) {
-      var url = getAppUrl(app);
+      var url = window.VWAD && typeof window.VWAD.getAppUrl === 'function'
+        ? window.VWAD.getAppUrl(app)
+        : '#';
       var updatedBand = window.VWAD && window.VWAD.getUpdatedBand ? window.VWAD.getUpdatedBand(app.last_contributed) : null;
       var updatedCell = updatedBand
         ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="Last contribution">' + escapeHtml(updatedBand.label) + '</span>'
