@@ -29,15 +29,19 @@ The same files work at any base path. A small script in each page sets `window.V
 
 ## Structure
 
-- `index.html` - Homepage with featured app, browse-all, search (by name, author, technology, notes, collection), About VWAD, and Contributors (links to GitHub). Project header includes a “Thanks to our contributors” link that jumps to `#contributors`.
-- `app/index.html` / `app.html` - App detail page; use `app/#<slug>` or `app.html#<slug>` for a specific app (e.g. `app/#dot-net-goat`). Each app has a unique URL with full details (collections, technology, author, notes, references, stars).
+- `index.html` - Homepage with the featured app, browse table, Basic and Advanced browse search, About VWAD, and Contributors. The project header includes a “Thanks to our contributors” link that jumps to `#contributors`.
+- `app/index.html` - App detail page; use `app/#<slug>` for a specific app (for example `app/#dot-net-goat`). Each app has a unique URL with full details such as collections, technology, author, notes, references, and stars.
 - `data/collection.json` - Copy of the directory data from the main project; update from `_data/collection.json` when needed.
 - `data/contributors.json` - List of GitHub contributors (login, contributions) from the VWAD-related repos. Updated weekly by the **Update GitHub Contributors** workflow; see `.github/workflows/update-contributors.yml` and `.github/workflows/scripts/update_contributors.py`.
-- `data/archived_repos.json` - List of repositories detected as archived by the **Update GitHub Statistics** workflow; updated when `update_stats.py` finds archived repos (workflow may also open an issue for new ones).
-- `js/app.js` - Loads collection, assigns unique slugs, search/filter API.
-- `js/home.js` - Browse table and search UI.
-- `js/app-viewer.js` - Renders a single app on the app page.
-- `css/site.css` - Standalone styles (OWASP community–aligned theme).
+- `data/archived_repos.json` - List of repositories detected as archived by the **Update GitHub Statistics** workflow; updated when `update_stats.py` finds archived repos (the workflow may also open an issue for newly archived repos).
+- `js/app.js` - Loads collection data, assigns unique slugs, and exposes shared browse/app lookup and search helpers.
+- `js/home.js` - Homepage bootstrap and browse-search orchestration for mode switching, reset behavior, and result rendering.
+- `js/advanced-search.js` - Advanced browse-search controller, including custom multi-select filters, grouped pills, and Advanced-only UI behavior.
+- `js/search-options.js` - Shared option definitions and label helpers used by the browse-search UI.
+- `js/search-table.js` - Browse table rendering, sorting, sticky/scroll behavior, and table interaction helpers.
+- `js/app-viewer.js` - Renders a single app on the app detail page.
+- `js/theme.js` - Theme toggle, system-theme syncing, and back-to-top button behavior.
+- `css/site.css` - Standalone styles for the site, including the browse/search UI and light/dark theme support.
 - No build tools; add more `.html` and assets as needed.
 
 ## Automation
