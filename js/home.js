@@ -73,7 +73,7 @@
     var clearSortHtml = sortSummary
       ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button><span class="sort-status" role="status" aria-live="polite">' + escapeHtml(sortSummary) + '</span></div></caption>'
       : '';
-    var html = '<div class="table-scroll-outer"><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
+    var html = '<div class="table-scroll-outer"><div class="table-scroll-shadow table-scroll-shadow-top" aria-hidden="true"></div><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
     html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
     html += '</tr></thead><tbody>';
     apps.forEach(function (app) {
@@ -111,7 +111,7 @@
       html += '<td>' + updatedCell + '</td>';
       html += '</tr>';
     });
-    html += '</tbody></table></div></div>';
+    html += '</tbody></table></div><div class="table-scroll-shadow table-scroll-shadow-bottom" aria-hidden="true"></div></div>';
     return html;
   }
 
@@ -122,6 +122,7 @@
     if (!outer || !wrap) return null;
     return {
       left: wrap.scrollLeft,
+      top: wrap.scrollTop,
       introDismissed: outer.getAttribute('data-intro-right-dismissed') === 'true'
     };
   }
@@ -133,7 +134,9 @@
 
     function applyScrollState() {
       if (state.left > 0) wrap.scrollLeft = state.left;
+      if (state.top > 0) wrap.scrollTop = state.top;
       if (state.introDismissed || state.left > 2) dismissIntroRightHint(outer);
+      updateTableScrollMetrics(outer);
       updateTableScrollFade(outer);
     }
 
@@ -220,14 +223,14 @@
         if (scrollOuter) {
           var caption = scrollOuter.querySelector('.table-toolbar');
           var wrap = scrollOuter.querySelector('.table-wrap');
-          if (wrap) {
-            wrap.style.setProperty('--toolbar-h', caption ? caption.offsetHeight + 'px' : '0px');
-          }
+          if (wrap || caption) updateTableScrollMetrics(scrollOuter);
           bindTableScrollFade(scrollOuter);
           restoreTableScrollState(scrollOuter, tableScrollState);
           if (!tableScrollState) {
+            updateTableScrollMetrics(scrollOuter);
             updateTableScrollFade(scrollOuter);
             requestAnimationFrame(function () {
+              updateTableScrollMetrics(scrollOuter);
               updateTableScrollFade(scrollOuter);
             });
           }
@@ -255,18 +258,32 @@
       });
     }
 
+    function updateTableScrollMetrics(outer) {
+      if (!outer) return;
+      var caption = outer.querySelector('.table-toolbar');
+      var headerRow = outer.querySelector('.apps-table thead tr');
+      outer.style.setProperty('--toolbar-h', caption ? caption.offsetHeight + 'px' : '0px');
+      outer.style.setProperty('--thead-h', headerRow ? headerRow.getBoundingClientRect().height + 'px' : '0px');
+    }
+
     function updateTableScrollFade(outer) {
       if (!outer) return;
       var wrap = outer.querySelector('.table-wrap');
       if (!wrap) return;
-      var scrollable = wrap.scrollWidth > wrap.clientWidth;
+      var scrollableX = wrap.scrollWidth > wrap.clientWidth + 2;
+      var scrollableY = wrap.scrollHeight > wrap.clientHeight + 2;
       var atStart = wrap.scrollLeft <= 2;
       var atEnd = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 2;
+      var atTop = wrap.scrollTop <= 2;
+      var atBottom = wrap.scrollTop >= wrap.scrollHeight - wrap.clientHeight - 2;
       var introDismissed = outer.getAttribute('data-intro-right-dismissed') === 'true';
-      outer.classList.toggle('scrollable', scrollable);
-      outer.classList.toggle('show-left', scrollable && !atStart);
-      outer.classList.toggle('show-right', scrollable && !atEnd);
-      outer.classList.toggle('intro-right-hint', scrollable && atStart && !introDismissed);
+      outer.classList.toggle('scrollable', scrollableX);
+      outer.classList.toggle('scrollable-y', scrollableY);
+      outer.classList.toggle('show-left', scrollableX && !atStart);
+      outer.classList.toggle('show-right', scrollableX && !atEnd);
+      outer.classList.toggle('show-top', scrollableY && !atTop);
+      outer.classList.toggle('show-bottom', scrollableY && !atBottom);
+      outer.classList.toggle('intro-right-hint', scrollableX && atStart && !introDismissed);
     }
 
     function dismissIntroRightHint(outer) {
@@ -288,7 +305,10 @@
         if (wrap.scrollLeft > 2) dismissIntroRightHint(outer);
         updateTableScrollFade(outer);
       });
-      window.addEventListener('resize', function () { updateTableScrollFade(outer); });
+      window.addEventListener('resize', function () {
+        updateTableScrollMetrics(outer);
+        updateTableScrollFade(outer);
+      });
       // Shift + wheel: horizontal scroll (common in spreadsheets, IDEs, design tools)
       wrap.addEventListener('wheel', function (e) {
         if (!e.shiftKey || wrap.scrollWidth <= wrap.clientWidth) return;
