@@ -283,14 +283,14 @@
 }
 
 .page-home .apps-table .pill {
-  margin-right: 0.25rem;
+  margin: 0 0.25rem 0.25rem 0;
 }
 
 /* Clickable filter pills: button reset + pointer + focus-visible */
 .page-home .apps-table button.pill {
   cursor: pointer;
   font: inherit;
-  margin: 0 0.25rem 0 0;
+  margin: 0 0.25rem 0.25rem 0;
   -webkit-appearance: none;
   appearance: none;
 }
