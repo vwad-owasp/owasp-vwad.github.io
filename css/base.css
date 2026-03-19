@@ -61,18 +61,18 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="dark"] .site-main a:visited,
-[data-theme="dark"] .footer-standalone a:visited {
+[data-theme="dark"] .site-main a:not(.btn):not(.btn-404):visited,
+[data-theme="dark"] .footer-standalone a:not(.btn):visited {
   color: var(--link-visited);
 }
 
-/* "Browse the directory" and other .not-found links: explicit color so visited state is readable (no purple) */
-[data-theme="dark"] .not-found a,
-[data-theme="dark"] .not-found a:visited {
+/* Keep dark-mode visited styling on text links without recoloring CTA buttons. */
+[data-theme="dark"] .not-found a:not(.btn-404),
+[data-theme="dark"] .not-found a:not(.btn-404):visited {
   color: #00a7e1;
 }
 
-[data-theme="dark"] .not-found a:hover {
+[data-theme="dark"] .not-found a:not(.btn-404):hover {
   color: #33b8eb;
 }
 

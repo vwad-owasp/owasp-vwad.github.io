@@ -168,3 +168,17 @@ body.page-404 {
   color: #fff;
   filter: brightness(1.05);
 }
+
+[data-theme="dark"] .page-404 .page-404 .btn-404 {
+  background: linear-gradient(to right, #004bbb, #00aacc);
+  box-shadow: 0 6px 18px rgba(0, 53, 148, 0.35);
+  filter: brightness(1);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+[data-theme="dark"] .page-404 .page-404 .btn-404:hover {
+  background: linear-gradient(to right, #003594, #42a5f5);
+  box-shadow: 0 4px 14px rgba(0, 53, 148, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+  filter: brightness(0.92) saturate(0.9);
+}
