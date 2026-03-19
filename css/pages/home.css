@@ -1,0 +1,63 @@
+/* Homepage-only styles */
+
+.page-home #browse .container {
+  max-width: 1200px;
+}
+
+.page-home #featured.section {
+  padding: 1rem 0;
+}
+
+.page-home .featured-heading-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 0.6rem;
+}
+
+.page-home #featured.section .featured-heading-row h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.page-home .featured-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+
+.page-home .featured-app {
+  margin-top: 0.5rem;
+}
+
+/* Featured app title link: same color as heading, underline only (no bright link blue) */
+.page-home #featured .app-detail-title a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.page-home #featured .app-detail-title a:hover {
+  color: inherit;
+}
+
+/* Contributors section: same link styling as collection list */
+.page-home .contributors-links a,
+.page-home .contributors-links a:link,
+.page-home .contributors-links a:visited {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.page-home .contributors-links a:hover {
+  text-decoration: underline;
+  color: var(--link-hover);
+}
+
+[data-theme="dark"] .page-home .contributors-links a:visited {
+  color: var(--link-visited);
+}

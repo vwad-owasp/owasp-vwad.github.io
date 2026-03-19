@@ -1,0 +1,17 @@
+/* App page-only wrapper styles */
+
+.page-app .app-view,
+.page-app .not-found,
+.page-app .loading {
+  padding: 2rem 0;
+}
+
+.page-app .loading {
+  color: var(--text-muted);
+}
+
+.page-app .not-found h1 {
+  font-size: 1.5rem;
+  font-family: var(--font-heading);
+  margin: 0 0 0.5rem;
+}

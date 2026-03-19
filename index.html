@@ -21,12 +21,20 @@
   <link rel="apple-touch-icon" href="/images/logos/apple-touch-icon.png">
   <script>(function(){var path=window.location.pathname||'/';var basePath;if(path.match(/\/app\/?$/)){basePath=path.replace(/\/app\/?$/,'').replace(/\/$/,'')||'';}else if(path.indexOf('/app/')!==-1&&path.indexOf('app.html')===-1){basePath=path.split('/app/')[0].replace(/\/$/,'')||'';}else{basePath=path.endsWith('/')?path.slice(0,-1):path.replace(/\/[^/]*$/,'');}window.VWAD_BASE=(basePath===''||basePath==='/')?'':basePath;})();</script>
   <script>(function(){var t;try{t=localStorage.getItem('vwad-theme');}catch(e){}var effective;if(!t||t==='system'){effective=window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}else{effective=t;}document.documentElement.setAttribute('data-theme',effective);})();</script>
-  <link rel="stylesheet" href="css/site.css?v=9">
+  <link rel="stylesheet" href="css/base.css?v=10">
+  <link rel="stylesheet" href="css/shell.css?v=10">
+  <link rel="stylesheet" href="css/buttons.css?v=10">
+  <link rel="stylesheet" href="css/pills.css?v=10">
+  <link rel="stylesheet" href="css/app-detail.css?v=10">
+  <link rel="stylesheet" href="css/footer.css?v=10">
+  <link rel="stylesheet" href="css/pages/home.css?v=10">
+  <link rel="stylesheet" href="css/pages/search.css?v=10">
+  <link rel="stylesheet" href="css/pages/table.css?v=10">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap&v=10" rel="stylesheet">
 </head>
-<body id="top">
+<body id="top" class="page-home">
   <div class="skip-links">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <a href="#page-end" class="skip-link">Skip to bottom of page</a>

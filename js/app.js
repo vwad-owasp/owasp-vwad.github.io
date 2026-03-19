@@ -302,7 +302,7 @@
     return html;
   }
 
-  /* SVG icon sprite for app detail/feature buttons. Injected once into document.body; buttons reference symbols via <use href="#icon-{id}"/>. Symbol ids must match REF_ICON_MAP + "link" and "fallback". Icon styling: .app-detail-links .btn-icon in css/site.css. */
+  /* SVG icon sprite for app detail/feature buttons. Injected once into document.body; buttons reference symbols via <use href="#icon-{id}"/>. Symbol ids must match REF_ICON_MAP + "link" and "fallback". Icon styling: .app-detail-links .btn-icon in css/app-detail.css. */
   var ICON_SPRITE = '<svg id="vwad-icon-sprite" xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">' +
     '<defs>' +
     '<symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>' +
