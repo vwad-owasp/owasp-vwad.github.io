@@ -1,0 +1,53 @@
+/* Shared pill styles */
+
+.pill {
+  display: inline-block;
+  padding: 0.08em 0.35em;
+  font-size: 0.875em;
+  line-height: 1;
+  vertical-align: middle;
+  background: var(--bg-alt);
+  border-radius: 4px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.pill-collection {
+  text-transform: capitalize;
+}
+
+/* Category pills: distinct from technology (dashed border, tinted background) */
+.pill.pill-category {
+  text-transform: capitalize;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #5c7c99;
+  background: #e8eef4;
+  color: #2c3e50;
+}
+
+[data-theme="dark"] .pill.pill-category {
+  border-color: #6b8fb3;
+  background: #2a3544;
+  color: #b8d4e8;
+}
+
+/* Dark mode: higher contrast for Collection and Technology pills */
+[data-theme="dark"] .pill:not([class*="pill-updated"]):not(.pill-category) {
+  background: #3d424a;
+  color: #e6e8eb;
+  border-color: #5d636b;
+}
+
+/* Updated band pills (traffic-light style) */
+.pill-updated-lt1mo { background: #d4edda; border-color: #28a745; color: #155724; }
+.pill-updated-lt6mo { background: #cce5ff; border-color: #0d6efd; color: #084298; }
+.pill-updated-lt1y   { background: #fff3cd; border-color: #ffc107; color: #856404; }
+.pill-updated-lt2y   { background: #ffe5d0; border-color: #fd7e14; color: #984c0c; }
+.pill-updated-2y     { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+
+[data-theme="dark"] .pill-updated-lt1mo { background: #1e4620; border-color: #2e7d32; color: #a5d6a7; }
+[data-theme="dark"] .pill-updated-lt6mo { background: #0d2137; border-color: #1565c0; color: #90caf9; }
+[data-theme="dark"] .pill-updated-lt1y   { background: #4a3f00; border-color: #ffa000; color: #ffe082; }
+[data-theme="dark"] .pill-updated-lt2y   { background: #4a2c00; border-color: #e65100; color: #ffcc80; }
+[data-theme="dark"] .pill-updated-2y     { background: #4a1515; border-color: #c62828; color: #ef9a9a; }

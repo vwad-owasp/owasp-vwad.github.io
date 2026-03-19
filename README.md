@@ -41,7 +41,17 @@ The same files work at any base path. A small script in each page sets `window.V
 - `js/search-table.js` - Browse table rendering, sorting, sticky/scroll behavior, and table interaction helpers.
 - `js/app-viewer.js` - Renders a single app on the app detail page.
 - `js/theme.js` - Theme toggle, system-theme syncing, and back-to-top button behavior.
-- `css/site.css` - Standalone styles for the site, including the browse/search UI and light/dark theme support.
+- `css/base.css` - Shared tokens, dark-theme variables, reset/base element styles, accessibility helpers, and utilities.
+- `css/shell.css` - Shared layout, containers, site header, project header, and common section framing.
+- `css/buttons.css` - Shared button primitives and button variants.
+- `css/pills.css` - Shared pill styles used by the browse table and app detail views.
+- `css/app-detail.css` - Shared app-detail component styles used by the homepage featured card and the app page.
+- `css/footer.css` - Active site footer styles.
+- `css/pages/home.css` - Homepage-only framing styles for featured content, browse section layout, and contributors.
+- `css/pages/search.css` - Homepage browse/search controls and advanced search UI.
+- `css/pages/table.css` - Homepage browse-results table, toolbar, and scroll behavior.
+- `css/pages/app.css` - App detail page and no-slug state styles.
+- `css/pages/404.css` - 404 page layout and artwork styles.
 - No build tools; add more `.html` and assets as needed.
 
 ## Automation
@@ -50,4 +60,4 @@ See [.github/workflows/README.md](.github/workflows/README.md) for GitHub Action
 
 ## Cache busting
 
-CSS, JS, and font URLs use a `?v=1` query parameter so browsers don’t serve stale assets. **After each deploy**, bump the version in all HTML files (e.g. change `?v=1` to `?v=2`) so visitors see the latest changes. Search for `?v=` to find every occurrence.
+CSS, JS, and font URLs use a version query parameter (`?v=...` or `&v=...`) so browsers don’t serve stale assets. Stylesheets are linked directly from each HTML page, so **after each deploy** bump the shared CSS version on every stylesheet `<link>` (for example `?v=10` to `?v=11`) and update any changed JS or font URLs too. Search for `v=` to find every occurrence.

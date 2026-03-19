@@ -1,0 +1,106 @@
+/* Shared app-detail component styles used on the homepage featured card and app page */
+
+.app-detail-title {
+  font-size: 1.75rem;
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--text);
+}
+
+.app-detail-meta {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.app-detail-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.app-detail-row .label {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 7rem;
+}
+
+/* App detail/feature action buttons (Link + references). Icons from SVG sprite in js/app.js; .btn-icon sizes the <svg><use href="#icon-..."/> */
+.app-detail-links {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.app-detail-links .btn-icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+/* Keep primary/secondary button text from being overridden by link color */
+.app-detail-links a.btn.btn-primary,
+.app-detail-links a.btn.btn-primary:hover {
+  color: #ffffff !important;
+}
+
+.app-detail-links a.btn.btn-secondary {
+  color: var(--text) !important;
+}
+
+.app-detail-links a.btn.btn-secondary:hover {
+  color: var(--link) !important;
+}
+
+.app-detail-description {
+  margin-bottom: 0.75rem;
+}
+
+.app-detail-description p {
+  margin: 0;
+}
+
+.app-detail-notes {
+  margin-bottom: 0.75rem;
+}
+
+.app-detail-notes h2 {
+  font-size: 1rem;
+  font-family: var(--font-heading);
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+  color: var(--text-muted);
+}
+
+.app-detail-notes p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.app-detail-stars-badge {
+  display: inline-block;
+  height: 1.25rem;
+  width: auto;
+  align-self: center;
+  vertical-align: middle;
+}
+
+.app-detail-back {
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.app-detail-back a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.app-detail-back a:hover {
+  text-decoration: underline;
+}
