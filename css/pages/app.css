@@ -3,7 +3,7 @@
 .page-app .app-view,
 .page-app .not-found,
 .page-app .loading {
-  padding: 2rem 0;
+  padding: 2rem 1.25rem;
 }
 
 .page-app .loading {
