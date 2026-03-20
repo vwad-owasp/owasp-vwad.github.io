@@ -35,11 +35,13 @@ Then open [http://localhost:8000](http://localhost:8000).
 - `data/archived_repos.json` - Archive-status data maintained by the stats workflow.
 - `schema.json` - Source validation schema for `data/collection.json`.
 - `scripts/build_site.py` - Builds `_site/`, pre-renders app pages,
-  injects JSON-LD, writes sitemap, and emits
+  injects JSON-LD, writes sitemap, flattens CSS into shared and
+  page-specific bundles under `_site/css/build/`, and emits
   `generated_site_report.json`.
 - `scripts/validate_generated_site.py` - Validates generated app pages,
   sitemap, canonical tags, JSON-LD, and compatibility redirects.
-- `_site/` - Generated deploy output. Not committed.
+- `_site/` - Generated deploy output, including flattened shared and
+  page-specific CSS bundles. Not committed.
 - `js/app.js` - Loads collection data, validates explicit slugs, and
   exposes shared browse/app lookup and search helpers.
 - `js/home.js` - Homepage bootstrap and browse-search orchestration for
@@ -94,9 +96,10 @@ This repo should be configured to deploy GitHub Pages from
 
 ## Cache busting
 
-CSS, JS, and font URLs use a version query parameter (`?v=...` or
-`&v=...`) so browsers don’t serve stale assets. Stylesheets are linked
-directly from each HTML page, so **after each deploy** bump the shared
-CSS version on every stylesheet `<link>` (for example `?v=10` to
-`?v=11`) and update any changed JS or font URLs too. Search for `v=`
-to find every occurrence.
+The build flattens CSS into content-hashed shared and page-specific
+bundles under `_site/css/build/`, so deployed stylesheets automatically
+get new URLs when their contents change.
+
+JS and Google Fonts URLs still use a manual version query parameter
+(`?v=...` or `&v=...`) so browsers don’t serve stale assets. Search for
+`v=` when you need to bump those.

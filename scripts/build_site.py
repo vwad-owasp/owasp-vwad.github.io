@@ -5,6 +5,7 @@ Build the static VWAD site into _site/.
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 import shutil
 import sys
@@ -20,7 +21,6 @@ INDEX_HTML = ROOT / "index.html"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
 REPORT_PATH = ROOT / "generated_site_report.json"
 COPY_PATHS = [
-    "css",
     "js",
     "images",
     "data",
@@ -36,6 +36,32 @@ HOME_TITLE = "OWASP Vulnerable Web Applications Directory"
 HOME_DESCRIPTION = "A comprehensive registry of known vulnerable web and mobile applications for legal security testing and training."
 SITE_NAME = "OWASP Vulnerable Web Applications Directory"
 OG_IMAGE_PATH = "/images/logos/og-image.png"
+CSS_BUNDLES = {
+    "core": [
+        "css/base.css",
+        "css/shell.css",
+        "css/buttons.css",
+        "css/footer.css",
+    ],
+    "home": [
+        "css/pills.css",
+        "css/app-detail.css",
+        "css/pages/home.css",
+        "css/pages/search.css",
+        "css/pages/table.css",
+    ],
+    "app": [
+        "css/pills.css",
+        "css/app-detail.css",
+        "css/pages/app.css",
+    ],
+    "404": [
+        "css/pages/404.css",
+    ],
+}
+STYLESHEET_BLOCK_RE = re.compile(
+    r"((?:\s*<link rel=\"stylesheet\" href=\"css/[^\"]+\">\n)+)"
+)
 COLLECTION_TOOLTIPS = {
     "online": "Hosted online; use over the internet",
     "offline": "Download and run locally",
@@ -210,6 +236,73 @@ def absolute_url(site_url: str, path: str) -> str:
     return site_url.rstrip("/") + "/" + path.lstrip("/")
 
 
+def strip_css_comments(css: str) -> str:
+    result: list[str] = []
+    in_string: str | None = None
+    index = 0
+    while index < len(css):
+        char = css[index]
+        if in_string:
+            result.append(char)
+            if char == "\\" and index + 1 < len(css):
+                result.append(css[index + 1])
+                index += 2
+                continue
+            if char == in_string:
+                in_string = None
+            index += 1
+            continue
+        if char in ("'", '"'):
+            in_string = char
+            result.append(char)
+            index += 1
+            continue
+        if char == "/" and index + 1 < len(css) and css[index + 1] == "*":
+            index += 2
+            while index + 1 < len(css) and not (css[index] == "*" and css[index + 1] == "/"):
+                index += 1
+            index += 2
+            continue
+        result.append(char)
+        index += 1
+    return "".join(result)
+
+
+def compact_css(css: str) -> str:
+    # Keep bundling conservative: removing CSS comments is safe, but naive
+    # whitespace minification breaks valid syntax inside calc(), shorthand
+    # values, and adjacent functional notations.
+    return strip_css_comments(css).strip() + "\n"
+
+
+def write_css_bundles() -> dict[str, str]:
+    output_dir = OUT_DIR / "css" / "build"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    built: dict[str, str] = {}
+    for bundle_name, paths in CSS_BUNDLES.items():
+        source = "\n".join((ROOT / path).read_text(encoding="utf-8") for path in paths)
+        content = compact_css(source)
+        digest = hashlib.sha256(content.encode("utf-8")).hexdigest()[:10]
+        relative_path = f"css/build/{bundle_name}.{digest}.css"
+        (OUT_DIR / relative_path).write_text(content, encoding="utf-8")
+        built[bundle_name] = relative_path
+    return built
+
+
+def render_stylesheet_links(bundle_hrefs: list[str]) -> str:
+    return "\n" + "\n".join(
+        f'  <link rel="stylesheet" href="{href}">' for href in bundle_hrefs
+    ) + "\n"
+
+
+def replace_stylesheet_block(html: str, bundle_hrefs: list[str]) -> str:
+    replacement = render_stylesheet_links(bundle_hrefs)
+    rendered, count = STYLESHEET_BLOCK_RE.subn(replacement, html, count=1)
+    if count != 1:
+        raise ValueError("Could not replace stylesheet block in built HTML")
+    return rendered
+
+
 def json_script(data: dict) -> str:
     return '<script type="application/ld+json">\n' + json.dumps(data, indent=2, ensure_ascii=False) + "\n</script>"
 
@@ -256,13 +349,13 @@ def home_jsonld(site_url: str, apps: list[dict]) -> dict:
     }
 
 
-def build_homepage(site_url: str, apps: list[dict]) -> None:
+def build_homepage(site_url: str, apps: list[dict], css_bundle_hrefs: list[str]) -> None:
     home_html = INDEX_HTML.read_text(encoding="utf-8")
     placeholder = "<!-- BUILD_HOME_JSONLD -->"
     if placeholder not in home_html:
         raise ValueError("Homepage JSON-LD placeholder not found in index.html")
     script = "  " + json_script(home_jsonld(site_url, apps)).replace("\n", "\n  ")
-    rendered = home_html.replace(placeholder, script)
+    rendered = replace_stylesheet_block(home_html.replace(placeholder, script), css_bundle_hrefs)
     (OUT_DIR / "index.html").write_text(rendered, encoding="utf-8")
 
 
@@ -623,6 +716,7 @@ def render_app_page(
     footer_markup: str,
     app: dict,
     description: str,
+    css_bundle_hrefs: list[str],
 ) -> str:
     page_title = f'{app["name"]} - OWASP VWAD'
     page_url = app_page_url(site_url, app)
@@ -652,13 +746,7 @@ def render_app_page(
   <link rel="apple-touch-icon" href="/images/logos/apple-touch-icon.png">
   <base href="../../">
   <script>(function(){{var t;try{{t=localStorage.getItem('vwad-theme');}}catch(e){{}}var effective;if(!t||t==='system'){{effective=window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}}else{{effective=t;}}document.documentElement.setAttribute('data-theme',effective);}})();</script>
-  <link rel="stylesheet" href="css/base.css?v=10">
-  <link rel="stylesheet" href="css/shell.css?v=10">
-  <link rel="stylesheet" href="css/buttons.css?v=10">
-  <link rel="stylesheet" href="css/pills.css?v=10">
-  <link rel="stylesheet" href="css/app-detail.css?v=10">
-  <link rel="stylesheet" href="css/footer.css?v=10">
-  <link rel="stylesheet" href="css/pages/app.css?v=10">
+{render_stylesheet_links(css_bundle_hrefs).rstrip()}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap&v=10" rel="stylesheet">
@@ -678,7 +766,24 @@ def render_app_page(
 """
 
 
-def write_app_pages(site_url: str, apps: list[dict]) -> list[dict]:
+def write_compatibility_pages(app_bundle_hrefs: list[str], not_found_bundle_hrefs: list[str]) -> None:
+    compat_page = OUT_DIR / "app" / "index.html"
+    if not compat_page.exists():
+        raise ValueError("Missing copied compatibility page")
+    compat_html = compat_page.read_text(encoding="utf-8")
+    compat_page.write_text(replace_stylesheet_block(compat_html, app_bundle_hrefs), encoding="utf-8")
+
+    not_found_page = OUT_DIR / "404.html"
+    if not not_found_page.exists():
+        raise ValueError("Missing copied 404 page")
+    not_found_html = not_found_page.read_text(encoding="utf-8")
+    not_found_page.write_text(
+        replace_stylesheet_block(not_found_html, not_found_bundle_hrefs),
+        encoding="utf-8",
+    )
+
+
+def write_app_pages(site_url: str, apps: list[dict], css_bundle_hrefs: list[str]) -> list[dict]:
     body_prefix, footer_markup = load_shared_shell()
     warnings: list[dict] = []
     for app in apps:
@@ -715,7 +820,14 @@ def write_app_pages(site_url: str, apps: list[dict]) -> list[dict]:
                 }
             )
         description = get_description(app, warnings)
-        page_html = render_app_page(site_url, body_prefix, footer_markup, app, description)
+        page_html = render_app_page(
+            site_url,
+            body_prefix,
+            footer_markup,
+            app,
+            description,
+            css_bundle_hrefs,
+        )
         target = OUT_DIR / "app" / app["slug"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(page_html, encoding="utf-8")
@@ -762,8 +874,13 @@ def build() -> int:
     validate_collection(apps)
     reset_output_dir()
     copy_allowlist()
-    build_homepage(site_url, apps)
-    warnings = write_app_pages(site_url, apps)
+    css_bundles = write_css_bundles()
+    home_bundle_hrefs = [css_bundles["core"], css_bundles["home"]]
+    app_bundle_hrefs = [css_bundles["core"], css_bundles["app"]]
+    not_found_bundle_hrefs = [css_bundles["core"], css_bundles["404"]]
+    build_homepage(site_url, apps, home_bundle_hrefs)
+    write_compatibility_pages(app_bundle_hrefs, not_found_bundle_hrefs)
+    warnings = write_app_pages(site_url, apps, app_bundle_hrefs)
     write_sitemap(site_url, apps, built_at)
     write_report(site_url, apps, built_at, warnings)
     print(f"Built {len(apps)} app pages into {OUT_DIR}")

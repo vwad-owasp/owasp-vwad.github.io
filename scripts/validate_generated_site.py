@@ -17,6 +17,30 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "_site"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
 REPORT_PATH = ROOT / "generated_site_report.json"
+CSS_BUNDLE_PATTERNS = {
+    "core": re.compile(r"^css/build/core\.[0-9a-f]{10}\.css$"),
+    "home": re.compile(r"^css/build/home\.[0-9a-f]{10}\.css$"),
+    "app": re.compile(r"^css/build/app\.[0-9a-f]{10}\.css$"),
+    "404": re.compile(r"^css/build/404\.[0-9a-f]{10}\.css$"),
+}
+EXPECTED_PAGE_STYLESHEETS = {
+    "home": ["core", "home"],
+    "app": ["core", "app"],
+    "404": ["core", "404"],
+}
+SPLIT_CSS_PREFIXES = (
+    "css/base.css",
+    "css/shell.css",
+    "css/buttons.css",
+    "css/pills.css",
+    "css/app-detail.css",
+    "css/footer.css",
+    "css/pages/home.css",
+    "css/pages/search.css",
+    "css/pages/table.css",
+    "css/pages/app.css",
+    "css/pages/404.css",
+)
 
 
 def load_json(path: Path):
@@ -51,6 +75,25 @@ def extract_title(html: str) -> str | None:
 def extract_meta_description(html: str) -> str | None:
     match = re.search(r"<meta name=\"description\" content=\"([^\"]*)\">", html)
     return unescape(match.group(1)) if match else None
+
+
+def extract_local_stylesheets(html: str) -> list[str]:
+    hrefs = re.findall(r'<link rel="stylesheet" href="([^\"]+)">', html)
+    return [href for href in hrefs if href.startswith("css/")]
+
+
+def validate_page_stylesheets(html: str, page_kind: str, context: str) -> None:
+    stylesheets = extract_local_stylesheets(html)
+    expected = EXPECTED_PAGE_STYLESHEETS[page_kind]
+    if len(stylesheets) != len(expected):
+        fail(f"{context} should load {len(expected)} local stylesheet bundles")
+    for bundle_href, bundle_name in zip(stylesheets, expected):
+        pattern = CSS_BUNDLE_PATTERNS[bundle_name]
+        if not pattern.fullmatch(bundle_href):
+            fail(f"{context} has wrong stylesheet bundle: {bundle_href}")
+    for legacy_href in SPLIT_CSS_PREFIXES:
+        if legacy_href in html:
+            fail(f"{context} still references split stylesheet {legacy_href}")
 
 
 def graph_nodes(obj: dict) -> list[dict]:
@@ -106,6 +149,7 @@ def validate_homepage(apps: list[dict]) -> None:
     if not page.exists():
         fail("Missing generated homepage")
     html = page.read_text(encoding="utf-8")
+    validate_page_stylesheets(html, "home", "Homepage")
     jsonld = extract_jsonld_objects(html)
     if not jsonld:
         fail("Homepage missing JSON-LD")
@@ -152,6 +196,7 @@ def validate_app_pages(apps: list[dict], site_url: str) -> None:
         if not page_path.exists():
             fail(f"Missing generated app page for slug {app['slug']}")
         html = page_path.read_text(encoding="utf-8")
+        validate_page_stylesheets(html, "app", f"App page {app['slug']}")
         canonical = extract_canonical(html)
         if not canonical:
             fail(f"Missing canonical tag for {app['slug']}")
@@ -275,6 +320,7 @@ def validate_compat_page() -> None:
     if not page.exists():
         fail("Missing compatibility page at _site/app/index.html")
     html = page.read_text(encoding="utf-8")
+    validate_page_stylesheets(html, "app", "Compatibility page")
     required_fragments = [
         "window.location.hash",
         "params.get('slug')",
@@ -287,6 +333,14 @@ def validate_compat_page() -> None:
             fail(f"Compatibility page missing redirect logic fragment: {fragment}")
 
 
+def validate_not_found_page() -> None:
+    page = SITE_DIR / "404.html"
+    if not page.exists():
+        fail("Missing 404 page at _site/404.html")
+    html = page.read_text(encoding="utf-8")
+    validate_page_stylesheets(html, "404", "404 page")
+
+
 def main() -> int:
     apps = load_json(COLLECTION_JSON)
     _, report = validate_report(apps)
@@ -297,6 +351,7 @@ def main() -> int:
     validate_sitemap(apps, site_url)
     validate_hash_links()
     validate_compat_page()
+    validate_not_found_page()
     print(f"Validated generated site for {len(apps)} apps")
     return 0
 
