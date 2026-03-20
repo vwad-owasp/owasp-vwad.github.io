@@ -86,22 +86,24 @@
       html += '<td>' + nameCell + '</td>';
       var collTitles = window.VWAD && window.VWAD.COLLECTION_TOOLTIPS ? window.VWAD.COLLECTION_TOOLTIPS : {};
       var catTitles = window.VWAD && window.VWAD.CATEGORY_TOOLTIPS ? window.VWAD.CATEGORY_TOOLTIPS : {};
-      html += '<td>' + (app.collection || []).map(function (collection) {
+      var collPills = (app.collection || []).map(function (collection) {
         var title = collTitles[collection];
         var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
         var label = Browse.getCollectionLabel(collection);
         return '<button type="button" class="pill pill-collection pill-filter" data-filter-type="collection" data-filter-value="' + escapeHtml(collection) + '" aria-label="Filter by collection: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(collection) + '</button>';
-      }).join(' ') + '</td>';
+      }).join('');
+      html += '<td>' + (collPills ? '<span class="pill-group">' + collPills + '</span>' : '') + '</td>';
       var tech = (app.technology || []).map(function (technology) {
         return '<button type="button" class="pill pill-technology pill-filter" data-filter-type="technology" data-filter-value="' + escapeHtml(technology) + '" aria-label="Filter by technology: ' + escapeHtml(technology) + '">' + escapeHtml(technology) + '</button>';
-      }).join(' ');
+      }).join('');
       var categories = (app.categories || []).map(function (category) {
         var label = Browse.getCategoryLabel(category);
         var title = catTitles[category];
         var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
         return '<button type="button" class="pill pill-category pill-filter" data-filter-type="category" data-filter-value="' + escapeHtml(category) + '" aria-label="Filter by category: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(label) + '</button>';
-      }).join(' ');
-      html += '<td>' + tech + (tech && categories ? ' ' : '') + categories + '</td>';
+      }).join('');
+      var techCatPills = tech + categories;
+      html += '<td>' + (techCatPills ? '<span class="pill-group">' + techCatPills + '</span>' : '') + '</td>';
       html += '<td>' + (app.stars != null ? escapeHtml(String(app.stars)) : '-') + '</td>';
       html += '<td>' + updatedCell + '</td>';
       html += '</tr>';
