@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-labelledby="advanced-search-icon-title">
+  <title id="advanced-search-icon-title">Advanced search icon</title>
+  <rect width="40" height="40" fill="#101820"/>
+  <g transform="translate(5,4) scale(0.75)">
+    <!-- Eyepiece (small) -->
+    <rect x="1" y="20" width="8" height="6" rx="1" transform="rotate(-40 5 23)" fill="#ffffff"/>
+    <!-- Middle connector -->
+    <rect x="9" y="13" width="10" height="8" rx="1.5" transform="rotate(-40 14 17)" fill="#ffffff"/>
+    <!-- Main tube (large) - moved closer to middle along same diagonal -->
+    <rect x="17.5" y="1.5" width="18" height="13" rx="2.5" transform="rotate(-40 26.5 8)" fill="#ffffff"/>
+    <!-- Tripod legs -->
+    <line x1="17" y1="23" x2="5" y2="39" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <line x1="17" y1="23" x2="31" y2="39" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <!-- Joint -->
+    <circle cx="17" cy="23" r="2.5" fill="#ffffff"/>
+  </g>
+</svg>

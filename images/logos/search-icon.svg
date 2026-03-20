@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-labelledby="search-icon-title">
+  <title id="search-icon-title">Search icon</title>
+  <rect width="40" height="40" fill="#101820"/>
+  <circle cx="16.5" cy="16.5" r="10" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <line x1="24" y1="24" x2="32" y2="32" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+</svg>

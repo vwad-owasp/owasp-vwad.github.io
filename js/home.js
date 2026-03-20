@@ -334,6 +334,10 @@
     advancedController.syncControls();
     syncModeUi();
 
+    if (new URLSearchParams(window.location.search).has('as')) {
+      setActiveMode('advanced', false);
+    }
+
     window.VWAD.getCollection().then(function (list) {
       advancedController.populateDataOptions(list || []);
     });
