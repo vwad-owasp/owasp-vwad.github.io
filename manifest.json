@@ -1,0 +1,53 @@
+{
+  "name": "OWASP Vulnerable Web Applications Directory",
+  "short_name": "VWAD",
+  "description": "A directory of vulnerable web applications for security testing",
+  "lang": "en",
+  "dir": "ltr",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1a1d23",
+  "theme_color": "#1a1d23",
+  "icons": [
+    {
+      "src": "/images/logos/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logos/favicon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Basic Search",
+      "short_name": "Search",
+      "url": "/#browse",
+      "icons": [
+        {
+          "src": "/images/logos/search-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Advanced Search",
+      "short_name": "Advanced",
+      "url": "/?as#browse",
+      "icons": [
+        {
+          "src": "/images/logos/advanced-search-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
