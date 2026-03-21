@@ -145,8 +145,13 @@
     if (!outer) return;
     var caption = outer.querySelector('.table-toolbar');
     var headerRow = outer.querySelector('.apps-table thead tr');
+    var wrap = outer.querySelector('.table-wrap');
+    var scrollbarWidth = wrap ? Math.max(0, wrap.offsetWidth - wrap.clientWidth) : 0;
+    var scrollbarHeight = wrap ? Math.max(0, wrap.offsetHeight - wrap.clientHeight) : 0;
     outer.style.setProperty('--toolbar-h', caption ? caption.offsetHeight + 'px' : '0px');
     outer.style.setProperty('--thead-h', headerRow ? headerRow.getBoundingClientRect().height + 'px' : '0px');
+    outer.style.setProperty('--table-scrollbar-w', scrollbarWidth + 'px');
+    outer.style.setProperty('--table-scrollbar-h', scrollbarHeight + 'px');
   }
 
   function updateTableScrollFade(outer) {

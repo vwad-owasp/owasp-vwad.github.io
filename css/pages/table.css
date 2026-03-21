@@ -31,11 +31,13 @@
 
 .page-home .table-scroll-shadow-top {
   top: calc(var(--toolbar-h, 0px) + var(--thead-h, 0px));
+  right: var(--table-scrollbar-w, 0px);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
 }
 
 .page-home .table-scroll-shadow-bottom {
-  bottom: 0;
+  right: var(--table-scrollbar-w, 0px);
+  bottom: var(--table-scrollbar-h, 0px);
   border-radius: 0 0 var(--radius) var(--radius);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
 }
@@ -69,18 +71,39 @@
    JS adds .scrollable, .show-left, .show-right on .table-scroll-outer so fades update while scrolling.
    Light mode: visible grey fade so it reads clearly on white. */
 @media (max-width: 768px) {
+  .page-home .table-scroll-outer::before,
   .page-home .table-scroll-outer::after {
     content: "";
     position: absolute;
-    top: 0;
-    right: 0;
+    top: calc(var(--toolbar-h, 0px) + var(--thead-h, 0px));
+    bottom: var(--table-scrollbar-h, 0px);
     width: 0;
-    height: 100%;
+    height: auto;
     pointer-events: none;
     opacity: 0;
-    border-radius: 0 var(--radius) var(--radius) 0;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
     transition: width 260ms ease, opacity 260ms ease;
+  }
+
+  .page-home .table-scroll-outer::before {
+    left: 0;
+    border-radius: 0 0 0 var(--radius);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+  }
+
+  .page-home .table-scroll-outer::after {
+    right: var(--table-scrollbar-w, 0px);
+    border-radius: 0 0 var(--radius) 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+  }
+
+  .page-home .table-scroll-outer.scrollable.show-left::before {
+    width: 1.25rem;
+    opacity: 1;
+  }
+
+  .page-home .table-scroll-outer.scrollable.show-right::after {
+    width: 1.25rem;
+    opacity: 1;
   }
 
   .page-home .table-scroll-outer.intro-right-hint::after {
@@ -93,39 +116,16 @@
     opacity: 0;
   }
 
+  [data-theme="dark"] .page-home .table-scroll-outer::before {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+  }
+
   [data-theme="dark"] .page-home .table-scroll-outer::after {
     background: linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
   }
 
-  .page-home .table-scroll-outer.intro-right-hint.show-right .table-wrap {
-    box-shadow: none;
-  }
-
-  .page-home .table-scroll-outer.scrollable.show-left .table-wrap {
-    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18);
-  }
-
-  .page-home .table-scroll-outer.scrollable.show-right .table-wrap {
-    box-shadow: inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18);
-  }
-
-  .page-home .table-scroll-outer.scrollable.show-left.show-right .table-wrap {
-    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18), inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.18);
-  }
-
-  [data-theme="dark"] .page-home .table-scroll-outer.scrollable.show-left .table-wrap {
-    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6);
-  }
-
-  [data-theme="dark"] .page-home .table-scroll-outer.scrollable.show-right .table-wrap {
-    box-shadow: inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6);
-  }
-
-  [data-theme="dark"] .page-home .table-scroll-outer.scrollable.show-left.show-right .table-wrap {
-    box-shadow: inset 1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6), inset -1.25rem 0 1.25rem -1.25rem rgba(0, 0, 0, 0.6);
-  }
-
   @media (prefers-reduced-motion: reduce) {
+    .page-home .table-scroll-outer::before,
     .page-home .table-scroll-outer::after {
       transition: none;
     }
