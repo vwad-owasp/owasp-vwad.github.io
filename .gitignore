@@ -21,6 +21,7 @@ ordering_log.txt
 editorconfig_log.txt
 artifact.txt
 pr_number
+generated_site_report.json
 
 # GitHub stats cache
 .github_stats_cache.json

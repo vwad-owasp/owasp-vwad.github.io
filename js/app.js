@@ -1,9 +1,10 @@
 /**
  * OWASP VWAD - shared data and routing
- * Loads collection, assigns unique slugs, provides search and app-by-slug.
+ * Loads collection, validates stable slugs, provides search and app-by-slug.
  */
 (function () {
   'use strict';
+  var SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
   function slugify(name) {
     return name
@@ -12,15 +13,18 @@
       .replace(/^-|-$/g, '');
   }
 
-  function assignSlugs(collection) {
+  function prepareCollection(collection) {
     var seen = {};
     collection.forEach(function (app, i) {
-      var base = slugify(app.name);
-      var slug = base;
-      var n = 1;
-      while (seen[slug]) {
-        n += 1;
-        slug = base + '-' + n;
+      var slug = String(app.slug || '').trim();
+      if (!slug) {
+        throw new Error('Missing slug for "' + (app.name || ('entry #' + i)) + '"');
+      }
+      if (!SLUG_RE.test(slug)) {
+        throw new Error('Invalid slug "' + slug + '" for "' + (app.name || ('entry #' + i)) + '"');
+      }
+      if (seen[slug]) {
+        throw new Error('Duplicate slug "' + slug + '"');
       }
       seen[slug] = true;
       app._slug = slug;
@@ -43,12 +47,42 @@
       if (!r.ok) throw new Error('Failed to load collection');
       return r.json();
     })
-    .then(assignSlugs);
+    .then(prepareCollection);
+
+  function getSlug(app) {
+    return app && app._slug ? app._slug : '';
+  }
+
+  function getBasePrefix() {
+    return (typeof window !== 'undefined' && window.VWAD_BASE) ? window.VWAD_BASE : '';
+  }
+
+  function getHomeUrl() {
+    var prefix = getBasePrefix();
+    return prefix ? prefix + '/' : './';
+  }
+
+  function getAppUrl(app) {
+    var slug = getSlug(app);
+    if (!slug) return getHomeUrl();
+    var prefix = getBasePrefix();
+    return (prefix ? prefix + '/' : '') + 'app/' + encodeURIComponent(slug) + '/';
+  }
 
   function getAppBySlug(slug) {
     return collectionPromise.then(function (list) {
       return list.find(function (app) {
         return app._slug === slug;
+      }) || null;
+    });
+  }
+
+  function getAppByName(name) {
+    name = String(name || '').trim().toLowerCase();
+    if (!name) return Promise.resolve(null);
+    return collectionPromise.then(function (list) {
+      return list.find(function (app) {
+        return String(app.name || '').trim().toLowerCase() === name;
       }) || null;
     });
   }
@@ -132,8 +166,11 @@
     var parts = pathname.split('app/');
     if (parts.length >= 2) {
       var after = (parts[1].replace(/\/$/, '') || '').split('/')[0];
-      if (after && after !== 'html') return after;
+      if (after && after !== 'html' && after !== 'index.html') return decodeURIComponent(after);
     }
+    var params = new URLSearchParams(window.location.search || '');
+    var slug = params.get('slug');
+    if (slug) return slug.trim() || null;
     if (window.location.hash) return window.location.hash.replace(/^#/, '').trim() || null;
     return null;
   }
@@ -214,8 +251,8 @@
 
   /**
    * Renders a single app as HTML (same layout as detail page).
-   * options.backLink: true = "← Back to directory", 'slug' = "View full details" link to app/#slug, false/omit = no link
-   * options.titleLink: 'slug' = wrap title in <a href="app/#{slug}"> (e.g. featured app → detail page)
+   * options.backLink: true = "← Back to directory", 'slug' = "View full details" link to /app/<slug>/, false/omit = no link
+   * options.titleLink: 'slug' = wrap title in <a href="/app/<slug>/"> (e.g. featured app → detail page)
    */
   function renderApp(app, options) {
     if (!app || typeof app !== 'object') return '';
@@ -223,7 +260,7 @@
     var html = '<article class="app-detail">';
     var titleText = escapeHtml(app.name || '');
     if (options.titleLink === 'slug' && app._slug) {
-      var detailUrl = (typeof window !== 'undefined' && window.VWAD_BASE ? window.VWAD_BASE + '/' : '') + 'app/#' + escapeHtml(app._slug);
+      var detailUrl = getAppUrl(app);
       html += '<h1 class="app-detail-title"><a href="' + detailUrl + '">' + titleText + '</a></h1>';
     } else {
       html += '<h1 class="app-detail-title">' + titleText + '</h1>';
@@ -292,11 +329,9 @@
     }
 
     if (options.backLink === true) {
-      var base = (typeof window !== 'undefined' && window.VWAD_BASE) ? window.VWAD_BASE + '/' : './';
-      html += '<p class="app-detail-back"><a href="' + base + '">← Back to directory</a></p>';
+      html += '<p class="app-detail-back"><a href="' + getHomeUrl() + '">← Back to directory</a></p>';
     } else if (options.backLink === 'slug' && app._slug) {
-      var appUrl = (typeof window !== 'undefined' && window.VWAD_BASE ? window.VWAD_BASE + '/' : '') + 'app/#' + escapeHtml(app._slug);
-      html += '<p class="app-detail-back"><a href="' + appUrl + '">View full details</a></p>';
+      html += '<p class="app-detail-back"><a href="' + getAppUrl(app) + '">View full details</a></p>';
     }
     html += '</article>';
     return html;
@@ -324,6 +359,9 @@
       return collectionPromise;
     },
     getAppBySlug: getAppBySlug,
+    getAppByName: getAppByName,
+    getAppUrl: getAppUrl,
+    getHomeUrl: getHomeUrl,
     searchApps: searchApps,
     getPathSlug: getPathSlug,
     getUpdatedBand: getUpdatedBand,

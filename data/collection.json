@@ -2,6 +2,7 @@
 	{
 		"url": "https://github.com/jerryhoff/WebGoat.NET",
 		"name": ".NET Goat",
+		"slug": "net-goat",
 		"collection": [
 			"offline"
 		],
@@ -22,6 +23,7 @@
 	{
 		"url": "http://testphp.vulnweb.com",
 		"name": "Acuart",
+		"slug": "acuart",
 		"collection": [
 			"online"
 		],
@@ -44,6 +46,7 @@
 	{
 		"url": "https://github.com/dhammon/ai-goat",
 		"name": "AI-Goat",
+		"slug": "ai-goat",
 		"collection": [
 			"offline",
 			"container"
@@ -74,6 +77,7 @@
 	{
 		"url": "https://github.com/t0thkr1s/allsafe-android",
 		"name": "Allsafe (Android)",
+		"slug": "allsafe-android",
 		"collection": [
 			"mobile"
 		],
@@ -94,6 +98,7 @@
 	{
 		"url": "https://demo.testfire.net/",
 		"name": "Altoro Mutual (AltoroJ)",
+		"slug": "altoro-mutual-altoroj",
 		"collection": [
 			"online",
 			"offline"
@@ -129,6 +134,7 @@
 	{
 		"url": "https://github.com/satishpatnayak/AndroGoat",
 		"name": "AndroGoat",
+		"slug": "androgoat",
 		"collection": [
 			"mobile"
 		],
@@ -156,6 +162,7 @@
 	{
 		"url": "https://github.com/digininja/authlab",
 		"name": "AuthLab",
+		"slug": "authlab",
 		"collection": [
 			"offline",
 			"online"
@@ -186,6 +193,7 @@
 	{
 		"url": "https://bigiamchallenge.com/challenge/1",
 		"name": "AWS CTF Challenge",
+		"slug": "aws-ctf-challenge",
 		"collection": [
 			"online"
 		],
@@ -202,6 +210,7 @@
 	{
 		"url": "https://github.com/RhinoSecurityLabs/cloudgoat",
 		"name": "AWS Infrastructure Pentest Lab",
+		"slug": "aws-infrastructure-pentest-lab",
 		"collection": [
 			"online"
 		],
@@ -221,6 +230,7 @@
 	{
 		"url": "https://wellarchitectedlabs.com/",
 		"name": "AWS Security Workshop",
+		"slug": "aws-security-workshop",
 		"collection": [
 			"online"
 		],
@@ -237,6 +247,7 @@
 	{
 		"url": "https://www.brokenazure.cloud/",
 		"name": "Azure AD CTF Challenge",
+		"slug": "azure-ad-ctf-challenge",
 		"collection": [
 			"online"
 		],
@@ -253,6 +264,7 @@
 	{
 		"url": "https://sourceforge.net/projects/bwapp/files/bee-box/",
 		"name": "Bee-Box",
+		"slug": "bee-box",
 		"collection": [
 			"container"
 		],
@@ -273,6 +285,7 @@
 	{
 		"url": "https://github.com/psiinon/bodgeit",
 		"name": "BodgeIt Store",
+		"slug": "bodgeit-store",
 		"collection": [
 			"offline",
 			"container"
@@ -305,6 +318,7 @@
 	{
 		"url": "https://sechow.com/bricks/index.html",
 		"name": "Bricks",
+		"slug": "bricks",
 		"collection": [
 			"offline"
 		],
@@ -333,6 +347,7 @@
 	{
 		"url": "https://github.com/NeuraLegion/brokencrystals#vulnerabilities-overview",
 		"name": "Broken Crystals",
+		"slug": "broken-crystals",
 		"collection": [
 			"offline",
 			"online",
@@ -365,6 +380,7 @@
 	{
 		"url": "https://github.com/attacker-codeninja/BugGPT",
 		"name": "BugGPT",
+		"slug": "buggpt",
 		"collection": [
 			"offline"
 		],
@@ -399,6 +415,7 @@
 	{
 		"url": "http://burpbountylab.com/",
 		"name": "Burp Bounty Lab",
+		"slug": "burp-bounty-lab",
 		"collection": [
 			"online"
 		],
@@ -418,6 +435,7 @@
 	{
 		"url": "https://sourceforge.net/projects/thebutterflytmp/files/ButterFly%20Project/",
 		"name": "Butterfly Security Project",
+		"slug": "butterfly-security-project",
 		"collection": [
 			"offline"
 		],
@@ -441,6 +459,7 @@
 	{
 		"url": "http://www.itsecgames.com/",
 		"name": "bWAPP",
+		"slug": "bwapp",
 		"collection": [
 			"offline",
 			"container"
@@ -469,6 +488,7 @@
 	{
 		"url": "https://labs.caido.io/",
 		"name": "Caido labs",
+		"slug": "caido-labs",
 		"collection": [
 			"platform"
 		],
@@ -488,6 +508,7 @@
 	{
 		"url": "https://github.com/cider-security-research/cicd-goat",
 		"name": "CI/CD Goat",
+		"slug": "ci-cd-goat",
 		"collection": [
 			"container"
 		],
@@ -511,6 +532,7 @@
 	{
 		"url": "https://github.com/RhinoSecurityLabs/cloudgoat",
 		"name": "CloudGoat",
+		"slug": "cloudgoat",
 		"collection": [
 			"offline",
 			"container"
@@ -547,6 +569,7 @@
 	{
 		"url": "https://owasp.org/www-project-crapi/",
 		"name": "crAPI",
+		"slug": "crapi",
 		"collection": [
 			"offline",
 			"container"
@@ -576,6 +599,7 @@
 	{
 		"url": "https://github.com/SpiderLabs/CryptOMG",
 		"name": "CryptOMG",
+		"slug": "cryptomg",
 		"collection": [
 			"offline"
 		],
@@ -603,6 +627,7 @@
 	{
 		"url": "https://ctflearn.com/",
 		"name": "CTFLearn",
+		"slug": "ctflearn",
 		"collection": [
 			"online"
 		],
@@ -622,6 +647,7 @@
 	{
 		"url": "https://github.com/convisolabs/CVWA",
 		"name": "CVWA - Conviso Vulnerable Web Application",
+		"slug": "cvwa-conviso-vulnerable-web-application",
 		"collection": [
 			"offline",
 			"container"
@@ -649,6 +675,7 @@
 	{
 		"url": "https://cyberscavengerhunt.com",
 		"name": "Cyber Scavenger Hunt",
+		"slug": "cyber-scavenger-hunt",
 		"collection": [
 			"online"
 		],
@@ -679,6 +706,7 @@
 	{
 		"url": "https://github.com/thedeadrobots/bwa_cyclone_transfers",
 		"name": "Cyclone Transfers",
+		"slug": "cyclone-transfers",
 		"collection": [
 			"offline"
 		],
@@ -698,6 +726,7 @@
 	{
 		"url": "https://github.com/Checkmarx/capital",
 		"name": "c{api}tal",
+		"slug": "c-api-tal",
 		"collection": [
 			"container"
 		],
@@ -723,6 +752,7 @@
 	{
 		"url": "https://github.com/stamparm/DSVW",
 		"name": "Damn Small Vulnerable Web (DSVW)",
+		"slug": "damn-small-vulnerable-web-dsvw",
 		"collection": [
 			"offline"
 		],
@@ -743,6 +773,7 @@
 	{
 		"url": "https://www.dvaib.com",
 		"name": "Damn Vulnerable AI Bank (DVAIB)",
+		"slug": "damn-vulnerable-ai-bank-dvaib",
 		"collection": [
 			"online"
 		],
@@ -773,6 +804,7 @@
 	{
 		"url": "https://github.com/AvalZ/DVAS",
 		"name": "Damn Vulnerable Application Scanner (DVAS)",
+		"slug": "damn-vulnerable-application-scanner-dvas",
 		"collection": [
 			"offline"
 		],
@@ -802,6 +834,7 @@
 	{
 		"url": "https://github.com/rewanthtammana/Damn-Vulnerable-Bank",
 		"name": "Damn Vulnerable Bank",
+		"slug": "damn-vulnerable-bank",
 		"collection": [
 			"mobile",
 			"container"
@@ -829,6 +862,7 @@
 	{
 		"url": "https://github.com/appsecco/dvcsharp-api",
 		"name": "Damn Vulnerable C# Application (API)",
+		"slug": "damn-vulnerable-c-application-api",
 		"collection": [
 			"container",
 			"offline"
@@ -858,6 +892,7 @@
 	{
 		"url": "https://github.com/theredguild/damn-vulnerable-defi",
 		"name": "Damn Vulnerable DeFi",
+		"slug": "damn-vulnerable-defi",
 		"collection": [
 			"offline"
 		],
@@ -884,6 +919,7 @@
 	{
 		"url": "https://github.com/njmulsqb/DVEA/",
 		"name": "Damn Vulnerable Electron App (DVEA)",
+		"slug": "damn-vulnerable-electron-app-dvea",
 		"collection": [
 			"offline"
 		],
@@ -913,6 +949,7 @@
 	{
 		"url": "https://github.com/LunaM00n/File-Upload-Lab",
 		"name": "Damn Vulnerable File Upload - DVFU",
+		"slug": "damn-vulnerable-file-upload-dvfu",
 		"collection": [
 			"offline"
 		],
@@ -933,6 +970,7 @@
 	{
 		"url": "https://github.com/we45/DVFaaS-Damn-Vulnerable-Functions-as-a-Service",
 		"name": "Damn Vulnerable Functions as a Service (DVFaaS)",
+		"slug": "damn-vulnerable-functions-as-a-service-dvfaas",
 		"collection": [
 			"offline"
 		],
@@ -962,6 +1000,7 @@
 	{
 		"url": "https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application",
 		"name": "Damn Vulnerable GraphQL Application (DVGA)",
+		"slug": "damn-vulnerable-graphql-application-dvga",
 		"collection": [
 			"container",
 			"offline"
@@ -990,6 +1029,7 @@
 	{
 		"url": "https://github.com/LBartolini/DVI",
 		"name": "Damn Vulnerable Infrastructure (DVI)",
+		"slug": "damn-vulnerable-infrastructure-dvi",
 		"collection": [
 			"offline"
 		],
@@ -1023,6 +1063,7 @@
 	{
 		"url": "https://github.com/prateek147/DVIA-v2",
 		"name": "Damn Vulnerable iOS App (DVIA-v2)",
+		"slug": "damn-vulnerable-ios-app-dvia-v2",
 		"collection": [
 			"mobile"
 		],
@@ -1050,6 +1091,7 @@
 	{
 		"url": "https://github.com/appsecco/dvja",
 		"name": "Damn Vulnerable Java Application (DVJA)",
+		"slug": "damn-vulnerable-java-application-dvja",
 		"collection": [
 			"container",
 			"offline"
@@ -1080,6 +1122,7 @@
 	{
 		"url": "https://github.com/ReversecLabs/damn-vulnerable-llm-agent",
 		"name": "Damn Vulnerable LLM Agent",
+		"slug": "damn-vulnerable-llm-agent",
 		"collection": [
 			"offline",
 			"container"
@@ -1111,6 +1154,7 @@
 	{
 		"url": "https://github.com/isp1r0/DVNA",
 		"name": "Damn Vulnerable Node Application - DVNA",
+		"slug": "damn-vulnerable-node-application-dvna",
 		"collection": [
 			"offline",
 			"container"
@@ -1132,6 +1176,7 @@
 	{
 		"url": "https://github.com/appsecco/dvna",
 		"name": "Damn Vulnerable NodeJS Application - DVNA",
+		"slug": "damn-vulnerable-nodejs-application-dvna",
 		"collection": [
 			"offline"
 		],
@@ -1155,6 +1200,7 @@
 	{
 		"url": "https://github.com/koenbuyens/Vulnerable-OAuth-2.0-Applications",
 		"name": "Damn Vulnerable OAuth 2.0 Applications",
+		"slug": "damn-vulnerable-oauth-2-0-applications",
 		"collection": [
 			"offline"
 		],
@@ -1176,6 +1222,7 @@
 	{
 		"url": "https://github.com/anxolerd/dvpwa",
 		"name": "Damn Vulnerable Python Web Application - DVPWA",
+		"slug": "damn-vulnerable-python-web-application-dvpwa",
 		"collection": [
 			"offline"
 		],
@@ -1199,6 +1246,7 @@
 	{
 		"url": "https://github.com/theowni/Damn-Vulnerable-RESTaurant-API-Game",
 		"name": "Damn Vulnerable Restaurant",
+		"slug": "damn-vulnerable-restaurant",
 		"collection": [
 			"offline"
 		],
@@ -1229,6 +1277,7 @@
 	{
 		"url": "https://github.com/theowni/Damn-Vulnerable-RESTaurant-API-Game",
 		"name": "Damn Vulnerable RESTaurant (DV-REST)",
+		"slug": "damn-vulnerable-restaurant-dv-rest",
 		"collection": [
 			"online",
 			"container"
@@ -1264,6 +1313,7 @@
 	{
 		"url": "https://github.com/OWASP/DVSA",
 		"name": "Damn Vulnerable Serverless App (DVSA)",
+		"slug": "damn-vulnerable-serverless-app-dvsa",
 		"collection": [
 			"offline"
 		],
@@ -1292,6 +1342,7 @@
 	{
 		"url": "https://github.com/silentsignal/damn-vulnerable-stateful-web-app",
 		"name": "Damn Vulnerable Stateful WebApp",
+		"slug": "damn-vulnerable-stateful-webapp",
 		"collection": [
 			"offline"
 		],
@@ -1317,6 +1368,7 @@
 	{
 		"url": "https://github.com/digininja/DVWA",
 		"name": "Damn Vulnerable Web Application - DVWA",
+		"slug": "damn-vulnerable-web-application-dvwa",
 		"collection": [
 			"offline",
 			"container"
@@ -1349,6 +1401,7 @@
 	{
 		"url": "https://github.com/snoopysecurity/dvws-node",
 		"name": "Damn Vulnerable Web Services",
+		"slug": "damn-vulnerable-web-services",
 		"collection": [
 			"offline"
 		],
@@ -1372,6 +1425,7 @@
 	{
 		"url": "https://github.com/interference-security/DVWS",
 		"name": "Damn Vulnerable Web Sockets",
+		"slug": "damn-vulnerable-web-sockets",
 		"collection": [
 			"offline"
 		],
@@ -1395,6 +1449,7 @@
 	{
 		"url": "https://defendtheweb.net/",
 		"name": "Defend the Web",
+		"slug": "defend-the-web",
 		"collection": [
 			"online"
 		],
@@ -1416,6 +1471,7 @@
 	{
 		"url": "https://github.com/SunWeb3Sec/DeFiHackLabs",
 		"name": "DeFi Hack Labs",
+		"slug": "defi-hack-labs",
 		"collection": [
 			"offline"
 		],
@@ -1444,6 +1500,7 @@
 	{
 		"url": "https://github.com/payatu/diva-android",
 		"name": "DIVA Android",
+		"slug": "diva-android",
 		"collection": [
 			"mobile"
 		],
@@ -1474,6 +1531,7 @@
 	{
 		"url": "https://github.com/snsttr/diwa",
 		"name": "DIWA - Deliberately Insecure Web Application",
+		"slug": "diwa-deliberately-insecure-web-application",
 		"collection": [
 			"offline",
 			"container"
@@ -1501,6 +1559,7 @@
 	{
 		"url": "https://github.com/Contrast-Security-OSS/DjanGoat",
 		"name": "DjanGoat",
+		"slug": "djangoat",
 		"collection": [
 			"offline"
 		],
@@ -1528,6 +1587,7 @@
 	{
 		"url": "https://github.com/red-and-black/DjangoGoat",
 		"name": "DjangoGoat",
+		"slug": "djangogoat",
 		"collection": [
 			"offline"
 		],
@@ -1549,6 +1609,7 @@
 	{
 		"url": "https://duck-store.escape.tech/",
 		"name": "Duck Store",
+		"slug": "duck-store",
 		"collection": [
 			"online"
 		],
@@ -1576,6 +1637,7 @@
 	{
 		"url": "https://github.com/snoopysecurity/dvws-node",
 		"name": "dvws-node",
+		"slug": "dvws-node",
 		"collection": [
 			"offline",
 			"container"
@@ -1608,6 +1670,7 @@
 	{
 		"url": "https://github.com/k-tamura/easybuggy",
 		"name": "EasyBuggy",
+		"slug": "easybuggy",
 		"collection": [
 			"offline"
 		],
@@ -1638,6 +1701,7 @@
 	{
 		"url": "https://github.com/OWASP/www-project-eks-goat",
 		"name": "EKS Goat",
+		"slug": "eks-goat",
 		"collection": [
 			"container",
 			"offline"
@@ -1670,6 +1734,7 @@
 	{
 		"url": "https://github.com/Semperis/EntraGoat",
 		"name": "EntraGoat",
+		"slug": "entragoat",
 		"collection": [
 			"online"
 		],
@@ -1690,6 +1755,7 @@
 	{
 		"url": "https://sourceforge.net/projects/exploitcoilvuln/files/",
 		"name": "Exploit.co.il Vuln Web App",
+		"slug": "exploit-co-il-vuln-web-app",
 		"collection": [
 			"container"
 		],
@@ -1713,6 +1779,7 @@
 	{
 		"url": "https://github.com/vegabird/xvna",
 		"name": "Extreme Vulnerable Node Application",
+		"slug": "extreme-vulnerable-node-application",
 		"collection": [
 			"offline"
 		],
@@ -1741,6 +1808,7 @@
 	{
 		"url": "http://ffuf.me/",
 		"name": "FFUF.me",
+		"slug": "ffuf-me",
 		"collection": [
 			"online",
 			"offline",
@@ -1773,6 +1841,7 @@
 	{
 		"url": "https://github.com/Orange-Cyberdefense/GOAD",
 		"name": "Game of Active Directory",
+		"slug": "game-of-active-directory",
 		"collection": [
 			"container"
 		],
@@ -1800,6 +1869,7 @@
 	{
 		"url": "https://sourceforge.net/projects/null-gameover/",
 		"name": "GameOver",
+		"slug": "gameover",
 		"collection": [
 			"container"
 		],
@@ -1825,6 +1895,7 @@
 	{
 		"url": "https://gandalf.lakera.ai/",
 		"name": "Gandalf",
+		"slug": "gandalf",
 		"collection": [
 			"online"
 		],
@@ -1853,6 +1924,7 @@
 	{
 		"url": "https://github.com/InsiderPhD/Generic-University",
 		"name": "Generic University",
+		"slug": "generic-university",
 		"collection": [
 			"container",
 			"offline"
@@ -1879,6 +1951,7 @@
 	{
 		"url": "https://ginandjuice.shop/",
 		"name": "Gin & Juice Shop",
+		"slug": "gin-juice-shop",
 		"collection": [
 			"online"
 		],
@@ -1909,6 +1982,7 @@
 	{
 		"url": "https://github.com/Checkmarx/Goatlin/",
 		"name": "Goatlin",
+		"slug": "goatlin",
 		"collection": [
 			"mobile"
 		],
@@ -1938,6 +2012,7 @@
 	{
 		"url": "https://github.com/snyk-labs/nodejs-goof",
 		"name": "Goof",
+		"slug": "goof",
 		"collection": [
 			"offline",
 			"container"
@@ -1969,6 +2044,7 @@
 	{
 		"url": "https://github.com/google/security-testbeds",
 		"name": "Google Security Testbeds",
+		"slug": "google-security-testbeds",
 		"collection": [
 			"platform",
 			"container"
@@ -1995,6 +2071,7 @@
 	{
 		"url": "https://github.com/rootxjs/grpc-goat",
 		"name": "gRPC Goat",
+		"slug": "grpc-goat",
 		"collection": [
 			"container",
 			"offline"
@@ -2027,6 +2104,7 @@
 	{
 		"url": "http://google-gruyere.appspot.com/",
 		"name": "Gruyere",
+		"slug": "gruyere",
 		"collection": [
 			"offline",
 			"online"
@@ -2054,6 +2132,7 @@
 	{
 		"url": "https://hacking-lab.com/events/",
 		"name": "Hacking Lab",
+		"slug": "hacking-lab",
 		"collection": [
 			"online"
 		],
@@ -2074,6 +2153,7 @@
 	{
 		"url": "https://app.hackinghub.io",
 		"name": "HackingHub Labs",
+		"slug": "hackinghub-labs",
 		"collection": [
 			"platform"
 		],
@@ -2093,6 +2173,7 @@
 	{
 		"url": "https://www.hackthebox.com",
 		"name": "HackTheBox",
+		"slug": "hackthebox",
 		"collection": [
 			"online",
 			"platform"
@@ -2116,6 +2197,7 @@
 	{
 		"url": "https://www.hackthissite.org",
 		"name": "HackThisSite",
+		"slug": "hackthissite",
 		"collection": [
 			"online"
 		],
@@ -2142,6 +2224,7 @@
 	{
 		"url": "https://hackxor.net/",
 		"name": "Hackxor",
+		"slug": "hackxor",
 		"collection": [
 			"offline",
 			"online",
@@ -2175,6 +2258,7 @@
 	{
 		"url": "https://labs.hackxpert.com/",
 		"name": "HackXpert",
+		"slug": "hackxpert",
 		"collection": [
 			"online"
 		],
@@ -2201,6 +2285,7 @@
 	{
 		"url": "https://hack-yourself-first.com/",
 		"name": "HackYourselfFirst",
+		"slug": "hackyourselffirst",
 		"collection": [
 			"online"
 		],
@@ -2228,6 +2313,7 @@
 	{
 		"url": "https://github.com/iknowjason/hammer",
 		"name": "Hammer",
+		"slug": "hammer",
 		"collection": [
 			"offline"
 		],
@@ -2257,6 +2343,7 @@
 	{
 		"url": "https://github.com/omerlh/insecure-deserialisation-net-poc",
 		"name": "insecure-deserialisation-net-poc",
+		"slug": "insecure-deserialisation-net-poc",
 		"collection": [
 			"offline"
 		],
@@ -2278,6 +2365,7 @@
 	{
 		"url": "https://github.com/dineshshetty/Android-InsecureBankv2",
 		"name": "InsecureBankv2",
+		"slug": "insecurebankv2",
 		"collection": [
 			"mobile"
 		],
@@ -2304,6 +2392,7 @@
 	{
 		"url": "https://github.com/Sjord/jwtdemo/",
 		"name": "jwtdemo",
+		"slug": "jwtdemo",
 		"collection": [
 			"offline"
 		],
@@ -2329,6 +2418,7 @@
 	{
 		"url": "https://k8slanparty.com/",
 		"name": "Kubernetes CTF Challenge",
+		"slug": "kubernetes-ctf-challenge",
 		"collection": [
 			"online"
 		],
@@ -2345,6 +2435,7 @@
 	{
 		"url": "https://github.com/raesene/kube_security_lab",
 		"name": "Kubernetes Infrastructure Pentest Lab",
+		"slug": "kubernetes-infrastructure-pentest-lab",
 		"collection": [
 			"container"
 		],
@@ -2366,6 +2457,7 @@
 	{
 		"url": "https://github.com/madhuakula/kubernetes-goat",
 		"name": "Kubernetes Security Workshop",
+		"slug": "kubernetes-security-workshop",
 		"collection": [
 			"online"
 		],
@@ -2391,6 +2483,7 @@
 	{
 		"url": "https://sourceforge.net/projects/lampsecurity/",
 		"name": "LAMPSecurity",
+		"slug": "lampsecurity",
 		"collection": [
 			"container",
 			"offline"
@@ -2419,6 +2512,7 @@
 	{
 		"url": "https://github.com/christophetd/log4shell-vulnerable-app",
 		"name": "Log4Shell sample vulnerable application",
+		"slug": "log4shell-sample-vulnerable-application",
 		"collection": [
 			"container"
 		],
@@ -2441,6 +2535,7 @@
 	{
 		"url": "https://github.com/cschneider4711/Marathon",
 		"name": "Marathon",
+		"slug": "marathon",
 		"collection": [
 			"offline"
 		],
@@ -2461,6 +2556,7 @@
 	{
 		"url": "https://docs.rapid7.com/metasploit/metasploitable-2-exploitability-guide/",
 		"name": "Metasploitable 2",
+		"slug": "metasploitable-2",
 		"collection": [
 			"container"
 		],
@@ -2485,6 +2581,7 @@
 	{
 		"url": "https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities",
 		"name": "Metasploitable 3",
+		"slug": "metasploitable-3",
 		"collection": [
 			"container"
 		],
@@ -2512,6 +2609,7 @@
 	{
 		"url": "https://github.com/OWASP/mastg/tree/master/Crackmes",
 		"name": "MSTG CrackMes",
+		"slug": "mstg-crackmes",
 		"collection": [
 			"mobile"
 		],
@@ -2533,6 +2631,7 @@
 	{
 		"url": "https://github.com/OWASP/MASTG-Hacking-Playground",
 		"name": "MSTG Hacking Playground",
+		"slug": "mstg-hacking-playground",
 		"collection": [
 			"mobile"
 		],
@@ -2564,6 +2663,7 @@
 	{
 		"url": "http://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10",
 		"name": "Mutillidae",
+		"slug": "mutillidae",
 		"collection": [
 			"offline"
 		],
@@ -2593,6 +2693,7 @@
 	{
 		"url": "http://aspnet.testsparker.com/",
 		"name": "Netsparker Test App .NET",
+		"slug": "netsparker-test-app-net",
 		"collection": [
 			"online"
 		],
@@ -2617,6 +2718,7 @@
 	{
 		"url": "http://php.testsparker.com/",
 		"name": "Netsparker Test App PHP",
+		"slug": "netsparker-test-app-php",
 		"collection": [
 			"online"
 		],
@@ -2640,6 +2742,7 @@
 	{
 		"url": "https://wiki.owasp.org/index.php/OWASP_Node_js_Goat_Project",
 		"name": "NodeGoat",
+		"slug": "nodegoat",
 		"collection": [
 			"offline"
 		],
@@ -2667,6 +2770,7 @@
 	{
 		"url": "https://github.com/cr0hn/vulnerable-node",
 		"name": "NodeVulnerable",
+		"slug": "nodevulnerable",
 		"collection": [
 			"offline"
 		],
@@ -2688,6 +2792,7 @@
 	{
 		"url": "https://digi.ninja/projects/nosqli_lab.php",
 		"name": "NoSQL Injection Lab",
+		"slug": "nosql-injection-lab",
 		"collection": [
 			"offline"
 		],
@@ -2714,6 +2819,7 @@
 	{
 		"url": "https://github.com/aabashkin/nosql-injection-vulnapp",
 		"name": "NoSQL Injection Vulnerable App (NIVA)",
+		"slug": "nosql-injection-vulnerable-app-niva",
 		"collection": [
 			"offline",
 			"container"
@@ -2747,6 +2853,7 @@
 	{
 		"url": "https://github.com/kOaDT/oss-oopssec-store",
 		"name": "OopsSec Store",
+		"slug": "oopssec-store",
 		"collection": [
 			"offline"
 		],
@@ -2776,6 +2883,7 @@
 	{
 		"url": "https://github.com/OSTEsayed/OSTE-Vulnerable-Web-Application",
 		"name": "OSTE-Vulnerable-Web-Application",
+		"slug": "oste-vulnerable-web-application",
 		"collection": [
 			"offline"
 		],
@@ -2795,6 +2903,7 @@
 	{
 		"url": "https://github.com/oversecured/OversecuredVulnerableiOSApp",
 		"name": "OversecuredVulnerableiOSApp",
+		"slug": "oversecuredvulnerableiosapp",
 		"collection": [
 			"mobile"
 		],
@@ -2816,6 +2925,7 @@
 	{
 		"url": "https://owasp.org/www-project-damn-vulnerable-web-sockets/",
 		"name": "OWASP Damn Vulnerable Web Sockets (DVWS)",
+		"slug": "owasp-damn-vulnerable-web-sockets-dvws",
 		"collection": [
 			"offline"
 		],
@@ -2847,6 +2957,7 @@
 	{
 		"url": "https://owasp.org/www-project-juice-shop/",
 		"name": "OWASP Juice Shop",
+		"slug": "owasp-juice-shop",
 		"collection": [
 			"offline",
 			"online",
@@ -2899,6 +3010,7 @@
 	{
 		"url": "https://secureby.design/",
 		"name": "OWASP SKF Labs",
+		"slug": "owasp-skf-labs",
 		"collection": [
 			"online",
 			"offline"
@@ -2930,6 +3042,7 @@
 	{
 		"url": "https://github.com/SasanLabs/VulnerableApp",
 		"name": "OWASP VulnerableApp",
+		"slug": "owasp-vulnerableapp",
 		"collection": [
 			"offline"
 		],
@@ -2963,6 +3076,7 @@
 	{
 		"url": "https://github.com/SasanLabs/VulnerableApp-facade",
 		"name": "OWASP VulnerableApp-facade",
+		"slug": "owasp-vulnerableapp-facade",
 		"collection": [
 			"offline"
 		],
@@ -2998,6 +3112,7 @@
 	{
 		"url": "https://github.com/stuxctf/PAYGoat",
 		"name": "PAYGoat",
+		"slug": "paygoat",
 		"collection": [
 			"offline",
 			"container"
@@ -3030,6 +3145,7 @@
 	{
 		"url": "https://pentest-ground.com/",
 		"name": "Pentest-Ground",
+		"slug": "pentest-ground",
 		"collection": [
 			"online"
 		],
@@ -3047,6 +3163,7 @@
 	{
 		"url": "https://pentesterlab.com/exercises",
 		"name": "PentesterLab - The Exercises",
+		"slug": "pentesterlab-the-exercises",
 		"collection": [
 			"container"
 		],
@@ -3063,6 +3180,7 @@
 	{
 		"url": "https://sourceforge.net/projects/peruggia/",
 		"name": "Peruggia",
+		"slug": "peruggia",
 		"collection": [
 			"offline"
 		],
@@ -3086,6 +3204,7 @@
 	{
 		"url": "https://github.com/DevSlop/Pixi",
 		"name": "Pixi",
+		"slug": "pixi",
 		"collection": [
 			"offline",
 			"container"
@@ -3128,6 +3247,7 @@
 	{
 		"url": "https://github.com/playframework/play-webgoat",
 		"name": "play-webgoat",
+		"slug": "play-webgoat",
 		"collection": [
 			"offline"
 		],
@@ -3149,6 +3269,7 @@
 	{
 		"url": "https://code.google.com/archive/p/puzzlemall",
 		"name": "Puzzlemall",
+		"slug": "puzzlemall",
 		"collection": [
 			"offline"
 		],
@@ -3175,6 +3296,7 @@
 	{
 		"url": "https://github.com/adeyosemanputra/pygoat",
 		"name": "PyGoat",
+		"slug": "pygoat",
 		"collection": [
 			"offline",
 			"online",
@@ -3211,6 +3333,7 @@
 	{
 		"url": "https://github.com/TheHackerDev/race-the-web",
 		"name": "Race The Web",
+		"slug": "race-the-web",
 		"collection": [
 			"offline"
 		],
@@ -3232,6 +3355,7 @@
 	{
 		"url": "https://wiki.owasp.org/index.php/OWASP_Rails_Goat_Project",
 		"name": "Rails Goat",
+		"slug": "rails-goat",
 		"collection": [
 			"offline"
 		],
@@ -3257,6 +3381,7 @@
 	{
 		"url": "https://www.root-me.org",
 		"name": "Root Me",
+		"slug": "root-me",
 		"collection": [
 			"online"
 		],
@@ -3276,6 +3401,7 @@
 	{
 		"url": "https://www.samurai-wtf.org/",
 		"name": "Samurai WTF",
+		"slug": "samurai-wtf",
 		"collection": [
 			"container"
 		],
@@ -3307,6 +3433,7 @@
 	{
 		"url": "https://sg6-labs.blogspot.com/2007/12/secgame-1-sauron.html",
 		"name": "Sauron",
+		"slug": "sauron",
 		"collection": [
 			"container"
 		],
@@ -3328,6 +3455,7 @@
 	{
 		"url": "https://github.com/alexcolb/scriptease",
 		"name": "Scriptease",
+		"slug": "scriptease",
 		"collection": [
 			"offline"
 		],
@@ -3355,6 +3483,7 @@
 	{
 		"url": "https://github.com/globocom/secDevLabs",
 		"name": "SecDevLabs",
+		"slug": "secdevlabs",
 		"collection": [
 			"offline"
 		],
@@ -3388,6 +3517,7 @@
 	{
 		"url": "https://github.com/skills/secure-code-game",
 		"name": "Secure Code Game",
+		"slug": "secure-code-game",
 		"collection": [
 			"offline"
 		],
@@ -3413,6 +3543,7 @@
 	{
 		"url": "https://github.com/DataDog/security-labs-pocs",
 		"name": "Security Labs & POCs",
+		"slug": "security-labs-pocs",
 		"collection": [
 			"container"
 		],
@@ -3437,6 +3568,7 @@
 	{
 		"url": "https://owasp.org/www-project-security-shepherd/",
 		"name": "Security Shepherd",
+		"slug": "security-shepherd",
 		"collection": [
 			"offline"
 		],
@@ -3464,6 +3596,7 @@
 	{
 		"url": "http://testhtml5.vulnweb.com/",
 		"name": "Security Tweets",
+		"slug": "security-tweets",
 		"collection": [
 			"online"
 		],
@@ -3486,6 +3619,7 @@
 	{
 		"url": "https://solyd.com.br/cursos/introducao-ao-hacking-e-pentest-2/",
 		"name": "Solyd - Introdução ao Hacking e Pentest",
+		"slug": "solyd-introdu-o-ao-hacking-e-pentest",
 		"collection": [
 			"online"
 		],
@@ -3503,6 +3637,7 @@
 	{
 		"url": "https://github.com/sqlmapproject/testenv",
 		"name": "SQL injection test environment",
+		"slug": "sql-injection-test-environment",
 		"collection": [
 			"offline"
 		],
@@ -3522,6 +3657,7 @@
 	{
 		"url": "https://github.com/Audi-1/sqli-labs",
 		"name": "SQLI-labs",
+		"slug": "sqli-labs",
 		"collection": [
 			"offline"
 		],
@@ -3551,6 +3687,7 @@
 	{
 		"url": "https://github.com/SpiderLabs/SQLol",
 		"name": "SQLol",
+		"slug": "sqlol",
 		"collection": [
 			"offline"
 		],
@@ -3576,6 +3713,7 @@
 	{
 		"url": "https://github.com/incredibleindishell/SSRF_Vulnerable_Lab",
 		"name": "SSRF Vuln Lab",
+		"slug": "ssrf-vuln-lab",
 		"collection": [
 			"offline"
 		],
@@ -3602,6 +3740,7 @@
 	{
 		"url": "https://github.com/Hackmanit/template-injection-playground",
 		"name": "Template Injection Playground",
+		"slug": "template-injection-playground",
 		"collection": [
 			"container"
 		],
@@ -3623,6 +3762,7 @@
 	{
 		"url": "https://github.com/dhatanian/ticketmagpie",
 		"name": "TicketMagpie",
+		"slug": "ticketmagpie",
 		"collection": [
 			"offline"
 		],
@@ -3650,6 +3790,7 @@
 	{
 		"url": "https://github.com/payatu/Tiredful-API",
 		"name": "Tiredful API",
+		"slug": "tiredful-api",
 		"collection": [
 			"offline"
 		],
@@ -3679,6 +3820,7 @@
 	{
 		"url": "https://tryhackme.com",
 		"name": "TryHackMe",
+		"slug": "tryhackme",
 		"collection": [
 			"online",
 			"platform"
@@ -3702,6 +3844,7 @@
 	{
 		"url": "https://github.com/lucideus-repo/UnSAFE_Bank",
 		"name": "UnSAFE Bank",
+		"slug": "unsafe-bank",
 		"collection": [
 			"offline"
 		],
@@ -3721,6 +3864,7 @@
 	{
 		"url": "https://github.com/erev0s/VAmPI",
 		"name": "VAmPI",
+		"slug": "vampi",
 		"collection": [
 			"container"
 		],
@@ -3751,6 +3895,7 @@
 	{
 		"url": "https://github.com/roottusk/vapi",
 		"name": "vAPI",
+		"slug": "vapi",
 		"collection": [
 			"offline"
 		],
@@ -3783,6 +3928,7 @@
 	{
 		"url": "https://github.com/detectify/Varnish-H2-Request-Smuggling",
 		"name": "Varnish HTTP/2 Request Smuggling",
+		"slug": "varnish-http-2-request-smuggling",
 		"collection": [
 			"offline"
 		],
@@ -3810,6 +3956,7 @@
 	{
 		"url": "https://sourceforge.net/projects/virtualhacking/",
 		"name": "Virtual Hacking Lab",
+		"slug": "virtual-hacking-lab",
 		"collection": [
 			"container"
 		],
@@ -3837,6 +3984,7 @@
 			"mobile"
 		],
 		"name": "Vuln-Bank",
+		"slug": "vuln-bank",
 		"description": "A deliberately vulnerable banking application designed for practicing Security Testing of Web App, APIs, AI integrated App and secure code reviews. Features common vulnerabilities found in real-world applications, making it an ideal platform for security professionals, developers, and enthusiasts to learn security testing and secure coding practices in a safe environment.",
 		"references": [
 			{
@@ -3870,6 +4018,7 @@
 	{
 		"url": "https://github.com/SirAppSec/vuln-node.js-express.js-app",
 		"name": "vuln-node.js-express.js-app",
+		"slug": "vuln-node-js-express-js-app",
 		"author": "SirAppSec",
 		"badge": "SirAppSec/vuln-node.js-express.js-app",
 		"collection": [
@@ -3905,6 +4054,7 @@
 	{
 		"url": "https://github.com/CSPF-Founder/JavaVulnerableLab/",
 		"name": "Vulnerable Java Web Application",
+		"slug": "vulnerable-java-web-application",
 		"collection": [
 			"offline"
 		],
@@ -3927,6 +4077,7 @@
 	{
 		"url": "https://github.com/kaakaww/vuln_node_express",
 		"name": "Vulnerable Node Express",
+		"slug": "vulnerable-node-express",
 		"collection": [
 			"offline"
 		],
@@ -3947,6 +4098,7 @@
 	{
 		"url": "https://github.com/mddanish/Vulnerable-OTP-Application",
 		"name": "Vulnerable OTP App",
+		"slug": "vulnerable-otp-app",
 		"collection": [
 			"offline"
 		],
@@ -3970,6 +4122,7 @@
 	{
 		"url": "https://github.com/yogisec/VulnerableSAMLApp",
 		"name": "Vulnerable SAML App",
+		"slug": "vulnerable-saml-app",
 		"collection": [
 			"offline"
 		],
@@ -3993,6 +4146,7 @@
 	{
 		"url": "https://github.com/mattvaldes/vulnerable-api",
 		"name": "vulnerable-api",
+		"slug": "vulnerable-api",
 		"collection": [
 			"offline"
 		],
@@ -4020,6 +4174,7 @@
 	{
 		"url": "https://github.com/Aif4thah/VulnerableLightApp",
 		"name": "VulnerableLightApp",
+		"slug": "vulnerablelightapp",
 		"collection": [
 			"offline"
 		],
@@ -4047,6 +4202,7 @@
 	{
 		"url": "https://github.com/ctxis/VulnerableXsltConsoleApplication",
 		"name": "VulnerableXsltConsoleApplication",
+		"slug": "vulnerablexsltconsoleapplication",
 		"collection": [
 			"offline"
 		],
@@ -4067,6 +4223,7 @@
 	{
 		"url": "https://github.com/Yavuzlar/VulnLab",
 		"name": "VulnLab",
+		"slug": "vulnlab",
 		"collection": [
 			"offline"
 		],
@@ -4087,6 +4244,7 @@
 	{
 		"url": "https://github.com/adamdoupe/WackoPicko",
 		"name": "WackoPicko",
+		"slug": "wackopicko",
 		"collection": [
 			"offline",
 			"container"
@@ -4115,6 +4273,7 @@
 	{
 		"url": "https://github.com/zaproxy/wavsep",
 		"name": "WAVSEP - Web Application Vulnerability Scanner Evaluation Project",
+		"slug": "wavsep-web-application-vulnerability-scanner-evaluation-project",
 		"collection": [
 			"offline"
 		],
@@ -4146,6 +4305,7 @@
 	{
 		"url": "https://github.com/samuraiwtf/wayfarer",
 		"name": "Wayfarer",
+		"slug": "wayfarer",
 		"collection": [
 			"container"
 		],
@@ -4168,6 +4328,7 @@
 	{
 		"url": "https://www.mavensecurity.com/resources/web-security-dojo",
 		"name": "Web Security Dojo",
+		"slug": "web-security-dojo",
 		"collection": [
 			"container"
 		],
@@ -4193,6 +4354,7 @@
 	{
 		"url": "https://webgoat.github.io/WebGoat/",
 		"name": "WebGoat",
+		"slug": "webgoat",
 		"collection": [
 			"offline"
 		],
@@ -4227,6 +4389,7 @@
 	{
 		"url": "https://owasp.org/www-project-webgoat/",
 		"name": "WebGoatPHP",
+		"slug": "webgoatphp",
 		"collection": [
 			"offline"
 		],
@@ -4259,6 +4422,7 @@
 	{
 		"url": "https://github.com/marmicode/websheep",
 		"name": "websheep",
+		"slug": "websheep",
 		"collection": [
 			"offline"
 		],
@@ -4286,6 +4450,7 @@
 	{
 		"url": "https://github.com/The-Art-of-Hacking/websploit",
 		"name": "Websploit",
+		"slug": "websploit",
 		"collection": [
 			"offline"
 		],
@@ -4311,6 +4476,7 @@
 	{
 		"url": "https://github.com/GrrrDog/weird_proxies/tree/master/labs",
 		"name": "Weird Proxies - Labs",
+		"slug": "weird-proxies-labs",
 		"collection": [
 			"offline",
 			"container"
@@ -4339,6 +4505,7 @@
 	{
 		"url": "https://code.google.com/archive/p/wivet",
 		"name": "WIVET- Web Input Vector Extractor Teaser",
+		"slug": "wivet-web-input-vector-extractor-teaser",
 		"collection": [
 			"offline"
 		],
@@ -4365,6 +4532,7 @@
 	{
 		"url": "https://github.com/OWASP/wrongsecrets",
 		"name": "WrongSecrets",
+		"slug": "wrongsecrets",
 		"collection": [
 			"offline",
 			"online",
@@ -4399,6 +4567,7 @@
 	{
 		"url": "https://sourceforge.net/projects/xxe/",
 		"name": "XXE",
+		"slug": "xxe",
 		"collection": [
 			"container"
 		],
@@ -4423,6 +4592,7 @@
 	{
 		"url": "https://github.com/jbarone/xxelab",
 		"name": "XXE Lab",
+		"slug": "xxe-lab",
 		"collection": [
 			"container",
 			"offline"
@@ -4449,6 +4619,7 @@
 			"offline"
 		],
 		"name": "ypreyAPINodeJS",
+		"slug": "ypreyapinodejs",
 		"description": "yrpreyAPINodeJS is a vulnerable framework written in NodeJS and based on the OWASP TOP 10 API.",
 		"references": [
 			{
@@ -4478,6 +4649,7 @@
 			"offline"
 		],
 		"name": "ypreyAPIPython",
+		"slug": "ypreyapipython",
 		"description": "ypreyAPIPython is a vulnerable framework written in Python and based on the OWASP TOP 10 API.",
 		"references": [
 			{
@@ -4507,6 +4679,7 @@
 			"offline"
 		],
 		"name": "ypreyPollsPHP",
+		"slug": "ypreypollsphp",
 		"description": "ypreyPollsPHP is a vulnerable framework written in PHP with a polls management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4535,6 +4708,7 @@
 			"offline"
 		],
 		"name": "Yrprey",
+		"slug": "yrprey",
 		"description": "Framework created in NextJs (TypeScript) and PHP/MySQL with OWASP TOP 10 API vulnerabilities of 2019 and 2023. Yrprey can was created for educational purposes, contributing to the teaching and learning of those interested in Pentest (intrusion testing) and Application Security (Appsec).",
 		"references": [
 			{
@@ -4570,6 +4744,7 @@
 			"offline"
 		],
 		"name": "yrpreyASPC",
+		"slug": "yrpreyaspc",
 		"description": "yrpreyASPC is a vulnerable framework written in ASP and C with vulnerabilities based on Buffer Overflow, Command Injection, and web application vulnerabilities.",
 		"references": [
 			{
@@ -4597,6 +4772,7 @@
 			"offline"
 		],
 		"name": "yrpreyASPCPlus",
+		"slug": "yrpreyaspcplus",
 		"description": "yrpreyASPCPlus is a vulnerable framework written in ASP and C++ with vulnerabilities based on Buffer Overflow, Command Injection, and web application vulnerabilities.",
 		"references": [
 			{
@@ -4624,6 +4800,7 @@
 			"offline"
 		],
 		"name": "YrpreyBlog",
+		"slug": "yrpreyblog",
 		"description": "A framework created in PHP/MySQL with OWASP TOP 10 Web Application vulnerabilities.",
 		"references": [
 			{
@@ -4652,6 +4829,7 @@
 			"offline"
 		],
 		"name": "YrpreyC",
+		"slug": "yrpreyc",
 		"description": "YrpreyC is a framework written in the C language that contains vulnerabilities related to memory issues, categorized as overflows",
 		"references": [
 			{
@@ -4677,6 +4855,7 @@
 			"offline"
 		],
 		"name": "YrpreyC++",
+		"slug": "yrpreyc-2",
 		"description": "YrpreyC++ is a framework written in the C++ language that contains vulnerabilities related to memory issues, categorized as overflows",
 		"references": [
 			{
@@ -4702,6 +4881,7 @@
 			"offline"
 		],
 		"name": "yrpreyFinance",
+		"slug": "yrpreyfinance",
 		"description": "yrpreyFinance is a vulnerable framework written in PHP with a financial management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4729,6 +4909,7 @@
 			"offline"
 		],
 		"name": "yrpreyLibrary",
+		"slug": "yrpreylibrary",
 		"description": "yrpreyLibrary is a vulnerable framework written in PHP, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4756,6 +4937,7 @@
 			"offline"
 		],
 		"name": "YrpreyPathTraversal",
+		"slug": "yrpreypathtraversal",
 		"description": "YrpreyPathTraversal is a framework written in PHP, with examples of exploiting Path Traversal and Local File Inclusion vulnerabilities in different ways.",
 		"references": [
 			{
@@ -4784,6 +4966,7 @@
 			"offline"
 		],
 		"name": "YrpreyPHP",
+		"slug": "yrpreyphp",
 		"description": "A framework created in PHP/MySQL with OWASP TOP 10 Web Application vulnerabilities. YrpreyPHP was created for educational purposes, contributing to the teaching and learning of those interested in Pentest (intrusion testing) and Application Security (AppSec).",
 		"references": [
 			{
@@ -4812,6 +4995,7 @@
 			"offline"
 		],
 		"name": "yrpreyPollsNodeJS",
+		"slug": "yrpreypollsnodejs",
 		"description": "yrpreyPollsNodeJS is a vulnerable framework written in NodeJS with a polls management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4841,6 +5025,7 @@
 			"offline"
 		],
 		"name": "yrpreyPollsPerl",
+		"slug": "yrpreypollsperl",
 		"description": "yrpreyPollsPerl is a vulnerable framework written in Perl with a polls management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4870,6 +5055,7 @@
 			"offline"
 		],
 		"name": "yrpreyPollsPython",
+		"slug": "yrpreypollspython",
 		"description": "yrpreyPollsPython is a vulnerable framework written in Python with a polls management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4899,6 +5085,7 @@
 			"offline"
 		],
 		"name": "yrpreyTasks",
+		"slug": "yrpreytasks",
 		"description": "yrpreyTasks is a vulnerable framework written in PHP with a task management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4926,6 +5113,7 @@
 			"offline"
 		],
 		"name": "yrpreyTasksNodeJS",
+		"slug": "yrpreytasksnodejs",
 		"description": "yrpreyTasksNodeJS is a vulnerable framework written in NodeJS with a task management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4954,6 +5142,7 @@
 			"offline"
 		],
 		"name": "yrpreyTasksPython",
+		"slug": "yrpreytaskspython",
 		"description": "yrpreyTasksPython is a vulnerable framework written in Python with a task management scenario, based on the OWASP TOP 10",
 		"references": [
 			{
@@ -4979,6 +5168,7 @@
 	{
 		"url": "http://zero.webappsecurity.com/",
 		"name": "Zero Bank",
+		"slug": "zero-bank",
 		"collection": [
 			"online"
 		],
@@ -5002,6 +5192,7 @@
 			"container"
 		],
 		"name": "Zero Health",
+		"slug": "zero-health",
 		"url": "https://github.com/aligorithm/Zero-Health",
 		"description": "Zero trust. Zero security. Total exposure. A deliberately vulnerable health tech platform with AI Chatbot for learning about application security and ethical hacking. It contains vulnerabilities from OWASP top 10 Web, API and AI/LLM Security Vulnerabilities. Highly vulnerable, never use in production.",
 		"references": [

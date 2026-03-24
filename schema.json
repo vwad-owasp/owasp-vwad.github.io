@@ -6,6 +6,7 @@
 			{
 				"url": "https://example.com",
 				"name": "Example Test App",
+				"slug": "example-test-app",
 				"collection": [
 					"online",
 					"container"
@@ -63,6 +64,11 @@
 				},
 				"name": {
 					"type": "string"
+				},
+				"slug": {
+					"type": "string",
+					"pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+					"description": "Stable public URL slug for the application detail page."
 				},
 				"collection": {
 					"type": "array",
@@ -131,6 +137,7 @@
 			"required": [
 				"collection",
 				"name",
+				"slug",
 				"url"
 			],
 			"title": "VWADEntry"
