@@ -88,8 +88,48 @@
           <h2>Featured app</h2>
           <p class="featured-desc">A random pick from the directory - refresh the page for another.</p>
         </div>
-        <div id="featured-app" class="featured-app">
-          <p class="muted">Loading…</p>
+        <div id="featured-app" class="featured-app" aria-busy="true" aria-live="polite">
+          <div class="app-detail featured-app-skeleton" aria-hidden="true">
+            <div class="app-detail-title skeleton-block skeleton-title"></div>
+            <div class="app-detail-description">
+              <p class="skeleton-block skeleton-line"></p>
+              <p class="skeleton-block skeleton-line skeleton-line-short"></p>
+            </div>
+            <div class="app-detail-meta">
+              <div class="app-detail-row">
+                <span class="label">Collections</span>
+                <span class="skeleton-pill"></span>
+                <span class="skeleton-pill skeleton-pill-wide"></span>
+              </div>
+              <div class="app-detail-row">
+                <span class="label">Technology</span>
+                <span class="skeleton-pill"></span>
+                <span class="skeleton-pill"></span>
+                <span class="skeleton-pill skeleton-pill-wide"></span>
+              </div>
+              <div class="app-detail-row">
+                <span class="label">Categories</span>
+                <span class="skeleton-pill"></span>
+                <span class="skeleton-pill skeleton-pill-wide"></span>
+              </div>
+              <div class="app-detail-row">
+                <span class="label">Author</span>
+                <span class="skeleton-text skeleton-author"></span>
+              </div>
+            </div>
+            <div class="app-detail-links">
+              <span class="skeleton-button"></span>
+              <span class="skeleton-button skeleton-button-secondary"></span>
+              <span class="skeleton-button skeleton-button-secondary"></span>
+            </div>
+            <div class="app-detail-notes">
+              <div class="skeleton-block skeleton-heading"></div>
+              <p class="skeleton-block skeleton-line"></p>
+              <p class="skeleton-block skeleton-line skeleton-line-short"></p>
+            </div>
+            <p class="app-detail-back"><span class="skeleton-text skeleton-back-link"></span></p>
+          </div>
+          <p class="sr-only">Loading featured application.</p>
         </div>
       </div>
     </section>
@@ -326,6 +366,15 @@
         div.textContent = s;
         return div.innerHTML;
       }
+      function setFeaturedContent(html) {
+        var featuredEl = document.getElementById('featured-app');
+        if (!featuredEl) return;
+        featuredEl.innerHTML = '<div class="featured-app-rendered">' + html + '</div>';
+        featuredEl.setAttribute('aria-busy', 'false');
+      }
+      function setFeaturedMessage(message) {
+        setFeaturedContent('<p class="muted">' + escapeHtml(message) + '</p>');
+      }
       window.VWAD.getCollection().then(function (list) {
         var techSet = {};
         (list || []).forEach(function (app) {
@@ -346,20 +395,19 @@
             if (list && list.length) {
               var app = list[Math.floor(Math.random() * list.length)];
               if (app && typeof window.VWAD.renderApp === 'function') {
-                featuredEl.innerHTML = window.VWAD.renderApp(app, { backLink: false, titleLink: 'slug' });
+                setFeaturedContent(window.VWAD.renderApp(app, { backLink: false, titleLink: 'slug' }));
               } else {
-                featuredEl.innerHTML = '<p class="muted">Could not display featured app.</p>';
+                setFeaturedMessage('Could not display featured app.');
               }
             } else {
-              featuredEl.innerHTML = '<p class="muted">No applications in the directory.</p>';
+              setFeaturedMessage('No applications in the directory.');
             }
           } catch (e) {
-            featuredEl.innerHTML = '<p class="muted">Could not display featured app.</p>';
+            setFeaturedMessage('Could not display featured app.');
           }
         }
       }).catch(function () {
-        var featuredEl = document.getElementById('featured-app');
-        if (featuredEl) featuredEl.innerHTML = '<p class="muted">Failed to load directory.</p>';
+        setFeaturedMessage('Failed to load directory.');
       });
 
       // Contributors: fetch data/contributors.json and render links (no avatars)
