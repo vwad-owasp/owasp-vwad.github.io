@@ -22,6 +22,8 @@ EXCLUDE = {
     "github-actions[bot]",
     "Copilot",
     "OWASPFoundation",
+    "owasp-vwad",
+    "vwad-owasp",
 }
 
 
