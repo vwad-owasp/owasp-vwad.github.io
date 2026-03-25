@@ -263,31 +263,19 @@ def output_summary(
 ) -> None:
     """Print summary and append to GITHUB_STEP_SUMMARY when running in Actions."""
     projects_with_data = projects_checked - skipped_no_data
-    summary_lines = [
-        "",
-        "## SourceForge statistics update",
-        "",
-        "| Metric | Count |",
-        "|--------|-------|",
-        f"| SourceForge projects checked | {projects_checked} |",
-        f"| Projects skipped (no activity data) | {skipped_no_data} |",
-        f"| Projects with data | {projects_with_data} |",
-        f"| Directory entries updated | {entries_updated} |",
-        f"| Directory entries unchanged (already current) | {unchanged} |",
-        "",
-    ]
+    summary = (
+        f"\nSummary:\n"
+        f"SourceForge projects checked: {projects_checked}\n"
+        f"- Projects skipped (no activity data): {skipped_no_data}\n"
+        f"- Projects with data: {projects_with_data}\n"
+        f"- Directory entries updated: {entries_updated}\n"
+        f"- Directory entries unchanged (already current): {unchanged}"
+    )
     if updated_entries:
-        summary_lines.extend([
-            "### Updated entries",
-            "",
-            "| Entry | Project | last_contributed |",
-            "|-------|---------|------------------|",
-        ])
+        summary += "\n\nUpdated entries:"
         for u in updated_entries:
-            summary_lines.append(f"| {u.get('name', '?')} | {u.get('slug', '?')} | {u.get('last_contributed', '')} |")
-        summary_lines.append("")
+            summary += f"\n  - {u.get('name', '?')} ({u.get('slug', '?')}): {u.get('last_contributed', '')}"
 
-    summary = "\n".join(summary_lines)
     print(summary)
 
     summary_file_path = os.environ.get("GITHUB_STEP_SUMMARY")
