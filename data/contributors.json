@@ -1,9 +1,9 @@
 {
-	"updated": "2026-03-22T05:13:51Z",
+	"updated": "2026-03-25T13:12:11Z",
 	"contributors": [
 		{
 			"login": "kingthorin",
-			"contributions": 344
+			"contributions": 349
 		},
 		{
 			"login": "bkimminich",
@@ -14,12 +14,12 @@
 			"contributions": 29
 		},
 		{
-			"login": "psiinon",
-			"contributions": 23
+			"login": "ritorhymes",
+			"contributions": 24
 		},
 		{
-			"login": "ritorhymes",
-			"contributions": 22
+			"login": "psiinon",
+			"contributions": 23
 		},
 		{
 			"login": "S3DFX-CYBER",
@@ -59,10 +59,6 @@
 		},
 		{
 			"login": "ebell451",
-			"contributions": 2
-		},
-		{
-			"login": "owasp-vwad",
 			"contributions": 2
 		},
 		{
