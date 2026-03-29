@@ -2897,6 +2897,9 @@
 				"url": "https://www.linkedin.com/posts/rdbarahona_apisecurity-owasp-pentesting-activity-7437594789509832704-Qv_d"
 			}
 		],
+		"technology": [
+			"OpenAPI"
+		],
 		"author": "APIsec University",
 		"description": "Banking without barriers. No hidden fees, no minimum balances, no nonsense. Your money is safe with us. Probably. This is a deliberately vulnerable app for API security training — not a real bank.",
 		"categories": [
