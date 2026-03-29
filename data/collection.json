@@ -2881,6 +2881,30 @@
 		"last_contributed": "2026-03-21T21:30:18Z"
 	},
 	{
+		"url": "https://openvaultbank.com/",
+		"name": "OpenVault Bank",
+		"slug": "openvault-bank",
+		"collection": [
+			"online"
+		],
+		"references": [
+			{
+				"name": "live",
+				"url": "https://openvaultbank.com/"
+			},
+			{
+				"name": "announcement",
+				"url": "https://www.linkedin.com/posts/rdbarahona_apisecurity-owasp-pentesting-activity-7437594789509832704-Qv_d"
+			}
+		],
+		"author": "APIsec University",
+		"description": "Banking without barriers. No hidden fees, no minimum balances, no nonsense. Your money is safe with us. Probably. This is a deliberately vulnerable app for API security training — not a real bank.",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/OSTEsayed/OSTE-Vulnerable-Web-Application",
 		"name": "OSTE-Vulnerable-Web-Application",
 		"slug": "oste-vulnerable-web-application",
