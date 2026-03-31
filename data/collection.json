@@ -3361,8 +3361,7 @@
 		"description": "Proof-of-concept GraphQL projects and research focused on GraphQL security from an AppSec perspective.",
 		"badge": "righettod/poc-graphql",
 		"categories": [
-			"free-form",
-			"research"
+			"free-form"
 		]
 	},
 	{
@@ -3490,7 +3489,7 @@
 		"badge": "optiv/rest-api-goat",
 		"categories": [
 			"free-form",
-			"training"
+			"guided-lessons"
 		]
 	},
 	{
@@ -4316,8 +4315,7 @@
 		"description": "A deliberately vulnerable implementation of a GraphQL API intended for security research and testing.",
 		"badge": "CarveSystems/vulnerable-graphql-api",
 		"categories": [
-			"free-form",
-			"research"
+			"free-form"
 		]
 	},
 	{
@@ -4336,7 +4334,7 @@
 		"badge": "Erdemstar/VulnerableApp4APISecurity",
 		"categories": [
 			"free-form",
-			"training"
+			"guided-lessons"
 		]
 	},
 	{
