@@ -58,5 +58,11 @@
     "name": "Vulnado",
     "date": "2026-03-06",
     "notes": "Repo removed from GitHub by author"
+  },
+  {
+    "url": "https://github.com/righettod/poc-graphql",
+    "name": "poc-graphql",
+    "date": "2026-03-31",
+    "notes": ""
   }
 ]
