@@ -168,7 +168,7 @@
 			"offline"
 		],
 		"technology": [
-			"Docker Compose"
+			"Docker"
 		],
 		"author": "APISecurity Community",
 		"description": "Pre-built vulnerable multiple API scenario environments based on Docker Compose for hands-on testing and training.",
