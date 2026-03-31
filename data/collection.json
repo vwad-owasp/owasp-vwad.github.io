@@ -3354,25 +3354,6 @@
 		]
 	},
 	{
-		"url": "https://github.com/righettod/poc-graphql",
-		"name": "poc-graphql",
-		"slug": "poc-graphql",
-		"collection": [
-			"offline"
-		],
-		"technology": [
-			"GraphQL"
-		],
-		"author": "righettod",
-		"description": "Proof-of-concept GraphQL projects and research focused on GraphQL security from an AppSec perspective.",
-		"badge": "righettod/poc-graphql",
-		"categories": [
-			"free-form"
-		],
-		"stars": 417,
-		"last_contributed": "2023-05-24T00:09:39Z"
-	},
-	{
 		"url": "https://code.google.com/archive/p/puzzlemall",
 		"name": "Puzzlemall",
 		"slug": "puzzlemall",
