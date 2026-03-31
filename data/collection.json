@@ -168,14 +168,7 @@
 			"offline"
 		],
 		"technology": [
-			"Docker",
 			"Docker Compose"
-		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/API-Security/APISandbox"
-			}
 		],
 		"author": "APISecurity Community",
 		"description": "Pre-built vulnerable multiple API scenario environments based on Docker Compose for hands-on testing and training.",
@@ -1185,12 +1178,6 @@
 			"offline"
 		],
 		"technology": [],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/ne0z/DamnVulnerableMicroServices"
-			}
-		],
 		"author": "ne0z",
 		"description": "Vulnerable microservices implemented in multiple languages to demonstrate OWASP API Top Security Risks.",
 		"badge": "ne0z/DamnVulnerableMicroServices",
@@ -2798,12 +2785,6 @@
 			"Node.js",
 			"Express"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/layro01/node-api-goat"
-			}
-		],
 		"author": "layro01",
 		"description": "Simple Express.js REST API intentionally containing insecure code paths and vulnerable endpoints for testing and learning.",
 		"badge": "layro01/node-api-goat",
@@ -3376,12 +3357,6 @@
 		"technology": [
 			"GraphQL"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/righettod/poc-graphql"
-			}
-		],
 		"author": "righettod",
 		"description": "Proof-of-concept GraphQL projects and research focused on GraphQL security from an AppSec perspective.",
 		"badge": "righettod/poc-graphql",
@@ -3510,12 +3485,6 @@
 			"offline"
 		],
 		"technology": [],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/optiv/rest-api-goat"
-			}
-		],
 		"author": "optiv",
 		"description": "A REST API \"Goat\" project to learn and practice REST API testing and exploitation techniques.",
 		"badge": "optiv/rest-api-goat",
@@ -4205,12 +4174,6 @@
 			"offline"
 		],
 		"technology": [],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/tkisason/vulnapi"
-			}
-		],
 		"author": "tkisason",
 		"description": "Intentionally very vulnerable API with examples of bad coding practices for security training.",
 		"badge": "tkisason/vulnapi",
@@ -4349,12 +4312,6 @@
 		"technology": [
 			"GraphQL"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/CarveSystems/vulnerable-graphql-api"
-			}
-		],
 		"author": "CarveSystems",
 		"description": "A deliberately vulnerable implementation of a GraphQL API intended for security research and testing.",
 		"badge": "CarveSystems/vulnerable-graphql-api",
@@ -4373,12 +4330,6 @@
 		"technology": [
 			".NET",
 			"C#"
-		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/Erdemstar/VulnerableApp4APISecurity"
-			}
 		],
 		"author": "Erdemstar",
 		"description": ".NET 7.0 API built to demonstrate OWASP API Top 10 scenarios for API security training.",
