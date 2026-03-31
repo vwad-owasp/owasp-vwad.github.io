@@ -160,6 +160,25 @@
 		]
 	},
 	{
+		"url": "https://github.com/API-Security/APISandbox",
+		"name": "APISandbox",
+		"slug": "apisandbox",
+		"collection": [
+			"container",
+			"offline"
+		],
+		"technology": [
+			"Docker"
+		],
+		"author": "APISecurity Community",
+		"description": "Pre-built vulnerable multiple API scenario environments based on Docker Compose for hands-on testing and training.",
+		"badge": "API-Security/APISandbox",
+		"categories": [
+			"ctf",
+			"multi-player"
+		]
+	},
+	{
 		"url": "https://github.com/digininja/authlab",
 		"name": "AuthLab",
 		"slug": "authlab",
@@ -1148,6 +1167,22 @@
 		"last_contributed": "2025-06-25T13:58:42Z",
 		"categories": [
 			"ctf",
+			"single-player"
+		]
+	},
+	{
+		"url": "https://github.com/ne0z/DamnVulnerableMicroServices",
+		"name": "Damn Vulnerable Micro Services",
+		"slug": "damn-vulnerable-micro-services",
+		"collection": [
+			"offline"
+		],
+		"technology": [],
+		"author": "ne0z",
+		"description": "Vulnerable microservices implemented in multiple languages to demonstrate OWASP API Top Security Risks.",
+		"badge": "ne0z/DamnVulnerableMicroServices",
+		"categories": [
+			"free-form",
 			"single-player"
 		]
 	},
@@ -2740,6 +2775,25 @@
 		]
 	},
 	{
+		"url": "https://github.com/layro01/node-api-goat",
+		"name": "node-api-goat",
+		"slug": "node-api-goat",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			"Node.js",
+			"Express"
+		],
+		"author": "layro01",
+		"description": "Simple Express.js REST API intentionally containing insecure code paths and vulnerable endpoints for testing and learning.",
+		"badge": "layro01/node-api-goat",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://wiki.owasp.org/index.php/OWASP_Node_js_Goat_Project",
 		"name": "NodeGoat",
 		"slug": "nodegoat",
@@ -3294,6 +3348,23 @@
 		]
 	},
 	{
+		"url": "https://github.com/righettod/poc-graphql",
+		"name": "poc-graphql",
+		"slug": "poc-graphql",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			"GraphQL"
+		],
+		"author": "righettod",
+		"description": "Proof-of-concept GraphQL projects and research focused on GraphQL security from an AppSec perspective.",
+		"badge": "righettod/poc-graphql",
+		"categories": [
+			"free-form"
+		]
+	},
+	{
 		"url": "https://code.google.com/archive/p/puzzlemall",
 		"name": "Puzzlemall",
 		"slug": "puzzlemall",
@@ -3403,6 +3474,22 @@
 		"categories": [
 			"guided-lessons",
 			"single-player"
+		]
+	},
+	{
+		"url": "https://github.com/optiv/rest-api-goat",
+		"name": "REST API Goat",
+		"slug": "rest-api-goat",
+		"collection": [
+			"offline"
+		],
+		"technology": [],
+		"author": "optiv",
+		"description": "A REST API \"Goat\" project to learn and practice REST API testing and exploitation techniques.",
+		"badge": "optiv/rest-api-goat",
+		"categories": [
+			"free-form",
+			"guided-lessons"
 		]
 	},
 	{
@@ -4079,6 +4166,22 @@
 		]
 	},
 	{
+		"url": "https://github.com/tkisason/vulnapi",
+		"name": "vulnapi",
+		"slug": "vulnapi",
+		"collection": [
+			"offline"
+		],
+		"technology": [],
+		"author": "tkisason",
+		"description": "Intentionally very vulnerable API with examples of bad coding practices for security training.",
+		"badge": "tkisason/vulnapi",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/CSPF-Founder/JavaVulnerableLab/",
 		"name": "Vulnerable Java Web Application",
 		"slug": "vulnerable-java-web-application",
@@ -4196,6 +4299,42 @@
 		"categories": [
 			"free-form",
 			"single-player"
+		]
+	},
+	{
+		"url": "https://github.com/CarveSystems/vulnerable-graphql-api",
+		"name": "vulnerable-graphql-api",
+		"slug": "vulnerable-graphql-api",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			"GraphQL"
+		],
+		"author": "CarveSystems",
+		"description": "A deliberately vulnerable implementation of a GraphQL API intended for security research and testing.",
+		"badge": "CarveSystems/vulnerable-graphql-api",
+		"categories": [
+			"free-form"
+		]
+	},
+	{
+		"url": "https://github.com/Erdemstar/VulnerableApp4APISecurity",
+		"name": "VulnerableApp4APISecurity",
+		"slug": "vulnerableapp4apisecurity",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			".NET",
+			"C#"
+		],
+		"author": "Erdemstar",
+		"description": ".NET 7.0 API built to demonstrate OWASP API Top 10 scenarios for API security training.",
+		"badge": "Erdemstar/VulnerableApp4APISecurity",
+		"categories": [
+			"free-form",
+			"guided-lessons"
 		]
 	},
 	{
