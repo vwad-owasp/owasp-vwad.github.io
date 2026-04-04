@@ -600,7 +600,7 @@
 		"author": "OWASP",
 		"description": "crAPI (Completely Ridiculous API) simulates an API-driven, microservice-based web application for vehicle owners. An intentionally vulnerable API focusing on the OWASP Top 10 for APIs for teaching, learning, and practicing API security; challenges are based on real-life vulnerabilities found in APIs of large companies.",
 		"badge": "OWASP/crAPI",
-		"stars": 1465,
+		"stars": 1466,
 		"last_contributed": "2026-04-02T21:52:34Z",
 		"categories": [
 			"free-form",
@@ -1390,7 +1390,7 @@
 		"description": "A PHP/MariaDB web application that is damn vulnerable. Aids security professionals to test their skills and tools in a legal environment, helps web developers understand securing web applications, and aids students and teachers to learn about web application security in a controlled environment. Practice common web vulnerabilities with various difficulty levels.",
 		"notes": "Do not deploy to Internet-facing servers. Recommended: run in a VM with NAT networking (e.g. VirtualBox, VMware).",
 		"badge": "ethicalhack3r/DVWA",
-		"stars": 12855,
+		"stars": 12856,
 		"last_contributed": "2026-03-19T07:19:47Z",
 		"categories": [
 			"free-form",
