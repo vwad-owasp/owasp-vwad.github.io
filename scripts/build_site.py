@@ -224,6 +224,26 @@ def inject_app_logo_paths_script(html: str, logo_paths: dict[str, str]) -> str:
     )
 
 
+def is_safe_url(url: str) -> bool:
+    """Return True only if *url* is a well-formed absolute HTTP(S) URL.
+
+    Both the scheme (must be ``http`` or ``https``) and the presence of a
+    non-empty hostname are required.  URLs that pass the schema-level regex
+    (``^https?://.*``) but lack a hostname – e.g. ``https://`` – are
+    rejected here.
+    """
+    if not isinstance(url, str):
+        return False
+    normalized = url.strip()
+    if not normalized:
+        return False
+    try:
+        parsed = urlparse(normalized)
+        return parsed.scheme in {"http", "https"} and bool(parsed.hostname)
+    except ValueError:
+        return False
+
+
 def validate_collection(apps: list[dict]) -> None:
     seen: set[str] = set()
     for app in apps:
@@ -235,6 +255,27 @@ def validate_collection(apps: list[dict]) -> None:
         if slug in seen:
             raise ValueError(f'Duplicate slug "{slug}"')
         seen.add(slug)
+        app_url = app.get("url", "")
+        if isinstance(app_url, str):
+            app_url = app_url.strip()
+        if not app_url:
+            raise ValueError(f'Missing URL for "{slug}"')
+        if not is_safe_url(app_url):
+            raise ValueError(f'Invalid or unsafe URL in "{slug}": {app_url!r}')
+        for ref in app.get("references") or []:
+            if not isinstance(ref, dict):
+                raise ValueError(f'Invalid reference entry for "{slug}": {ref!r}')
+            ref_url = ref.get("url", "")
+            if isinstance(ref_url, str):
+                ref_url = ref_url.strip()
+            if not ref_url:
+                raise ValueError(
+                    f'Missing URL in reference "{ref.get("name", "")}" for "{slug}"'
+                )
+            if not is_safe_url(ref_url):
+                raise ValueError(
+                    f'Invalid or unsafe URL in reference "{ref.get("name", "")}" for "{slug}": {ref_url!r}'
+                )
 
 
 def reset_output_dir() -> None:
