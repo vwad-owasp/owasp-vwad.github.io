@@ -65,7 +65,11 @@
       ? '<caption class="table-toolbar"><div class="table-toolbar-row"><button type="button" class="sort-clear">Clear sort</button><span class="sort-status" role="status" aria-live="polite">' + escapeHtml(sortSummary) + '</span></div></caption>'
       : '';
     var html = '<div class="table-scroll-outer"><div class="table-scroll-shadow table-scroll-shadow-top" aria-hidden="true"></div><div class="table-wrap"><table class="apps-table">' + clearSortHtml + '<thead><tr>';
-    html += th('name', 'Name') + '<th>Collections</th><th>Tech &amp; categories</th>' + th('stars', 'Stars') + th('updated', 'Updated');
+    html +=
+      th('name', 'Name') +
+      '<th>Collections</th><th>Tech &amp; categories</th>' +
+      th('stars', 'Stars') +
+      th('updated', 'Updated');
     html += '</tr></thead><tbody>';
     apps.forEach(function (app) {
       var url = window.VWAD && typeof window.VWAD.getAppUrl === 'function'
@@ -76,12 +80,36 @@
         ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="Last contribution">' + escapeHtml(updatedBand.label) + '</span>'
         : '-';
       var authorMatched = query && app.author && app.author.toLowerCase().indexOf(query) !== -1;
-      var nameCell = '<a href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>';
+      var nameLink = '<a href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>';
+      var nameBody = nameLink;
       if (authorMatched) {
-        nameCell += ' <span class="author-match" title="Matched by author">Author: ' + escapeHtml(app.author) + '</span>';
+        nameBody +=
+          ' <span class="author-match" title="Matched by author">Author: ' + escapeHtml(app.author) + '</span>';
       }
+      var logoUrl =
+        window.VWAD && typeof window.VWAD.getAppLogoUrl === 'function'
+          ? window.VWAD.getAppLogoUrl(app)
+          : '';
+      var logoPrefix = '<span class="app-name-cell-logo">';
+      logoPrefix += '<span class="app-logo-slot app-logo-slot--table app-logo-missing" aria-hidden="true">';
+      if (logoUrl) {
+        logoPrefix +=
+          '<img class="app-logo-img" src="' +
+          escapeHtml(logoUrl) +
+          '" alt="" loading="lazy" decoding="async" ' +
+          'onload="this.parentElement.classList.remove(\'app-logo-missing\');" ' +
+          'onerror="this.remove();" />';
+      }
+      logoPrefix += '</span></span>';
+      var nameCell =
+        '<td class="app-name-cell"><div class="app-name-cell-inner">' +
+        logoPrefix +
+        '<span class="app-name-cell-body">' +
+        nameBody +
+        '</span></div></td>';
+
       html += '<tr>';
-      html += '<td>' + nameCell + '</td>';
+      html += nameCell;
       var collTitles = window.VWAD && window.VWAD.COLLECTION_TOOLTIPS ? window.VWAD.COLLECTION_TOOLTIPS : {};
       var catTitles = window.VWAD && window.VWAD.CATEGORY_TOOLTIPS ? window.VWAD.CATEGORY_TOOLTIPS : {};
       var collPills = (app.collection || []).map(function (collection) {

@@ -202,6 +202,33 @@
   border-bottom: 1px solid var(--border);
 }
 
+.page-home .apps-table .app-name-cell-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.page-home .apps-table .app-name-cell-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.page-home .apps-table .app-name-cell-logo {
+  flex-shrink: 0;
+}
+
+.page-home .apps-table .app-name-cell-logo .app-logo-slot--table {
+  margin: 0;
+}
+
+.page-home .apps-table .app-logo-slot--table {
+  width: 2.45rem;
+  height: 2.45rem;
+  padding: 0.05rem;
+  margin: 0 auto;
+}
+
 .page-home .apps-table tr:last-child td {
   border-bottom: none;
 }

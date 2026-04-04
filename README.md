@@ -17,89 +17,65 @@ python3 serve.py 8000 _site
 
 Then open [http://localhost:8000](http://localhost:8000).
 
+Deploy the **`_site/`** output (for example via the GitHub Actions workflow). Serving the repo root without building means homepage templates still contain build placeholders (for example `<!-- BUILD_APP_LOGO_PATHS -->`) and the SPA will not know which bundled logo files exist, so the browser may request missing assets.
+
 ## Serving paths and URLs
 
 - The same build works when served from `/`, `/vwad-new/`, or another subpath
 - A small script derives `window.VWAD_BASE` from `location.pathname`, so data and app URLs resolve correctly without changing the built files
 - Canonical app pages live at `/app/<slug>/`
-- `data/collection.json` contains explicit stable `slug` values
+- `data/collection.json` contains explicit stable `slug` values (the build does not add extra fields to this file)
 - Legacy `app/#<slug>`, `app/?slug=<slug>`, and `app/?name=<name>` URLs resolve through the compatibility page at `/app/`
+
+## App Logos
+
+Bundled logos for the browse table, featured card, and static app pages are discovered as files under **`images/app_logos/`** named for each app `slug` (SVG preferred over same-stem PNG/JPEG when both exist). The build injects `window.VWAD_APP_LOGO_PATHS` (slug → relative path) into the built homepage and app compatibility page so the client only requests files that exist.
 
 ## Structure
 
-- `index.html` - Homepage source template. The build injects homepage
-  JSON-LD before writing `_site/index.html`.
-- `app/index.html` - Compatibility redirect page for legacy app URLs.
+- `index.html` - Homepage source template. The build injects homepage JSON-LD and replaces `<!-- BUILD_APP_LOGO_PATHS -->` with the logo paths script before writing `_site/index.html`.
+- `app/index.html` - Compatibility redirect page for legacy app URLs; the same logo paths placeholder is filled at build time.
 - `data/collection.json` - Source-of-truth app directory data, including required stable `slug`.
 - `data/contributors.json` - Contributor data used by the homepage contributors section.
 - `data/archived_repos.json` - Archive-status data maintained by the stats workflow.
 - `schema.json` - Source validation schema for `data/collection.json`.
-- `scripts/build_site.py` - Builds `_site/`, pre-renders app pages,
-  injects JSON-LD, writes sitemap, flattens CSS into shared and
-  page-specific bundles under `_site/css/build/`, and emits
-  `generated_site_report.json`.
-- `scripts/validate_generated_site.py` - Validates generated app pages,
-  sitemap, canonical tags, JSON-LD, and compatibility redirects.
-- `_site/` - Generated deploy output, including flattened shared and
-  page-specific CSS bundles. Not committed.
-- `js/app.js` - Loads collection data, validates explicit slugs, and
-  exposes shared browse/app lookup and search helpers.
-- `js/home.js` - Homepage bootstrap and browse-search orchestration for
-  mode switching, reset behavior, and result rendering.
-- `js/advanced-search.js` - Advanced browse-search controller,
-  including custom multi-select filters, grouped pills, and
-  Advanced-only UI behavior.
-- `js/search-options.js` - Shared option definitions and label helpers
-  used by the browse-search UI.
-- `js/search-table.js` - Browse table rendering, sorting,
-  sticky/scroll behavior, and table interaction helpers.
-- `js/theme.js` - Theme toggle, system-theme syncing, and back-to-top
-  button behavior.
-- `css/base.css` - Shared tokens, dark-theme variables, reset/base
-  element styles, accessibility helpers, and utilities.
-- `css/shell.css` - Shared layout, containers, site header, project
-  header, and common section framing.
+- `scripts/build_site.py` - Builds `_site/`, pre-renders app pages, injects JSON-LD and inline logo metadata, writes sitemap, flattens CSS into shared and page-specific bundles under `_site/css/build/`, and emits `generated_site_report.json`.
+- `scripts/validate_generated_site.py` - Validates generated app pages, sitemap, canonical tags, JSON-LD, and compatibility redirects.
+- `_site/` - Generated deploy output, including flattened shared and page-specific CSS bundles. Not committed.
+- `js/app.js` - Loads collection data, validates explicit slugs, and exposes shared browse/app lookup and search helpers.
+- `js/home.js` - Homepage bootstrap and browse-search orchestration for mode switching, reset behavior, and result rendering.
+- `js/advanced-search.js` - Advanced browse-search controller, including custom multi-select filters, grouped pills, and Advanced-only UI behavior.
+- `js/search-options.js` - Shared option definitions and label helpers used by the browse-search UI.
+- `js/search-table.js` - Browse table rendering, sorting, sticky/scroll behavior, and table interaction helpers.
+- `js/theme.js` - Theme toggle, system-theme syncing, and back-to-top button behavior.
+- `css/base.css` - Shared tokens, dark-theme variables, reset/base element styles, accessibility helpers, and utilities.
+- `css/shell.css` - Shared layout, containers, site header, project header, and common section framing.
 - `css/buttons.css` - Shared button primitives and button variants.
-- `css/pills.css` - Shared pill styles used by the browse table and app
-  detail views.
-- `css/app-detail.css` - Shared app-detail component styles used by the
-  homepage featured card and the app page.
+- `css/pills.css` - Shared pill styles used by the browse table and app detail views.
+- `css/app-detail.css` - Shared app-detail component styles used by the homepage featured card and the app page.
 - `css/footer.css` - Active site footer styles.
-- `css/pages/home.css` - Homepage-only framing styles for featured
-  content, browse section layout, and contributors.
-- `css/pages/search.css` - Homepage browse/search controls and advanced
-  search UI.
-- `css/pages/table.css` - Homepage browse-results table, toolbar, and
-  scroll behavior.
-- `css/pages/app.css` - App detail page, breadcrumb, and
-  compatibility-page styles.
+- `css/pages/home.css` - Homepage-only framing styles for featured content, browse section layout, and contributors.
+- `css/pages/search.css` - Homepage browse/search controls and advanced search UI.
+- `css/pages/table.css` - Homepage browse-results table, toolbar, and scroll behavior.
+- `css/pages/app.css` - App detail page, breadcrumb, and compatibility-page styles.
 - `css/pages/404.css` - 404 page layout and artwork styles.
 
 ## Automation
 
-See [.github/workflows/README.md](.github/workflows/README.md) for
-workflow details.
+See [.github/workflows/README.md](.github/workflows/README.md) for workflow details.
 
 The workflows most relevant to the site build and deploy path are:
 
-- `validate.yml` - Validates source `data/collection.json` against
-  `schema.json`
-- `validate-generated-site.yml` - Builds and validates the generated
-  `_site/`
-- `deploy-pages.yml` - Rebuilds `_site/` and deploys GitHub Pages from
-  Actions on `main`
+- `validate.yml` - Validates source `data/collection.json` against `schema.json`
+- `validate-generated-site.yml` - Builds and validates the generated `_site/`
+- `deploy-pages.yml` - Rebuilds `_site/` and deploys GitHub Pages from Actions on `main`
 
-## GitHub Pages setting
+## GitHub Pages Setting
 
-This repo should be configured to deploy GitHub Pages from
-**GitHub Actions**, not from the branch root.
+This repo should be configured to deploy GitHub Pages from **GitHub Actions**, not from the branch root.
 
-## Cache busting
+## Cache Busting
 
-The build flattens CSS into content-hashed shared and page-specific
-bundles under `_site/css/build/`, so deployed stylesheets automatically
-get new URLs when their contents change.
+The build flattens CSS into content-hashed shared and page-specific bundles under `_site/css/build/`, so deployed stylesheets automatically get new URLs when their contents change.
 
-JS and Google Fonts URLs still use a manual version query parameter
-(`?v=...` or `&v=...`) so browsers don’t serve stale assets. Search for
-`v=` when you need to bump those.
+JS and Google Fonts URLs still use a manual version query parameter (`?v=...` or `&v=...`) so browsers don’t serve stale assets. Search for `v=` when you need to bump those.

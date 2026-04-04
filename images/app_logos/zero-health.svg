@@ -1,0 +1,10 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Teal zero character -->
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="82" font-weight="bold" fill="#17A2B8" text-anchor="middle">0</text>
+  
+  <!-- ZERO text - dark color for light backgrounds -->
+  <text x="110" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#2c3e50">ZERO</text>
+  
+  <!-- HEALTH text - dark color for light backgrounds -->
+  <text x="110" y="85" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#2c3e50">HEALTH</text>
+</svg> 

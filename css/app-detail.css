@@ -1,5 +1,50 @@
 /* Shared app-detail component styles used on the homepage featured card and app page */
 
+/* Title row: optional logo image (images/app_logos/{slug}.svg or raster) + heading */
+.app-detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.app-detail-title-wrap {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+/* Layout shared by all slots; frame only when not a deliberate empty placeholder */
+.app-logo-slot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.app-logo-slot:not(.app-logo-missing) {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.app-logo-slot--detail {
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 0.35rem;
+}
+
+.app-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
 .app-detail-title {
   font-size: 1.75rem;
   margin: 0 0 0.5rem;

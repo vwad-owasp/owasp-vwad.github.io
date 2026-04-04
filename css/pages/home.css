@@ -48,7 +48,8 @@
 .page-home .featured-app-skeleton .skeleton-block,
 .page-home .featured-app-skeleton .skeleton-pill,
 .page-home .featured-app-skeleton .skeleton-text,
-.page-home .featured-app-skeleton .skeleton-button {
+.page-home .featured-app-skeleton .skeleton-button,
+.page-home .featured-app-skeleton .skeleton-app-logo {
   position: relative;
   overflow: hidden;
   background: var(--neutral-2);
@@ -63,13 +64,21 @@
 .page-home .featured-app-skeleton .skeleton-block::after,
 .page-home .featured-app-skeleton .skeleton-pill::after,
 .page-home .featured-app-skeleton .skeleton-text::after,
-.page-home .featured-app-skeleton .skeleton-button::after {
+.page-home .featured-app-skeleton .skeleton-button::after,
+.page-home .featured-app-skeleton .skeleton-app-logo::after {
   content: "";
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
   animation: featuredSkeletonShimmer 1.4s ease-in-out infinite;
+}
+
+.page-home .featured-app-skeleton .skeleton-app-logo {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
 
 .page-home .featured-app-skeleton .skeleton-title {
@@ -156,6 +165,10 @@
   color: inherit;
 }
 
+.page-home #featured .app-detail-header {
+  margin-bottom: 0.65rem;
+}
+
 /* Contributors section: same link styling as collection list */
 .page-home .contributors-links a,
 .page-home .contributors-links a:link,
@@ -177,7 +190,8 @@
 [data-theme="dark"] .page-home .featured-app-skeleton .skeleton-block::after,
 [data-theme="dark"] .page-home .featured-app-skeleton .skeleton-pill::after,
 [data-theme="dark"] .page-home .featured-app-skeleton .skeleton-text::after,
-[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-button::after {
+[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-button::after,
+[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-app-logo::after {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
 }
 
@@ -195,7 +209,8 @@
   .page-home .featured-app-skeleton .skeleton-block::after,
   .page-home .featured-app-skeleton .skeleton-pill::after,
   .page-home .featured-app-skeleton .skeleton-text::after,
-  .page-home .featured-app-skeleton .skeleton-button::after {
+  .page-home .featured-app-skeleton .skeleton-button::after,
+  .page-home .featured-app-skeleton .skeleton-app-logo::after {
     animation: none;
   }
 }

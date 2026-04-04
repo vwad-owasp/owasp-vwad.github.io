@@ -19,6 +19,11 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "_site"
 INDEX_HTML = ROOT / "index.html"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
+APP_LOGO_DIR = ROOT / "images" / "app_logos"
+# Same-stem SVG beats raster when both exist in app_logos/.
+RASTER_LOGO_PRIORITY = {".png": 40, ".jpg": 30, ".jpeg": 30, ".webp": 25, ".gif": 20}
+SVG_LOGO_PRIORITY = 100
+BUILD_APP_LOGO_PATHS_PLACEHOLDER = "<!-- BUILD_APP_LOGO_PATHS -->"
 REPORT_PATH = ROOT / "generated_site_report.json"
 COPY_PATHS = [
     "js",
@@ -178,6 +183,45 @@ def get_site_url() -> str:
 
 def load_collection() -> list[dict]:
     return json.loads(COLLECTION_JSON.read_text(encoding="utf-8"))
+
+
+def local_app_logo_paths() -> dict[str, str]:
+    """slug stem -> site-relative path under images/app_logos/. SVG beats same-stem raster."""
+    best: dict[str, tuple[int, str]] = {}
+
+    def consider(stem: str, priority: int, rel: str) -> None:
+        prev = best.get(stem)
+        if prev is None or priority > prev[0]:
+            best[stem] = (priority, rel)
+
+    if not APP_LOGO_DIR.is_dir():
+        return {}
+    for p in APP_LOGO_DIR.iterdir():
+        if not p.is_file():
+            continue
+        ext = p.suffix.lower()
+        if ext == ".svg":
+            consider(p.stem, SVG_LOGO_PRIORITY, f"images/app_logos/{p.name}")
+            continue
+        pri = RASTER_LOGO_PRIORITY.get(ext)
+        if pri is not None:
+            consider(p.stem, pri, f"images/app_logos/{p.name}")
+
+    return {stem: pair[1] for stem, pair in best.items()}
+
+
+def render_app_logo_paths_script(logo_paths: dict[str, str]) -> str:
+    """Inline script before app.js: slug -> bundled logo path under images/app_logos/."""
+    payload = json.dumps(logo_paths, ensure_ascii=False, sort_keys=True)
+    return f"<script>window.VWAD_APP_LOGO_PATHS={payload};</script>"
+
+
+def inject_app_logo_paths_script(html: str, logo_paths: dict[str, str]) -> str:
+    if BUILD_APP_LOGO_PATHS_PLACEHOLDER not in html:
+        raise ValueError("BUILD_APP_LOGO_PATHS placeholder missing from HTML")
+    return html.replace(
+        BUILD_APP_LOGO_PATHS_PLACEHOLDER, render_app_logo_paths_script(logo_paths), 1
+    )
 
 
 def validate_collection(apps: list[dict]) -> None:
@@ -349,8 +393,11 @@ def home_jsonld(site_url: str, apps: list[dict]) -> dict:
     }
 
 
-def build_homepage(site_url: str, apps: list[dict], css_bundle_hrefs: list[str]) -> None:
+def build_homepage(
+    site_url: str, apps: list[dict], css_bundle_hrefs: list[str], logo_paths: dict[str, str]
+) -> None:
     home_html = INDEX_HTML.read_text(encoding="utf-8")
+    home_html = inject_app_logo_paths_script(home_html, logo_paths)
     placeholder = "<!-- BUILD_HOME_JSONLD -->"
     if placeholder not in home_html:
         raise ValueError("Homepage JSON-LD placeholder not found in index.html")
@@ -629,7 +676,24 @@ def render_action_links(app: dict) -> str:
     return " ".join(links)
 
 
-def render_app_content(app: dict, description: str) -> str:
+def render_app_logo_header_open(app: dict, logo_paths: dict[str, str]) -> str:
+    """Opening markup: .app-detail-header + logo slot + .app-detail-title-wrap (caller closes after h1)."""
+    slug = str(app.get("slug") or "").strip()
+    rel = logo_paths.get(slug) if slug and SLUG_RE.fullmatch(slug) else None
+    if rel:
+        src = escape(rel)
+        img = (
+            f'<img class="app-logo-img" src="{src}" alt="" width="72" height="72" '
+            'loading="lazy" decoding="async" '
+            'onerror="this.parentElement.remove();" />'
+        )
+        slot = f'<div class="app-logo-slot app-logo-slot--detail" aria-hidden="true">{img}</div>'
+    else:
+        slot = ""
+    return '<div class="app-detail-header">' + slot + '<div class="app-detail-title-wrap">'
+
+
+def render_app_content(app: dict, description: str, logo_paths: dict[str, str]) -> str:
     rows: list[str] = []
     if app.get("collection"):
         rows.append(
@@ -686,6 +750,7 @@ def render_app_content(app: dict, description: str) -> str:
             + "</p></div>"
         )
 
+    header_open = render_app_logo_header_open(app, logo_paths)
     return """<div class="container app-view">
       <nav class="app-breadcrumbs" aria-label="Breadcrumb">
         <ol class="app-breadcrumbs-list">
@@ -694,7 +759,9 @@ def render_app_content(app: dict, description: str) -> str:
         </ol>
       </nav>
       <article class="app-detail">
+        {header_open}
         <h1 class="app-detail-title">{name}</h1>
+        </div></div>
         <div class="app-detail-description"><p>{description}</p></div>
         <div class="app-detail-meta">{rows}</div>
         <div class="app-detail-links">{links}</div>
@@ -702,6 +769,7 @@ def render_app_content(app: dict, description: str) -> str:
         <p class="app-detail-back"><a href="./">← Back to directory</a></p>
       </article>
     </div>""".format(
+        header_open=header_open,
         name=escape(app["name"]),
         description=escape(description),
         rows="".join(rows),
@@ -717,12 +785,13 @@ def render_app_page(
     app: dict,
     description: str,
     css_bundle_hrefs: list[str],
+    logo_paths: dict[str, str],
 ) -> str:
     page_title = f'{app["name"]} - OWASP VWAD'
     page_url = app_page_url(site_url, app)
     og_image_url = absolute_url(site_url, OG_IMAGE_PATH)
     structured_data = json_script(application_jsonld(site_url, app, description))
-    main_content = render_app_content(app, description)
+    main_content = render_app_content(app, description, logo_paths)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -766,11 +835,14 @@ def render_app_page(
 """
 
 
-def write_compatibility_pages(app_bundle_hrefs: list[str], not_found_bundle_hrefs: list[str]) -> None:
+def write_compatibility_pages(
+    app_bundle_hrefs: list[str], not_found_bundle_hrefs: list[str], logo_paths: dict[str, str]
+) -> None:
     compat_page = OUT_DIR / "app" / "index.html"
     if not compat_page.exists():
         raise ValueError("Missing copied compatibility page")
     compat_html = compat_page.read_text(encoding="utf-8")
+    compat_html = inject_app_logo_paths_script(compat_html, logo_paths)
     compat_page.write_text(replace_stylesheet_block(compat_html, app_bundle_hrefs), encoding="utf-8")
 
     not_found_page = OUT_DIR / "404.html"
@@ -783,7 +855,9 @@ def write_compatibility_pages(app_bundle_hrefs: list[str], not_found_bundle_href
     )
 
 
-def write_app_pages(site_url: str, apps: list[dict], css_bundle_hrefs: list[str]) -> list[dict]:
+def write_app_pages(
+    site_url: str, apps: list[dict], css_bundle_hrefs: list[str], logo_paths: dict[str, str]
+) -> list[dict]:
     body_prefix, footer_markup = load_shared_shell()
     warnings: list[dict] = []
     for app in apps:
@@ -827,6 +901,7 @@ def write_app_pages(site_url: str, apps: list[dict], css_bundle_hrefs: list[str]
             app,
             description,
             css_bundle_hrefs,
+            logo_paths,
         )
         target = OUT_DIR / "app" / app["slug"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -872,15 +947,16 @@ def build() -> int:
     built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     apps = load_collection()
     validate_collection(apps)
+    logo_paths = local_app_logo_paths()
     reset_output_dir()
     copy_allowlist()
     css_bundles = write_css_bundles()
     home_bundle_hrefs = [css_bundles["core"], css_bundles["home"]]
     app_bundle_hrefs = [css_bundles["core"], css_bundles["app"]]
     not_found_bundle_hrefs = [css_bundles["core"], css_bundles["404"]]
-    build_homepage(site_url, apps, home_bundle_hrefs)
-    write_compatibility_pages(app_bundle_hrefs, not_found_bundle_hrefs)
-    warnings = write_app_pages(site_url, apps, app_bundle_hrefs)
+    build_homepage(site_url, apps, home_bundle_hrefs, logo_paths)
+    write_compatibility_pages(app_bundle_hrefs, not_found_bundle_hrefs, logo_paths)
+    warnings = write_app_pages(site_url, apps, app_bundle_hrefs, logo_paths)
     write_sitemap(site_url, apps, built_at)
     write_report(site_url, apps, built_at, warnings)
     print(f"Built {len(apps)} app pages into {OUT_DIR}")
