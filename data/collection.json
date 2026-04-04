@@ -57,12 +57,6 @@
 			"LLaMA",
 			"AI"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/dhammon/ai-goat"
-			}
-		],
 		"author": "fhammon, Guanwei Hu",
 		"description": "Learn AI/LLM security through vulnerable LLM CTF challenges. Uses Vicuna (LLaMA-derived) locally; no sign-ups or cloud fees. Aligns with OWASP Top 10 for LLM Applications; covers prompt injection, insecure output handling, data leakage, and more.",
 		"notes": "Run locally: ./ai-goat.py --install then ./ai-goat.py --run <challenge>. Optional CTFd at port 8000 (create user after launch). Requires Docker, ~8GB disk for LLM, 16GB RAM (8GB for challenge).",
@@ -415,10 +409,6 @@
 		],
 		"references": [
 			{
-				"name": "download",
-				"url": "https://github.com/attacker-codeninja/BugGPT"
-			},
-			{
 				"name": "guide",
 				"url": "https://github.com/attacker-codeninja/BugGPT#readme"
 			}
@@ -678,12 +668,6 @@
 		],
 		"description": "Purposely insecure web application simulating a blog built by a novice programmer with many vulnerabilities and bad practices. Used for education: manual and automatic vulnerability detection and remediation demos.",
 		"notes": "Docker: docker build -t cvwa . then docker run -ti -p 8080:80 cvwa; app at http://localhost:8080.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/convisolabs/CVWA"
-			}
-		],
 		"author": "Conviso AppSec",
 		"badge": "convisolabs/CVWA",
 		"stars": 63,
@@ -951,10 +935,6 @@
 			{
 				"name": "announcement",
 				"url": "https://njmulsqb.github.io/releasing-DVEA"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/njmulsqb/DVEA/"
 			}
 		],
 		"author": "Najam Ul Saqib (cybersoldier)",
@@ -1065,10 +1045,6 @@
 			{
 				"name": "guide",
 				"url": "https://github.com/LBartolini/DVI/blob/main/GUIDE.md"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/LBartolini/DVI"
 			}
 		],
 		"author": "Lorenzo Bartolini, Gabriele Costa",
@@ -1125,12 +1101,6 @@
 		],
 		"description": "Damn Vulnerable Java (EE) Application for security testing and learning. Run via Docker Compose (http://localhost:8080), Maven Jetty, or deploy WAR to Tomcat.",
 		"notes": "Requires Java 1.7+, Maven 3.x, MySQL. Configure database in src/main/webapp/WEB-INF/config.properties; import db/schema.sql.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/appsecco/dvja"
-			}
-		],
 		"author": "Appsecco",
 		"badge": "appsecco/dvja",
 		"stars": 148,
@@ -1332,12 +1302,6 @@
 			"OpenAPI",
 			"Swagger"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/theowni/Damn-Vulnerable-RESTaurant-API-Game"
-			}
-		],
 		"author": "theowni",
 		"description": "Intentionally vulnerable API training game: developers fix vulnerabilities interactively; ethical hackers exploit in CTF style (escalate to root). FastAPI, PostgreSQL, Docker; http://localhost:8091 (Swagger /docs, Redoc /redoc). Supports GitHub Codespaces.",
 		"notes": "Do not deploy to public or Internet-facing servers. ./start_game.sh or ./start_app.sh.",
@@ -1417,10 +1381,6 @@
 			"MariaDB"
 		],
 		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/digininja/DVWA"
-			},
 			{
 				"name": "docker",
 				"url": "https://github.com/digininja/DVWA#docker"
@@ -1754,10 +1714,6 @@
 			{
 				"name": "guide",
 				"url": "https://eksgoat.kubernetesvillage.com/"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/OWASP/www-project-eks-goat"
 			}
 		],
 		"author": "OWASP",
@@ -1804,12 +1760,6 @@
 			"MySQL"
 		],
 		"description": "Learning platform to practice various SQL injection techniques. Fully functional website with a content management system based on FCKEditor. Available as source code or pre-configured; cross-platform.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://sourceforge.net/projects/exploitcoilvuln/files/"
-			}
-		],
 		"categories": [
 			"code-review",
 			"single-player"
@@ -1829,12 +1779,6 @@
 		],
 		"description": "Extreme vulnerable Node.js (Express)/MongoDB application for security enthusiasts to learn application security. Not for hosting online; use localhost. Covers OWASP Top 10 2017: injection (OS, NoSQL, server-side JS), broken auth, sensitive data exposure, misconfiguration, XSS, insecure deserialization.",
 		"notes": "Start MongoDB, create DB xvna, import collection from repo; node index.js; http://localhost:3000/app. Login: admin@xvna.com / password.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/vegabird/xvna"
-			}
-		],
 		"author": "vegabird",
 		"badge": "vegabird/xvna",
 		"stars": 95,
@@ -2091,12 +2035,6 @@
 		"technology": [
 			"Docker"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/google/security-testbeds"
-			}
-		],
 		"author": "Google",
 		"description": "This project aims to provide a central repository for testbeds contents usable to assert the quality and functionality of security scanners. This includes 0-day and 1-day scanning capabilities. Covering various CVEs, weak credentials across various services, exposed UI for various services.",
 		"badge": "google/security-testbeds",
@@ -2121,10 +2059,6 @@
 			"Docker"
 		],
 		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/rootxjs/grpc-goat"
-			},
 			{
 				"name": "guide",
 				"url": "https://rootxjs.github.io/blog/grpc-goat/"
@@ -2364,12 +2298,6 @@
 		],
 		"description": "Deliberately insecure Rails application; includes simulated users and sensitive credit card data. Manual build (MySQL, RVM/Ruby, Node/Yarn, asset compile) or Docker Compose. For security testing and training.",
 		"notes": "Manual: MySQL, Ruby 2.6.3, bundle install, db:create/migrate, rake assets:precompile webpacker:compile, rails s (port 3000). Python scripts in python_scripts/ to populate users and credit data. Docker: docker-compose build && docker-compose up. Do not deploy in production.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/iknowjason/hammer"
-			}
-		],
 		"author": "iknowjason",
 		"badge": "iknowjason/hammer",
 		"stars": 21,
@@ -2926,10 +2854,6 @@
 		],
 		"references": [
 			{
-				"name": "download",
-				"url": "https://github.com/kOaDT/oss-oopssec-store"
-			},
-			{
 				"name": "guide",
 				"url": "https://koadt.github.io/oss-oopssec-store/"
 			}
@@ -3145,10 +3069,6 @@
 			{
 				"name": "docker",
 				"url": "https://hub.docker.com/r/sasanlabs/owasp-vulnerableapp"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/SasanLabs/VulnerableApp"
 			}
 		],
 		"author": "Karan Preet Singh Sasan",
@@ -3181,10 +3101,6 @@
 			{
 				"name": "docker",
 				"url": "https://hub.docker.com/r/sasanlabs/owasp-vulnerableapp-facade"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/SasanLabs/VulnerableApp-facade"
 			}
 		],
 		"author": "Karan Preet Singh Sasan",
@@ -3209,10 +3125,6 @@
 			"Docker"
 		],
 		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/stuxctf/PAYGoat"
-			},
 			{
 				"name": "announcement",
 				"url": "https://www.linkedin.com/posts/stuxnet_paygoat-v2-is-live-a-deliberately-vulnerable-activity-7410452549067231232-j-Kf/"
@@ -3307,10 +3219,6 @@
 		"references": [
 			{
 				"name": "download",
-				"url": "https://github.com/DevSlop/Pixi"
-			},
-			{
-				"name": "download",
 				"url": "https://github.com/thedeadrobots/pixi"
 			},
 			{
@@ -3402,10 +3310,6 @@
 			{
 				"name": "docker",
 				"url": "https://hub.docker.com/r/pygoat/pygoat"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/adeyosemanputra/pygoat"
 			}
 		],
 		"author": "Ade Yoseman",
@@ -3427,12 +3331,6 @@
 		"technology": [
 			"Go",
 			"REST"
-		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/TheHackerDev/race-the-web"
-			}
 		],
 		"author": "insp3ctre",
 		"badge": "TheHackerDev/race-the-web",
@@ -3628,12 +3526,6 @@
 		],
 		"technology": [
 			"JavaScript"
-		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/skills/secure-code-game"
-			}
 		],
 		"author": "GitHub Security Lab",
 		"description": "A GitHub Security Lab initiative, providing an in-repo learning experience, where learners secure intentionally vulnerable code.",
@@ -3878,12 +3770,6 @@
 		],
 		"description": "Demonstrates various security vulnerabilities including OWASP Top 10. Java/Spring Boot; Maven 3 and JDK required.",
 		"notes": "mvn spring-boot:run (http://localhost:8080). Docker: docker run -e SPRING_PROFILES_ACTIVE=hsqldb -p 8080:8080 dhatanian/ticketmagpie. Default MySQL root/ticketmagpie; or -Dspring.profiles.active=hsqldb for in-memory.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/dhatanian/ticketmagpie"
-			}
-		],
 		"badge": "dhatanian/ticketmagpie",
 		"stars": 20,
 		"last_contributed": "2017-05-11T19:24:38Z",
@@ -3907,12 +3793,6 @@
 		],
 		"description": "Intentionally broken REST API to teach developers, QA, and security professionals about flaws in web services due to insecure coding. Covers information disclosure, IDOR, access control, throttling, SQL injection (SQLite), XSS; solutions on Payatu site.",
 		"notes": "python manage.py runserver (or --insecure for static). Docker: docker build -t tiredful . then docker run -p 8000:8000 tiredful; http://localhost:8000/.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/payatu/Tiredful-API"
-			}
-		],
 		"author": "@payatu",
 		"badge": "payatu/Tiredful-API",
 		"stars": 580,
@@ -4095,10 +3975,6 @@
 			{
 				"name": "live",
 				"url": "https://vulnbank.org"
-			},
-			{
-				"name": "download",
-				"url": "https://github.com/Commando-X/vuln-bank"
 			}
 		],
 		"technology": [
@@ -4132,10 +4008,6 @@
 		],
 		"description": "A Very Vulnerable Node.js Express.js Web Application and API. Used for testing Security tools, Application security and penetration testing. Using Swagger, Sqlite, Sequelize.",
 		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/SirAppSec/vuln-node.js-express.js-app"
-			},
 			{
 				"name": "docker",
 				"url": "https://hub.docker.com/r/sirappsec/nodejs-vulnerable-app"
@@ -4279,12 +4151,6 @@
 		],
 		"description": "Example Python API (vAPI) vulnerable to common web API attacks: TLS, user enumeration, information exposure, authentication bypass, input validation, SQL injection, error handling, session management, encryption, command injection, regex DDoS. Token-based auth; /tokens and /user endpoints.",
 		"notes": "Docker: docker run -tid -p 8081:8081 --name api mkam/vulnerable-api-demo; API at port 8081. Test users user1–user9 / pass1–pass9, admin1/pass1.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/mattvaldes/vulnerable-api"
-			}
-		],
 		"author": "Matthew Valdes",
 		"badge": "mattvaldes/vulnerable-api",
 		"stars": 70,
@@ -4295,7 +4161,7 @@
 		]
 	},
 	{
-		"url": "https://github.com/CarveSystems/vulnerable-graphql-api",
+		"url": "https://github.com/ivision-research/vulnerable-graphql-api",
 		"name": "vulnerable-graphql-api",
 		"slug": "vulnerable-graphql-api",
 		"collection": [
@@ -4304,9 +4170,9 @@
 		"technology": [
 			"GraphQL"
 		],
-		"author": "CarveSystems",
+		"author": "ivision-research",
 		"description": "A deliberately vulnerable implementation of a GraphQL API intended for security research and testing.",
-		"badge": "CarveSystems/vulnerable-graphql-api",
+		"badge": "ivision-research/vulnerable-graphql-api",
 		"categories": [
 			"free-form"
 		],
@@ -4620,12 +4486,6 @@
 		"technology": [
 			"Python"
 		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/The-Art-of-Hacking/websploit"
-			}
-		],
 		"author": "Omar Santos",
 		"description": "This is a learning resource created by Omar Santos (@santosomar) for different Cybersecurity training sessions. It includes many intentionally vulnerable applications running in Docker containers and thousands of cybersecurity resources.",
 		"badge": "The-Art-of-Hacking/websploit",
@@ -4709,12 +4569,6 @@
 			"Docker",
 			"AWS",
 			"GCP"
-		],
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/OWASP/wrongsecrets"
-			}
 		],
 		"author": "Jeroen Willemsen (@commjoen), Ben de Haan (@bendehaan), Nanne Baars (@nbaars)",
 		"description": "OWASP game with real-life examples of how not to store secrets. Each example is a challenge solved with various tools and techniques; solving them helps recognize common mistakes and reflect on secrets management. 60 challenges; examine source code, config files, Docker containers, and cloud deployments to discover intentionally hidden secrets.",
@@ -5361,10 +5215,6 @@
 		"url": "https://github.com/aligorithm/Zero-Health",
 		"description": "Zero trust. Zero security. Total exposure. A deliberately vulnerable health tech platform with AI Chatbot for learning about application security and ethical hacking. It contains vulnerabilities from OWASP top 10 Web, API and AI/LLM Security Vulnerabilities. Highly vulnerable, never use in production.",
 		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/aligorithm/Zero-Health"
-			},
 			{
 				"name": "guide",
 				"url": "https://zerohealth.aliyu.dev"
