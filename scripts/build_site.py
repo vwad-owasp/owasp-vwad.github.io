@@ -241,6 +241,8 @@ def validate_collection(apps: list[dict]) -> None:
             raise ValueError(f'Duplicate slug "{slug}"')
         seen.add(slug)
         app_url = app.get("url", "")
+        if not app_url:
+            raise ValueError(f'Missing URL for "{slug}"')
         if not is_safe_url(app_url):
             raise ValueError(f'Unsafe URL scheme in "{slug}": {app_url!r}')
         for ref in app.get("references") or []:
