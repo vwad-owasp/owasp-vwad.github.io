@@ -224,6 +224,11 @@ def inject_app_logo_paths_script(html: str, logo_paths: dict[str, str]) -> str:
     )
 
 
+def is_safe_url(url: str) -> bool:
+    """Return True only if *url* uses an allowed scheme (http or https)."""
+    return url.startswith(("http://", "https://"))
+
+
 def validate_collection(apps: list[dict]) -> None:
     seen: set[str] = set()
     for app in apps:
@@ -235,6 +240,15 @@ def validate_collection(apps: list[dict]) -> None:
         if slug in seen:
             raise ValueError(f'Duplicate slug "{slug}"')
         seen.add(slug)
+        app_url = app.get("url", "")
+        if not is_safe_url(app_url):
+            raise ValueError(f'Unsafe URL scheme in "{slug}": {app_url!r}')
+        for ref in app.get("references") or []:
+            ref_url = ref.get("url")
+            if ref_url and not is_safe_url(ref_url):
+                raise ValueError(
+                    f'Unsafe URL scheme in reference "{ref.get("name", "")}" for "{slug}": {ref_url!r}'
+                )
 
 
 def reset_output_dir() -> None:
