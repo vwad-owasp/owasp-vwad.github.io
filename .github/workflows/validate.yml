@@ -1,7 +1,7 @@
 name: Validate JSON
 
 on:
-  pull_request_target:
+  pull_request:
     paths:
     - 'data/collection.json'
     - 'schema.json'
@@ -22,7 +22,7 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.base.ref || github.ref }}
     - name: Sparse checkout changed datafiles from PR
-      if: github.event_name == 'pull_request_target'
+      if: github.event_name == 'pull_request'
       run: |
         # Fetch the PR branch
         git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
