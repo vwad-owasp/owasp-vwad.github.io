@@ -245,6 +245,8 @@ def validate_collection(apps: list[dict]) -> None:
             raise ValueError(f'Duplicate slug "{slug}"')
         seen.add(slug)
         app_url = app.get("url", "")
+        if isinstance(app_url, str):
+            app_url = app_url.strip()
         if not app_url:
             raise ValueError(f'Missing URL for "{slug}"')
         if not is_safe_url(app_url):
