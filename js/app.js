@@ -1,17 +1,10 @@
 /**
  * OWASP VWAD - shared data and routing
- * Loads collection, validates stable slugs, provides search and app-by-slug.
+ * Loads collection, validates stable slugs, provides search and URL helpers.
  */
 (function () {
   'use strict';
   var SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
-  function slugify(name) {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
-  }
 
   function prepareCollection(collection) {
     var seen = {};
@@ -53,6 +46,39 @@
     return app && app._slug ? app._slug : '';
   }
 
+  /**
+   * Relative URL under images/app_logos/. Built pages inject window.VWAD_APP_LOGO_PATHS
+   * (slug -> path). Unbuilt pages fall back to images/app_logos/{slug}.svg (may 404).
+   */
+  function getAppLogoUrl(app) {
+    var slug = getSlug(app);
+    if (!slug) return '';
+    var paths = typeof window !== 'undefined' ? window.VWAD_APP_LOGO_PATHS : null;
+    if (paths && typeof paths === 'object' && !Array.isArray(paths)) {
+      if (Object.prototype.hasOwnProperty.call(paths, slug)) {
+        var rel = paths[slug];
+        return rel ? base + rel : '';
+      }
+      return '';
+    }
+    return base + 'images/app_logos/' + encodeURIComponent(slug) + '.svg';
+  }
+
+  function renderAppLogoSlot(app) {
+    var cls = 'app-logo-slot app-logo-slot--detail';
+    var url = getAppLogoUrl(app);
+    if (!url) {
+      return '';
+    }
+    return (
+      '<div class="' +
+      cls +
+      '" aria-hidden="true"><img class="app-logo-img" src="' +
+      escapeHtml(url) +
+      '" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove();" /></div>'
+    );
+  }
+
   function getBasePrefix() {
     return (typeof window !== 'undefined' && window.VWAD_BASE) ? window.VWAD_BASE : '';
   }
@@ -67,14 +93,6 @@
     if (!slug) return getHomeUrl();
     var prefix = getBasePrefix();
     return (prefix ? prefix + '/' : '') + 'app/' + encodeURIComponent(slug) + '/';
-  }
-
-  function getAppBySlug(slug) {
-    return collectionPromise.then(function (list) {
-      return list.find(function (app) {
-        return app._slug === slug;
-      }) || null;
-    });
   }
 
   function getAppByName(name) {
@@ -161,20 +179,6 @@
     });
   }
 
-  function getPathSlug() {
-    var pathname = window.location.pathname || '';
-    var parts = pathname.split('app/');
-    if (parts.length >= 2) {
-      var after = (parts[1].replace(/\/$/, '') || '').split('/')[0];
-      if (after && after !== 'html' && after !== 'index.html') return decodeURIComponent(after);
-    }
-    var params = new URLSearchParams(window.location.search || '');
-    var slug = params.get('slug');
-    if (slug) return slug.trim() || null;
-    if (window.location.hash) return window.location.hash.replace(/^#/, '').trim() || null;
-    return null;
-  }
-
   /** Returns { label, slug } for last_contributed age band; null if no/invalid date. */
   function getUpdatedBand(isoDate) {
     if (!isoDate) return null;
@@ -258,6 +262,9 @@
     if (!app || typeof app !== 'object') return '';
     options = options || {};
     var html = '<article class="app-detail">';
+    html += '<div class="app-detail-header">';
+    html += renderAppLogoSlot(app);
+    html += '<div class="app-detail-title-wrap">';
     var titleText = escapeHtml(app.name || '');
     if (options.titleLink === 'slug' && app._slug) {
       var detailUrl = getAppUrl(app);
@@ -265,6 +272,7 @@
     } else {
       html += '<h1 class="app-detail-title">' + titleText + '</h1>';
     }
+    html += '</div></div>';
 
     if (app.description && app.description.trim()) {
       html += '<div class="app-detail-description"><p>' + escapeHtml(app.description.trim()) + '</p></div>';
@@ -358,15 +366,13 @@
     getCollection: function () {
       return collectionPromise;
     },
-    getAppBySlug: getAppBySlug,
     getAppByName: getAppByName,
     getAppUrl: getAppUrl,
     getHomeUrl: getHomeUrl,
     searchApps: searchApps,
-    getPathSlug: getPathSlug,
     getUpdatedBand: getUpdatedBand,
+    getAppLogoUrl: getAppLogoUrl,
     renderApp: renderApp,
-    slugify: slugify,
     COLLECTION_TOOLTIPS: COLLECTION_TOOLTIPS,
     CATEGORY_TOOLTIPS: CATEGORY_TOOLTIPS
   };
