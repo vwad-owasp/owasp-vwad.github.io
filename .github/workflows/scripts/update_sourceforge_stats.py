@@ -21,6 +21,7 @@ import sys
 import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set
+from urllib.parse import urlparse
 
 try:
     import requests
@@ -60,12 +61,19 @@ def extract_slug(url: str) -> Optional[str]:
 
 def has_sourceforge_url(entry: Dict[str, Any]) -> Optional[str]:
     """Return a SourceForge project URL from entry (main url or references), or None."""
-    main = entry.get("url") or ""
-    if "sourceforge.net" in main.lower():
-        return main.strip()
+    main = (entry.get("url") or "").strip()
+    if main:
+        parsed_main = urlparse(main)
+        host_main = (parsed_main.hostname or "").lower()
+        if host_main == "sourceforge.net":
+            return main
     for ref in entry.get("references") or []:
         u = (ref.get("url") or "").strip()
-        if "sourceforge.net" in u.lower():
+        if not u:
+            continue
+        parsed_ref = urlparse(u)
+        host_ref = (parsed_ref.hostname or "").lower()
+        if host_ref == "sourceforge.net":
             return u
     return None
 
