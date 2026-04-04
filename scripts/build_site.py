@@ -225,7 +225,13 @@ def inject_app_logo_paths_script(html: str, logo_paths: dict[str, str]) -> str:
 
 
 def is_safe_url(url: str) -> bool:
-    """Return True only if *url* is a valid absolute HTTP(S) URL."""
+    """Return True only if *url* is a well-formed absolute HTTP(S) URL.
+
+    Both the scheme (must be ``http`` or ``https``) and the presence of a
+    non-empty hostname are required.  URLs that pass the schema-level regex
+    (``^https?://.*``) but lack a hostname – e.g. ``https://`` – are
+    rejected here.
+    """
     if not isinstance(url, str):
         return False
     normalized = url.strip()
