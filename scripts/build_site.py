@@ -229,8 +229,11 @@ def is_safe_url(url: str) -> bool:
     normalized = str(url).strip()
     if not normalized:
         return False
-    parsed = urlparse(normalized)
-    return parsed.scheme in {"http", "https"} and bool(parsed.hostname)
+    try:
+        parsed = urlparse(normalized)
+        return parsed.scheme in {"http", "https"} and bool(parsed.hostname)
+    except ValueError:
+        return False
 
 
 def validate_collection(apps: list[dict]) -> None:
