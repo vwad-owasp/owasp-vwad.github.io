@@ -263,6 +263,8 @@ def validate_collection(apps: list[dict]) -> None:
         if not is_safe_url(app_url):
             raise ValueError(f'Invalid or unsafe URL in "{slug}": {app_url!r}')
         for ref in app.get("references") or []:
+            if not isinstance(ref, dict):
+                raise ValueError(f'Invalid reference entry for "{slug}": {ref!r}')
             ref_url = ref.get("url")
             if ref_url is not None and not is_safe_url(ref_url):
                 raise ValueError(
