@@ -14,8 +14,12 @@ jobs:
        contents: read
     runs-on: ubuntu-latest
     steps:
-    # Security: Checkout base repository first to use trusted validation scripts
-    # Only data files from the PR will be checked out in the next step
+    # Security: This workflow runs in the unprivileged 'pull_request' context
+    # (read-only token, no access to secrets), which is the primary protection
+    # against untrusted PR code. Note: with 'on: pull_request', the workflow file
+    # itself is loaded from the PR branch and could be modified by a contributor,
+    # so the "trusted scripts from base" property below only applies when the
+    # workflow definition itself has not been altered.
     # For workflow_dispatch: validates current branch data with current branch scripts
     - name: Checkout base repository
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
@@ -28,20 +32,18 @@ jobs:
         git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
 
         # Checkout only data directory from PR branch
-        # This ensures validation scripts come from base repo (trusted)
-        # while only datafiles come from PR (untrusted)
+        # Scripts remain from the base repo checkout above (when workflow is unmodified);
+        # only datafiles come from the PR
         git checkout pr-branch -- data/
         echo "✓ Successfully checked out data/ from PR"
     - name: Save PR number
       env:
         PR_NUMBER: ${{ github.event.pull_request.number || 'manual-run' }}
       run: echo $PR_NUMBER > pr_number
-    # Note: The following validation steps process untrusted data from the PR,
-    # but use trusted validation scripts from the base repository.
-    # This is safe because:
-    # 1. Scripts come from base repo (checked out in step 1)
-    # 2. Only data files come from PR (checked out in step 2)
-    # 3. Scripts validate data without executing it as code
+    # Note: The following validation steps process untrusted data from the PR.
+    # Safety relies primarily on the unprivileged 'pull_request' context
+    # (read-only token, no secrets). When the workflow definition is unmodified,
+    # scripts also come from the base repo and only data files come from the PR.
     - name: Run schema check
       id: schema
       continue-on-error: true
