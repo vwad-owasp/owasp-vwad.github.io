@@ -226,7 +226,9 @@ def inject_app_logo_paths_script(html: str, logo_paths: dict[str, str]) -> str:
 
 def is_safe_url(url: str) -> bool:
     """Return True only if *url* is a valid absolute HTTP(S) URL."""
-    normalized = str(url).strip()
+    if not isinstance(url, str):
+        return False
+    normalized = url.strip()
     if not normalized:
         return False
     try:
