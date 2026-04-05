@@ -1390,7 +1390,7 @@
 		"description": "A PHP/MariaDB web application that is damn vulnerable. Aids security professionals to test their skills and tools in a legal environment, helps web developers understand securing web applications, and aids students and teachers to learn about web application security in a controlled environment. Practice common web vulnerabilities with various difficulty levels.",
 		"notes": "Do not deploy to Internet-facing servers. Recommended: run in a VM with NAT networking (e.g. VirtualBox, VMware).",
 		"badge": "ethicalhack3r/DVWA",
-		"stars": 12856,
+		"stars": 12855,
 		"last_contributed": "2026-03-19T07:19:47Z",
 		"categories": [
 			"free-form",
@@ -3010,7 +3010,7 @@
 		"author": "OWASP",
 		"description": "Probably the most modern and sophisticated insecure web application. For use in security trainings, awareness demos, CTFs and as a guinea pig for security tools. Encompasses vulnerabilities from the entire OWASP Top Ten along with many other security flaws found in real-world applications. Written in Node.js, Express and Angular.",
 		"badge": "juice-shop/juice-shop",
-		"stars": 12854,
+		"stars": 12856,
 		"last_contributed": "2026-04-04T17:27:25Z",
 		"categories": [
 			"ctf",
