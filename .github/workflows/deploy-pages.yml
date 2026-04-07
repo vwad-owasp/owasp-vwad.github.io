@@ -13,6 +13,7 @@ on:
       - 'data/**'
       - 'scripts/**'
       - '404.html'
+      - 'googleb50d6d65fe3a6c2d.html'
       - 'CNAME'
       - '.github/workflows/deploy-pages.yml'
       - 'schema.json'
