@@ -281,7 +281,7 @@
 		"name": "BakaCTF",
 		"slug": "bakactf",
 		"collection": [
-			"online"
+			"platform"
 		],
 		"technology": [
 			"PHP",
