@@ -277,6 +277,27 @@
 		]
 	},
 	{
+		"url": "https://bakactf.my.id",
+		"name": "BakaCTF",
+		"slug": "bakactf",
+		"collection": [
+			"platform"
+		],
+		"technology": [
+			"PHP",
+			"MySQL",
+			"JavaScript",
+			"HTML",
+			"CSS"
+		],
+		"author": "BakaCTF Team",
+		"description": "Web-based Capture The Flag (CTF) platform for the Indonesian cybersecurity community. Covers cryptography, web security, forensics, networking, and miscellaneous challenges aimed at beginners and security enthusiasts.",
+		"categories": [
+			"ctf",
+			"multi-player"
+		]
+	},
+	{
 		"url": "https://sourceforge.net/projects/bwapp/files/bee-box/",
 		"name": "Bee-Box",
 		"slug": "bee-box",
