@@ -31,6 +31,7 @@ COPY_PATHS = [
     "data",
     "app",
     "404.html",
+    "googleb50d6d65fe3a6c2d.html",
     "CNAME",
     "favicon.ico",
     "manifest.json",

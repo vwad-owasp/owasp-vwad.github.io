@@ -15,6 +15,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "_site"
+GOOGLE_SITE_VERIFICATION_HTML = "googleb50d6d65fe3a6c2d.html"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
 REPORT_PATH = ROOT / "generated_site_report.json"
 CSS_BUNDLE_PATTERNS = {
@@ -341,6 +342,21 @@ def validate_not_found_page() -> None:
     validate_page_stylesheets(html, "404", "404 page")
 
 
+def validate_google_site_verification_file() -> None:
+    """Ensure Search Console HTML verification is copied when present at repo root."""
+    src = ROOT / GOOGLE_SITE_VERIFICATION_HTML
+    if not src.is_file():
+        return
+    dst = SITE_DIR / GOOGLE_SITE_VERIFICATION_HTML
+    if not dst.is_file():
+        fail(
+            f"Missing {GOOGLE_SITE_VERIFICATION_HTML} in generated site "
+            f"(expected copy of repo root file)"
+        )
+    if dst.read_text(encoding="utf-8") != src.read_text(encoding="utf-8"):
+        fail(f"{GOOGLE_SITE_VERIFICATION_HTML} in _site/ does not match repo root")
+
+
 def main() -> int:
     apps = load_json(COLLECTION_JSON)
     _, report = validate_report(apps)
@@ -352,6 +368,7 @@ def main() -> int:
     validate_hash_links()
     validate_compat_page()
     validate_not_found_page()
+    validate_google_site_verification_file()
     print(f"Validated generated site for {len(apps)} apps")
     return 0
 
