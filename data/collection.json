@@ -1446,28 +1446,6 @@
 		]
 	},
 	{
-		"url": "https://defendtheweb.net/",
-		"name": "Defend the Web",
-		"slug": "defend-the-web",
-		"collection": [
-			"online"
-		],
-		"description": "Security learning and challenge site (formerly HackThis). After 17 years, currently on hiatus; running costs and commitments made it impossible to keep live. Contact support for data requests.",
-		"references": [
-			{
-				"name": "live",
-				"url": "https://defendtheweb.net/"
-			}
-		],
-		"author": "Luke [flabbyrabbit]",
-		"notes": "Formerly HackThis. Site on hiatus; may return.",
-		"categories": [
-			"ctf",
-			"multi-player",
-			"single-player"
-		]
-	},
-	{
 		"url": "https://github.com/SunWeb3Sec/DeFiHackLabs",
 		"name": "DeFi Hack Labs",
 		"slug": "defi-hack-labs",
