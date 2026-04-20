@@ -943,6 +943,29 @@
 		]
 	},
 	{
+		"url": "https://github.com/nicholasaleks/Damn-Vulnerable-Drone",
+		"name": "Damn Vulnerable Drone",
+		"slug": "damn-vulnerable-drone",
+		"collection": [
+			"container"
+		],
+		"technology": [
+			"JavaScript",
+			"Python",
+			"ArduPilot",
+			"MAVLink",
+			"Docker"
+		],
+		"author": "Nicholas Aleks",
+		"description": "Damn Vulnerable Drone is an intentionally vulnerable drone hacking simulator based on the popular ArduPilot/MAVLink architecture, providing a realistic environment for hands-on drone hacking.",
+		"badge": "nicholasaleks/Damn-Vulnerable-Drone",
+		"stars": 390,
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/njmulsqb/DVEA/",
 		"name": "Damn Vulnerable Electron App (DVEA)",
 		"slug": "damn-vulnerable-electron-app-dvea",
