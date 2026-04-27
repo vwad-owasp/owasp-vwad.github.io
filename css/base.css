@@ -1,6 +1,7 @@
 /* Shared foundations and utilities */
 
 :root {
+  color-scheme: light;
   /* Community design system (neutral-1, blue-3, accent-blue-4, accent-gold-4, blue-7) */
   --neutral-1: #101820;
   --neutral-2: #e2e5e9;
@@ -47,6 +48,7 @@
 
 /* Dark mode - main content area (preference stored in localStorage, no tracking) */
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg-page: #1a1d23;
   --bg-alt: #252830;
   --bg-card: #252830;
