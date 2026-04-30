@@ -25,7 +25,7 @@ python3 check_schema.py <schema_file> <json_file>
 
 ### check_ordering.py
 
-Validates that entries in `collection.json` are ordered alphabetically by the `name` field (case-insensitive).
+Validates that entries in `collection.json` are ordered alphabetically by the `name` field (case-insensitive). Reports each adjacent pair that violates order and continues through the file (so a single misplaced entry does not cascade into false errors for every later row).
 
 **Usage:**
 ```bash
