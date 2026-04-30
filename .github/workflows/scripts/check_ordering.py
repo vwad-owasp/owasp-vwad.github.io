@@ -28,15 +28,22 @@ def check_ordering(json_file):
                 return False
             names.append(entry['name'])
         
-        # Sort names case-insensitively for consistent ordering
-        sorted_names = sorted(names, key=lambda x: x.lower())
+        # Adjacent-pair check (case-insensitive). Comparing the full list to
+        # sorted(names) misreports every index after the first mistake because
+        # positions no longer align with a global sort.
+        errors = False
+        for i in range(len(names) - 1):
+            current, nxt = names[i], names[i + 1]
+            if current.lower() > nxt.lower():
+                print(
+                    "ERROR: Out of order at indices "
+                    f"{i}-{i + 1}: '{current}' then '{nxt}' "
+                    "(case-insensitive name order requires "
+                    f"'{nxt}' before '{current}')"
+                )
+                errors = True
         
-        if names != sorted_names:
-            print("ERROR: Collection entries are not ordered alphabetically by 'name' field")
-            print("\nExpected order:")
-            for i, (actual, expected) in enumerate(zip(names, sorted_names)):
-                if actual != expected:
-                    print(f"  Position {i}: Found '{actual}', expected '{expected}'")
+        if errors:
             return False
         
         print("SUCCESS: All entries are ordered alphabetically by 'name' field")
