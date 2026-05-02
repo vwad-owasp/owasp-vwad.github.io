@@ -3312,6 +3312,34 @@
 		]
 	},
 	{
+		"url": "https://github.com/OWASP/PwnzzAI",
+		"name": "PwnzzAI",
+		"slug": "pwnzzai",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Flask",
+			"AI",
+			"LLM"
+		],
+		"description": "Intentionally vulnerable Flask-based pizza shop web application for hands-on AI security training. Covers OWASP Top 10 for LLMs and the AI Exchange risk taxonomy, including prompt injection, insecure output handling, and data leakage.",
+		"notes": "Demo credentials: alice/alice or bob/bob. Run via Docker: docker compose up -d, then open http://localhost:8080. Go to Basics page and run Ollama setup to pull models. Or run from source code directly.",
+		"references": [
+			{
+				"name": "announcement",
+				"url": "https://www.linkedin.com/posts/pwnzzai-has-officially-launched-as-a-project-share-7454519536382263296-OtOW"
+			}
+		],
+		"badge": "OWASP/PwnzzAI",
+		"categories": [
+			"guided-lessons",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/adeyosemanputra/pygoat",
 		"name": "PyGoat",
 		"slug": "pygoat",
